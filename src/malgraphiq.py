@@ -157,7 +157,7 @@ def render_matrix(matrix, alphabet, graphname, labels=True):
 def load_categories():
     if not os.path.exists(WINAPI_CATEGORIES_JSON_PATH):
         print("[!] winapi_categories.json file not found. Category refactoring can't be done. You can download it from https://github.com/reverseame/winapi-categories [!]\n", end="")
-        print("[!] You could, for example, run the following command: [!]\n\t $ wget https://raw.githubusercontent.com/reverseame/winapi-categories/refs/heads/main/winapi_functions_by_category.json")
+        print("[!] You could, for example, run the following command: [!]\n\t $ wget https://raw.githubusercontent.com/reverseame/winapi-categories/refs/heads/main/winapi_categories.json")
         return -1
     else:
         global JSON_DATA
