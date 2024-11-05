@@ -8,7 +8,8 @@ The MalGraphIQ repository contains the following elements:
 
 # Requirements
 Besides installing the modules listed in [requirements.txt](./requirements.txt), MalGraphIQ also relies on the following resources:
-- [winapi_categories.json](https://raw.githubusercontent.com/reverseame/winapi-categories/refs/heads/main/winapi_categories.json). A file containing our categorization of Windows API and syscalls. More info in the [winapi-categories](https://github.com/reverseame/winapi-categories) repo.
+- [winapi_categories](https://github.com/reverseame/winapi-categories). A .json file containing our categorization of Windows API and syscalls. It can be downloaded with a command like:  
+	`$ wget https://raw.githubusercontent.com/reverseame/winapi-categories/refs/heads/main/winapi_categories.json`
 
 # How To Use
 TODO
