@@ -3,11 +3,8 @@ import pandas as pd
 import numpy as np
 from graphviz import Digraph
 import matplotlib.pyplot as plt
-from pprint import pprint
 from pathlib import Path
 
-# from neo4j_driver import Neo4jDriver
-# from api_filter import API_Filter
 from malgraphiq_utils.common import categories_and_colors as colors
 
 import re
