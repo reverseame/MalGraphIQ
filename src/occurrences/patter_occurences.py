@@ -24,12 +24,8 @@ def parse_arguments():
         help="The path of the behavior catalog in JSON format. (See https://github.com/reverseame/windows-behavior-catalog)")
     parser.add_argument("-m", "--max_inter_nodes", type=int, default=0,
         help="(Default 0) The maximum number of intermediate nodes between each pattern node to consider in the behavior graph.")
-    #parser.add_argument("--no_prob", help="Use this option to ignore all probabilities or if your .gv files contain no probability (that is, edges with no labels)", action='count')
     parser.add_argument("-p", "--prob_threshold", type=float, default=0.0,
         help="(Default 0.0) The probability threshold. Paths below the threshold are discarded.")
-    #parser.add_argument("-d", "--directory", help="Directory from which the .gv pattern files to seek will be read.")
-    #parser.add_argument("-f", "--file", help="A single .gv pattern file to seek.")
-
     parser.add_argument("--simple_paths_min_length", 
         help="(Default 1) Minimum numbers of nodes the simple paths must have, when calculating them from the .gv pattern files.")
     parser.add_argument("--json_file", required=False, 
