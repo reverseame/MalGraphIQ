@@ -16,7 +16,7 @@ PROBABILITY_THRESHOLD = 0.001
 
 def parse_arguments():
     parser = argparse.ArgumentParser(
-        prog="Behavior Occurrences",
+        prog="MalGraphIQ (Behavior Occurrences)",
         description="Identifies WBC patterns in the specified graph using a backtracking algorithm.")
     parser.add_argument("behavior_graph", 
         help="The behavior .gv file or directory in which patterns will be sought. In case a directory is specified, only .gv files will be considered.")
@@ -397,7 +397,7 @@ def main(behavior_graph: str, catalog:str, json_file:str, max_internmediate_node
 if __name__ == "__main__":
     arguments = parse_arguments()
     logging.basicConfig(level=logging.INFO, format="%(name)s (%(asctime)s) %(levelname)s - %(message)s")
-    logger = logging.getLogger("Pattern Occurrences")
+    logger = logging.getLogger("MalGraphIQ (Behavior Occurrences)")
     if arguments.quiet:
         logger.setLevel(logging.ERROR)
     elif arguments.silent:
