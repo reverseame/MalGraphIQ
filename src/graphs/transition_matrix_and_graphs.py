@@ -112,7 +112,7 @@ def transition_matrix(data, alphabet):
     total_probabilities = matrix.sum(axis=1)
     for i, row in enumerate(total_probabilities):
         if row == 0:
-            logger.debug(f"[!] Skipping ASSERT. Probability is zero. Probably last API call?\n{total_probabilities.index[i]}: {total_probabilities[i]}")
+            logger.debug(f"[!] Skipping ASSERT. Probability is zero. Probably last API call?\n{total_probabilities.index[i]}: {total_probabilities.iloc[i]}")
             continue
         row = np.around(row, 2) # Rounding to 2 decimals so 0.9999999000001 becomes 1
         assert row == 1, prob_error(row, total_probabilities, matrix)
