@@ -20,7 +20,7 @@ def parse_arguments():
     Arguments parsing.
     """
     parser = argparse.ArgumentParser(
-        prog="Transition Matrices and Graphs",
+        prog="MalGraphIQ (Transition Matrices and Graphs)",
         description="Renders CAPE reports and transforms them into transition matrixes and different graphs (visualizations).")
     parser.add_argument("json_dir", help="A .json report o a directory containing one or more JSON reports. If the parameter is a directory, the program automatically parses all .JSON files within it.")
     parser.add_argument("-o", "--output", default="REPORTS",
@@ -434,7 +434,7 @@ def main(json_dir: str, output_dir: str, graphs_to_generate: str, winapi_categor
 if __name__ == '__main__':
     arguments = parse_arguments()
     logging.basicConfig(level=logging.INFO, format="%(name)s (%(asctime)s) %(levelname)s - %(message)s")
-    logger = logging.getLogger("Transition Matrices and Graphs")
+    logger = logging.getLogger("MalGraphIQ (Transition Matrices and Graphs)")
     if arguments.quiet:
         logger.setLevel(logging.ERROR)
     elif arguments.silent:
