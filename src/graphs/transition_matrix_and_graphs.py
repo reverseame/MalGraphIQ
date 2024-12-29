@@ -420,4 +420,4 @@ if __name__ == '__main__':
     elif arguments.behavior:
         graphs_to_generate = 'behavior'
 
-    return main(arguments.json_dir, arguments.output, graphs_to_generate, arguments.winapi_categories, arguments.no_download, arguments.print_transition_probabilities)
+    main(arguments.json_dir, arguments.output, graphs_to_generate, arguments.winapi_categories, arguments.no_download, arguments.print_transition_probabilities)
