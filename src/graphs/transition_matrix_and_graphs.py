@@ -312,7 +312,7 @@ def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, g
                     new_category = JSON_DATA[api_call[:-2]]['category']
                 else:
                     new_category = "unknown"
-                    logger.warning(f"[!!!] WARNING: New category (refactored) of API {call['api']} found in process {process['process_name']} is unknown.\n Old CAPE category is: {call['category']}\nPlease consider updating or modifying winapi_categories.json [!!!]")
+                    logger.debug(f"[!!!] WARNING: New category (refactored) of API {call['api']} found in process {process['process_name']} is unknown.\n Old CAPE category is: {call['category']}\nPlease consider updating or modifying winapi_categories.json [!!!]")
                 call['new_category'] = new_category
                 process['refactored_calls'].append(call)
         
@@ -380,9 +380,12 @@ def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, g
             ))()
 
     #*********** END FOR PROCESS IN DATA['BEHAVIOR']['PROCESS'] ****************        
-    return json_report    
+    return REPORTS_PATH    
 
 def main(json_dir: str, output_dir: str, graphs_to_generate: str, winapi_categories: str, no_download: bool, print_transition_probabilities: bool) -> None:
+    """
+    Returns: a list of each generated directory, which contains the .gv, .csv and .pdf files.
+    """
 
     load_categories(winapi_categories, no_download)
 
@@ -396,12 +399,12 @@ def main(json_dir: str, output_dir: str, graphs_to_generate: str, winapi_categor
         reports = glob.glob(arguments.json_dir + "/*.json")
         for report in reports:
             logger.info(f"[*] Parsing {report}.")
-            if generate_transition_matrices_and_graphs(report, output_dir, graphs_to_generate) != -1:
-                processed_paths.append(report)
+            if (processed_path := generate_transition_matrices_and_graphs(report, output_dir, graphs_to_generate)) != -1:
+                processed_paths.append(processed_path)
     else:
         logger.info(f"[*] Parsing {json_dir}.")
-        if generate_transition_matrices_and_graphs(json_dir, output_dir, graphs_to_generate) != -1:
-            processed_paths.append(json_dir)
+        if (processed_path := generate_transition_matrices_and_graphs(json_dir, output_dir, graphs_to_generate)) != -1:
+            processed_paths.append(processed_path)
     return processed_paths
 
 if __name__ == '__main__':
