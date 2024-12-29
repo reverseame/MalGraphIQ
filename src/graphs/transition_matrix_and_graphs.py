@@ -245,7 +245,7 @@ def generate_api_per_category_transitions(api_per_category_transitions, alphabet
 #     render_matrix(api_per_category_transitions_matrix, alphabet, filename, PRINT_EDGE_LABELS)
 
 
-def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, graphs_to_generate: str) -> str:
+def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, graphs_to_generate: str) -> str | int:
     """
 
     Returns: 
@@ -379,40 +379,8 @@ def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, g
             generate_api_per_category_transitions(api_per_category_transitions, alphabet, process_name, process_id, CATEGORY_GRAPH_PATH, PRINT_EDGE_LABELS)
             ))()
 
-
-
-        # ############################
-        # ### API CALL TRANSITIONS ###
-        # ############################
-        # api_call_transitions_matrix = transition_matrix(api_call_transitions, list(alphabet))
-        # filename = f"{API_PATH}/{process_name}_{process_id}_API_Calls_Transition_Matrix"
-        # api_call_transitions_matrix.to_csv(f"{filename}.csv")
-        # render_matrix(api_call_transitions_matrix, alphabet, filename, PRINT_EDGE_LABELS)
-        # render_matrix_with_categories(api_call_transitions_matrix, alphabet, filename)
-        # filename = f"{API_PATH}/{process_name}_{process_id}_old_cape_API_Calls_Transition_Matrix"
-        # render_matrix_with_categories(api_call_transitions_matrix, old_cape_alphabet, filename)
-        # ########################################################################
-
-        # ####################################
-        # ### API PER CATEGORY TRANSITIONS ###
-        # ####################################
-        # for category in api_per_category_transitions:
-        #     #if len(api_per_category_transitions[category]) == 1:
-        #         #pprint(f"[!] SKIPPING CATEGORY {category}. IT CONTAINS A SINGLE OBJECT: {api_per_category_transitions[category]}")
-        #         #continue         
-        #     # set() is used to uniqify the list -> The problem with set is that 
-        #     # it reorders elements, we need to know the exact order of the calls
-        #     # Solution: https://stackoverflow.com/a/58666031
-        #     api_per_category_alphabet = list(unique(api_per_category_transitions[category]))              
-        #     api_per_category_transitions_matrix = transition_matrix(api_per_category_transitions[category], api_per_category_alphabet)
-        #     category = category.replace('/', '_') # Needed to dele slashes from category names like '.. I/O ...'
-        #     filename = f"{API_PER_CATEGORY_PATH}/{process_name}_{process_id}_{category}_API_per_Category_Transition_Matrix"
-        #     api_per_category_transitions_matrix.to_csv(f"{filename}.csv")
-        #     render_matrix(api_per_category_transitions_matrix, alphabet, filename, PRINT_EDGE_LABELS)
-        # ########################################################################
-
     #*********** END FOR PROCESS IN DATA['BEHAVIOR']['PROCESS'] ****************        
-    
+    return json_report    
 
 def main(json_dir: str, output_dir: str, graphs_to_generate: str, winapi_categories: str, no_download: bool, print_transition_probabilities: bool) -> None:
 
@@ -421,15 +389,20 @@ def main(json_dir: str, output_dir: str, graphs_to_generate: str, winapi_categor
     global PRINT_EDGE_LABELS
     PRINT_EDGE_LABELS = True if print_transition_probabilities else False
 
+
+    processed_paths = []
     if os.path.isdir(json_dir):
         logger.info("[*] Report directory - attempting to parse all .json files.")
         reports = glob.glob(arguments.json_dir + "/*.json")
         for report in reports:
             logger.info(f"[*] Parsing {report}.")
-            generate_transition_matrices_and_graphs(report, output_dir, graphs_to_generate)
+            if generate_transition_matrices_and_graphs(report, output_dir, graphs_to_generate) != -1:
+                processed_paths.append(report)
     else:
         logger.info(f"[*] Parsing {json_dir}.")
-        generate_transition_matrices_and_graphs(json_dir, output_dir, graphs_to_generate)
+        if generate_transition_matrices_and_graphs(json_dir, output_dir, graphs_to_generate) != -1:
+            processed_paths.append(json_dir)
+    return processed_paths
 
 if __name__ == '__main__':
     arguments = parse_arguments()
@@ -447,4 +420,4 @@ if __name__ == '__main__':
     elif arguments.behavior:
         graphs_to_generate = 'behavior'
 
-    main(arguments.json_dir, arguments.output, graphs_to_generate, arguments.winapi_categories, arguments.no_download, arguments.print_transition_probabilities)
+    return main(arguments.json_dir, arguments.output, graphs_to_generate, arguments.winapi_categories, arguments.no_download, arguments.print_transition_probabilities)
