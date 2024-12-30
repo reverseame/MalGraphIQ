@@ -26,8 +26,8 @@ def parse_arguments():
         help="(Default 0) The maximum number of intermediate nodes between each pattern node to consider in the behavior graph.")
     parser.add_argument("-p", "--prob_threshold", type=float, default=0.0,
         help="(Default 0.0) The probability threshold. Paths below the threshold are discarded.")
-    parser.add_argument("--simple_paths_min_length", 
-        help="(Default 1) Minimum numbers of nodes the simple paths must have, when calculating them from the .gv pattern files.")
+    parser.add_argument("-l", "--pattern_min_length", type=int, default=1,
+        help="(Default 1) Minimum numbers of nodes the patterns (simple paths) must have to be considered.")
     parser.add_argument("--json_file", required=False, 
         help="Specify the name of the JSON file to output the results. (.json extension will be automatically added)")
 
@@ -118,7 +118,7 @@ def get_label_weight(from_node, to_node, edge_attributes):
     else:
         return 0
 
-def find_paths(g_behavior, pattern_simple_paths, simple_paths_min_length):
+def find_paths(g_behavior, pattern_simple_paths, pattern_min_length):
     '''
     Returns the simple paths present in g_behavior in MAX_INTERMEDIATE_NODES
 
@@ -127,7 +127,7 @@ def find_paths(g_behavior, pattern_simple_paths, simple_paths_min_length):
             Graph in which the simple_paths will be seek.
         pattern_simple_paths:
             Dict of pairs pattern-id:simple_path to seek in the graph.
-        simple_paths_min_length:
+        pattern_min_length:
             Minimum lenghth (measured in number of nodes) for the simple paths to be considered
     '''
 
@@ -170,7 +170,7 @@ def find_paths(g_behavior, pattern_simple_paths, simple_paths_min_length):
     for i, simple_path in enumerate(simple_paths):
         if not is_path_feasible(g_behavior, simple_path): 
             continue
-        elif len(simple_path) < simple_paths_min_length:
+        elif len(simple_path) < pattern_min_length:
             continue
         else:
             start_node = simple_path[0]
@@ -208,18 +208,12 @@ def find_paths(g_behavior, pattern_simple_paths, simple_paths_min_length):
     return full_paths_found
 
 
-def main(behavior_graph: str, catalog:str, json_file:str, max_internmediate_nodes: int, probability_threshold: int) -> None:
+def main(behavior_graph: str, catalog: dict, json_file:str, max_internmediate_nodes: int, probability_threshold: int, pattern_min_length: int) -> None:
     MAX_INTERMEDIATE_NODES = max_internmediate_nodes
     PROBABILITY_THRESHOLD = probability_threshold
 
-    try:
-        with open(catalog) as catalog_file:
-            behavior_catalog = json.load(catalog_file)
-    except Exception as e:
-        logger.error(f"[!] An unexpected error occurred: {e}. Cannot open {catalog}. ABORTING [!]")
-        return -1
 
-    behavior_graphs = list()
+    behavior_graphs = list() ## -> Modificar aquí, que recorra cada directorio encontrado buscando en la carpeta CATEGORY_GRAPHS (por defecto) y calcule los matches para cada reporte individualmente
     if path.isfile(behavior_graph):
         behavior_graphs.append(behavior_graph)
     elif path.isdir(behavior_graph):
@@ -241,7 +235,7 @@ def main(behavior_graph: str, catalog:str, json_file:str, max_internmediate_node
                 for method in behavior_catalog[micro_objective][micro_behavior]:
                     method_id = method[:method.index(']')]                    
                     simple_paths = behavior_catalog[micro_objective][micro_behavior][method]
-                    number_of_full_paths = find_paths(g_behavior, simple_paths, arguments.simple_paths_min_length)
+                    number_of_full_paths = find_paths(g_behavior, simple_paths, pattern_min_length)
                     if number_of_full_paths > 0:
                         number_of_matches_per_micro_behavior += number_of_full_paths                        
                     # Creating the dictionary skeleton and populating it
@@ -286,4 +280,11 @@ if __name__ == "__main__":
         # Turn off the logger
         logger.setLevel(logging.CRITICAL + 1)
 
-    main(arguments.behavior_graph, arguments.catalog, arguments.json_file, arguments.max_inter_nodes, arguments.prob_threshold)
+    try:
+        with open(arguments.catalog) as catalog_file:
+            behavior_catalog = json.load(catalog_file)
+    except Exception as e:
+        logger.error(f"[!] An unexpected error occurred: {e}. Cannot open {catalog}. ABORTING [!]")
+        exit()
+
+    main(arguments.behavior_graph, behavior_catalog, arguments.json_file, arguments.max_inter_nodes, arguments.prob_threshold, arguments.pattern_min_length)
