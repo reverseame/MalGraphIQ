@@ -28,8 +28,8 @@ def parse_arguments():
         help="(Default 0.0) The probability threshold. Paths below the threshold are discarded.")
     parser.add_argument("-l", "--pattern_min_length", type=int, default=1,
         help="(Default 1) Minimum numbers of nodes the patterns (simple paths) must have to be considered.")
-    parser.add_argument("--json_file", required=False, 
-        help="Specify the name of the JSON file to output the results. (.json extension will be automatically added)")
+    parser.add_argument("-jf", "--json_output_file", type=str, 
+        help="If specified, the result of the pattern matching phase (that is, the occurrences) will be also written to a the specified file; .json extension is automatically added.")
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-q", "--quiet", action="store_true",
@@ -208,7 +208,7 @@ def find_paths(g_behavior, behavioral_patterns:dict, pattern_min_length: int):
     return full_paths_found
 
 
-def main(behavior_graph: str, catalog: dict, json_file:str, max_internmediate_nodes: int, probability_threshold: int, pattern_min_length: int) -> None:
+def main(behavior_graph: str, catalog: dict, json_output_file:str, max_internmediate_nodes: int, probability_threshold: int, pattern_min_length: int) -> dict:
     MAX_INTERMEDIATE_NODES = max_internmediate_nodes
     PROBABILITY_THRESHOLD = probability_threshold
 
@@ -260,15 +260,15 @@ def main(behavior_graph: str, catalog: dict, json_file:str, max_internmediate_no
             else:
                 combined_results[f"{micro_objective}"]["Total matches"] += number_of_matches_per_micro_objective
 
-    if json_file:
-        combined_results['n_processes'] = len(behavior_graphs)
+    combined_results['Number of graphs processed'] = len(behavior_graphs)
+    if json_output_file:
         logger.info("[*] Dumping results to json file")
-        with open(f"{json_file}.json", "w") as f:
+        with open(f"{json_output_file}.json", "w") as f:
             json.dump(combined_results, f)
-    else:
-        logger.info(f"[*] Results:")
-        logger.info(f"[*] Number of processes: {len(behavior_graphs)}")
-        print(json.dumps(combined_results, indent=4))
+
+    logger.info(f"[*] Finished matching WBC patterns against {len(behavior_graphs)} graph files.")
+    #print(json.dumps(combined_results, indent=4))
+    return combined_results
 
 if __name__ == "__main__":
     arguments = parse_arguments()
@@ -287,4 +287,4 @@ if __name__ == "__main__":
         logger.error(f"[!] An unexpected error occurred: {e}. Cannot open {catalog}. ABORTING [!]")
         exit()
 
-    main(arguments.behavior_graph, behavior_catalog, arguments.json_file, arguments.max_inter_nodes, arguments.prob_threshold, arguments.pattern_min_length)
+    print(main(arguments.behavior_graph, behavior_catalog, arguments.json_output_file, arguments.max_inter_nodes, arguments.prob_threshold, arguments.pattern_min_length))
