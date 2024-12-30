@@ -380,7 +380,7 @@ def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, g
             ))()
 
     #*********** END FOR PROCESS IN DATA['BEHAVIOR']['PROCESS'] ****************        
-    return REPORTS_PATH    
+    return CATEGORY_GRAPH_PATH    
 
 def main(json_dir: str, output_dir: str, graphs_to_generate: str, winapi_categories: str, no_download: bool, print_transition_probabilities: bool) -> None:
     """
@@ -393,19 +393,19 @@ def main(json_dir: str, output_dir: str, graphs_to_generate: str, winapi_categor
     PRINT_EDGE_LABELS = True if print_transition_probabilities else False
 
 
-    processed_paths = []
+    processed_category_graph_paths = []
     if os.path.isdir(json_dir):
         logger.info("[*] Report directory - attempting to parse all .json files.")
         reports = glob.glob(arguments.json_dir + "/*.json")
         for report in reports:
             logger.info(f"[*] Parsing {report}.")
             if (processed_path := generate_transition_matrices_and_graphs(report, output_dir, graphs_to_generate)) != -1:
-                processed_paths.append(processed_path)
+                processed_category_graph_paths.append(processed_path)
     else:
         logger.info(f"[*] Parsing {json_dir}.")
         if (processed_path := generate_transition_matrices_and_graphs(json_dir, output_dir, graphs_to_generate)) != -1:
-            processed_paths.append(processed_path)
-    return processed_paths
+            processed_category_graph_paths.append(processed_path)
+    return processed_category_graph_paths
 
 if __name__ == '__main__':
     arguments = parse_arguments()
