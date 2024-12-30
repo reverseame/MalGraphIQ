@@ -118,14 +118,14 @@ def get_label_weight(from_node, to_node, edge_attributes):
     else:
         return 0
 
-def find_paths(g_behavior, pattern_simple_paths, pattern_min_length):
+def find_paths(g_behavior, behavioral_patterns:dict, pattern_min_length: int):
     '''
     Returns the simple paths present in g_behavior in MAX_INTERMEDIATE_NODES
 
     Parameters:
         g_behavior:
             Graph in which the simple_paths will be seek.
-        pattern_simple_paths:
+        behavioral_patterns:
             Dict of pairs pattern-id:simple_path to seek in the graph.
         pattern_min_length:
             Minimum lenghth (measured in number of nodes) for the simple paths to be considered
@@ -133,10 +133,10 @@ def find_paths(g_behavior, pattern_simple_paths, pattern_min_length):
 
     #print(f"{len(simple_paths)} individual paths to seek {simple_paths}")
 
-    # Get only .values() because pattern_simple_paths is a dictionary whose key
+    # Get only .values() because behavioral_patterns is a dictionary whose key
     # is the ID of the pattern (.e.g: [C0036.004-P6]) and the value is the
     # pattern itself
-    simple_paths = list(pattern_simple_paths.values())
+    simple_paths = list(behavioral_patterns.values())
     end_nodes = get_end_nodes(simple_paths)
 
     # We get the list of uniques first nodes of each simple path (pattern) to find:
@@ -234,8 +234,8 @@ def main(behavior_graph: str, catalog: dict, json_file:str, max_internmediate_no
                 number_of_matches_per_micro_behavior = 0
                 for method in behavior_catalog[micro_objective][micro_behavior]:
                     method_id = method[:method.index(']')]                    
-                    simple_paths = behavior_catalog[micro_objective][micro_behavior][method]
-                    number_of_full_paths = find_paths(g_behavior, simple_paths, pattern_min_length)
+                    behavioral_patterns = behavior_catalog[micro_objective][micro_behavior][method]
+                    number_of_full_paths = find_paths(g_behavior, behavioral_patterns, pattern_min_length)
                     if number_of_full_paths > 0:
                         number_of_matches_per_micro_behavior += number_of_full_paths                        
                     # Creating the dictionary skeleton and populating it
