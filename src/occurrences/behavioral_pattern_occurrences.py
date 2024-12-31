@@ -213,8 +213,7 @@ def main(behavior_graph: str, catalog: dict, json_output_file:str, max_internmed
     MAX_INTERMEDIATE_NODES = max_internmediate_nodes
     PROBABILITY_THRESHOLD = probability_threshold
 
-
-    behavior_graphs = list() ## -> Modificar aquí, que recorra cada directorio encontrado buscando en la carpeta CATEGORY_GRAPHS (por defecto) y calcule los matches para cada reporte individualmente
+    behavior_graphs = list()
     if path.isfile(behavior_graph):
         behavior_graphs.append(behavior_graph)
     elif path.isdir(behavior_graph):
@@ -271,7 +270,6 @@ def main(behavior_graph: str, catalog: dict, json_output_file:str, max_internmed
         logger.error(f"[!] An unexpected error occurred: {e}. Cannot write file {json_output_file}")
 
     logger.info(f"[*] Finished matching WBC patterns against {len(behavior_graphs)} graph files.")
-    #print(json.dumps(combined_results, indent=4))
     return combined_results
 
 if __name__ == "__main__":
