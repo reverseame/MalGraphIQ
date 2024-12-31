@@ -52,7 +52,7 @@ def rename_indexes(df: pd.DataFrame) -> None:
     """
     #https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rename.html
     for column_name in df:
-        if column_name == "n_processes":
+        if column_name == "Number of graphs processed":
             df.rename(columns={f"{column_name}":"Spawned Processes"}, inplace=True)
         else:
             df.rename(columns={f"{column_name}":column_name.removesuffix(".Total matches")}, inplace=True) # Python +3.9 https://stackoverflow.com/a/1038845
@@ -413,8 +413,6 @@ def main(json_catalog_matches: str | list):
                 logger.info(f"[+] Opened file {json_file} as sample {sample_nr}")
                 sample_nr += 1
     logger.info(f"[+][+][+] Total samples: {len(json_files)} - Processed: {sample_nr-1} - Discarded: {discarded} ")
-    
-    exit()
 
     # Concatenate the different DataFrames generated from the JSON files
     df = pd.concat(dataframe_list)
@@ -423,23 +421,18 @@ def main(json_catalog_matches: str | list):
     df.reset_index(inplace=True, drop=True)
     df.index += 1 #To start at 1, not at 0 https://stackoverflow.com/a/20168416
 
-    # Transpose: df.T  # or df1.transpose()
-    # Transpose the dataframe so columns correspond to each sample
-    # At this point df contains all the information, at all 3 levels (micro-objective, micro-behavior and method)
-    
-    #df.to_csv("test_csv.csv")
-    #df = normalize(df, 0, 100)
-
     df_dropped = drop_methods_indexes(df)
     rename_indexes(df_dropped)
 
     title = arguments.fig_title if arguments.fig_title else ""
 
     micro_objectives_df = get_micro_objectives_dataframe(df_dropped)
-    generate_pdf_heatmap(micro_objectives_df, title, title + " spawned_processes.pdf", "spawned_processes")
-    df_dropped = df_dropped.drop("Spawned Processes", axis=1) # After creating the figure, the column Spawned Processes is no longer of use
 
-    micro_objectives_df = micro_objectives_df.drop("Spawned Processes", axis=1)
+    #from additional_code import generate_pdf_heatmap
+    #generate_pdf_heatmap(micro_objectives_df, title, title + " spawned_processes.pdf", "spawned_processes")
+    #df_dropped = df_dropped.drop("Spawned Processes", axis=1) # After creating the figure, the column Spawned Processes is no longer of use
+
+    #micro_objectives_df = micro_objectives_df.drop("Number of graphs processed", axis=1)
     micro_objectives_df = clip_data(micro_objectives_df)
     #generate_pdf_heatmap(micro_objectives_df, title, "micro_objective.pdf", "micro-objective")
     
