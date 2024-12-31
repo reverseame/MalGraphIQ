@@ -1,3 +1,6 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
 def separate_micro_objectives_and_behaviors_by_mean(df: pd.DataFrame) -> pd.DataFrame:
     """Computes the mean of the __df__ dataframe and separates it into a DataFrame of the form:
     | Micro-Objective   | Micro-Behavior| Value |
