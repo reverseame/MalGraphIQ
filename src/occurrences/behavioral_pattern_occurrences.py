@@ -6,6 +6,7 @@ import pandas as pd
 import argparse
 import glob
 import json
+import time
 from pprint import pprint
 from graph_path_traversal_utils import *
 from os import path
@@ -29,7 +30,7 @@ def parse_arguments():
     parser.add_argument("-l", "--pattern_min_length", type=int, default=1,
         help="(Default 1) Minimum numbers of nodes the patterns (simple paths) must have to be considered.")
     parser.add_argument("-jf", "--json_output_file", type=str, 
-        help="If specified, the result of the pattern matching phase (that is, the occurrences) will be also written to a the specified file; .json extension is automatically added.")
+        help="By default the pattern matching results (that is, the occurrences) will be written to a file named pattern_results_$timestamp$.json, in case you want to customize the visualizations in the next phase (so you do not have to process everything again). If this parameter is specified, the result will written to the specified file name, automatically appending the .json extension")
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-q", "--quiet", action="store_true",
@@ -261,10 +262,13 @@ def main(behavior_graph: str, catalog: dict, json_output_file:str, max_internmed
                 combined_results[f"{micro_objective}"]["Total matches"] += number_of_matches_per_micro_objective
 
     combined_results['Number of graphs processed'] = len(behavior_graphs)
-    if json_output_file:
-        logger.info("[*] Dumping results to json file")
+    try:
+        logger.info(f"[*] Dumping results to {json_output_file} file")
         with open(f"{json_output_file}.json", "w") as f:
             json.dump(combined_results, f)
+        logger.info("[*] Finished dumping to file.")
+    except Exception as e:
+        logger.error(f"[!] An unexpected error occurred: {e}. Cannot write file {json_output_file}")
 
     logger.info(f"[*] Finished matching WBC patterns against {len(behavior_graphs)} graph files.")
     #print(json.dumps(combined_results, indent=4))
@@ -287,4 +291,6 @@ if __name__ == "__main__":
         logger.error(f"[!] An unexpected error occurred: {e}. Cannot open {catalog}. ABORTING [!]")
         exit()
 
-    print(main(arguments.behavior_graph, behavior_catalog, arguments.json_output_file, arguments.max_inter_nodes, arguments.prob_threshold, arguments.pattern_min_length))
+    output_file = f"pattern_results_{time.asctime().replace(' ','_')}.json" if not arguments.json_output_file else arguments.json_output_file+".json"
+
+    main(arguments.behavior_graph, behavior_catalog, output_file, arguments.max_inter_nodes, arguments.prob_threshold, arguments.pattern_min_length)
