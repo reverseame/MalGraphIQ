@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patheffects as PathEffects
 import matplotlib.ticker as mtick
 import glob
+import logging
 from os import path
 from color_maps import *
 from configuration import *
@@ -25,7 +26,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(
         prog="MalGraphIQ (Plotting)",
         description="Transform JSON behavioral catalog matches to specific figures. Radarcharts are employed for micro-objective occurrences while barcharts are used to represent micro-behavior occurrences. You can find code for other type of visualizations in additional_code.py.")
-    parser.add_argument("json", nargs="*", help="The json file, directory/ies containing the matches or a list of match dictionaries, as produced by behavioral_pattern_occurrences.py.")
+    parser.add_argument("json", help="The json file, directory/ies containing the matches or a list of match dictionaries, as produced by behavioral_pattern_occurrences.py.")
     parser.add_argument("--fig_title", help="(Optional) Specify the title of the generated figure. By default it is empty.")
     #parser.add_argument("--level", help="Specifies the desired behavioral catalog level for which the figure will be generated.", choices=["micro-objective", "micro-behavior"], required=True)
 
@@ -164,7 +165,7 @@ def correct_execution(df: pd.DataFrame) -> bool:
     and micro-behaviors, we discard it. In yet another words, we check whether the value 0 appears
     in 90% of the columns of the DataFrame or more.
     """
-    return dataframe.T.value_counts()[0] < len(dataframe.columns)*0.90
+    return df.T.value_counts().iloc[0] < len(df.columns)*0.90
 
 
 
@@ -369,39 +370,52 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
     plt.savefig(fig_name, format="pdf", bbox_inches="tight")
     plt.close() # So data does not get mixed up
 
-def main():
+def main(json_catalog_matches: str | list):
 
-    json_files = list()
 
-    # Collect all JSON files
-    for file_path in arguments.json:
-        if path.isfile(file_path):
-            json_files.append(file_path)
-        elif path.isdir(file_path):
-            json_files.extend(glob.glob(file_path+"/*.json"))
 
     dataframe_list = list()
-
-    # Read all JSON files, in case the user passed a directory
+    json_files = list() 
     sample_nr = 1
     discarded = 0
-    for json_file in json_files:
-        with open(json_file) as f:
-            data = json.load(f)
-            dataframe = pd.json_normalize(data)
+
+    if isinstance(json_catalog_matches, list):
+        for i, individual_pattern_matches in enumerate(json_catalog_matches):
+            dataframe = pd.DataFrame.from_records(individual_pattern_matches)
             if not correct_execution(dataframe):
-                logger.info(f"[+] Discarded file {json_file}")
+                logger.info(f"[!] Discarded dict number {i}, considered incorrect execution.")
                 discarded += 1
                 continue
-            # https://stackoverflow.com/a/58020454 Custom index
-            #dataframe['Sample'] = 6932
-            #dataframe = dataframe.set_index('index')
-            #print(dataframe.index)
-            dataframe_list.append(dataframe)
-            logger.info(f"[+] Opened file {json_file} as sample {sample_nr}")
-            sample_nr += 1
+                dataframe_list.append(dataframe)
+                sample_nr += 1
+    else:
+        # Collect all JSON files
+        if path.isfile(json_catalog_matches):
+            json_files.append(json_catalog_matches)
+        elif path.isdir(json_catalog_matches):
+            json_files.extend(glob.glob(json_catalog_matches+"/*.json"))
+
+        # Read all JSON files, in case the user passed a directory
+
+        for json_file in json_files:
+            with open(json_file) as f:
+                data = json.load(f)
+                dataframe = pd.json_normalize(data)
+                if not correct_execution(dataframe):
+                    logger.info(f"[!] Discarded file {json_file}, considered incorrect execution.")
+                    discarded += 1
+                    continue
+                # https://stackoverflow.com/a/58020454 Custom index
+                #dataframe['Sample'] = 6932
+                #dataframe = dataframe.set_index('index')
+                #print(dataframe.index)
+                dataframe_list.append(dataframe)
+                logger.info(f"[+] Opened file {json_file} as sample {sample_nr}")
+                sample_nr += 1
     logger.info(f"[+][+][+] Total samples: {len(json_files)} - Processed: {sample_nr-1} - Discarded: {discarded} ")
     
+    exit()
+
     # Concatenate the different DataFrames generated from the JSON files
     df = pd.concat(dataframe_list)
     # Call needed to make indexes incremental. Otherwise, they're all zeroes
@@ -462,4 +476,6 @@ if __name__ == "__main__":
         logger.setLevel(logging.ERROR)
     elif arguments.silent:
         # Turn off the logger
-        logger.setLevel(logging.CRITICAL + 1)               
+        logger.setLevel(logging.CRITICAL + 1)     
+
+    main(arguments.json)          
