@@ -28,6 +28,8 @@ def parse_arguments():
         description="Transform JSON behavioral catalog matches to specific figures. Radarcharts are employed for micro-objective occurrences while barcharts are used to represent micro-behavior occurrences. You can find code for other type of visualizations in additional_code.py.")
     parser.add_argument("json", help="The json file, directory/ies containing the matches or a list of match dictionaries, as produced by behavioral_pattern_occurrences.py.")
     parser.add_argument("--fig_title", help="(Optional) Specify the title of the generated figure. By default it is empty.")
+    parser.add_argument("-rc_max", "--radarchart_max_scale", type=int, default=100, choices=range(0,101),
+                   metavar="[0-100]", help="Maximum value (0-100) for the scale to use on the radarcharts. Default: 100.")
     #parser.add_argument("--level", help="Specifies the desired behavioral catalog level for which the figure will be generated.", choices=["micro-objective", "micro-behavior"], required=True)
 
     group = parser.add_mutually_exclusive_group()
@@ -145,7 +147,8 @@ def generate_broken_barchart_per_micro_objective(df: pd.DataFrame, micro_objecti
         micro_objective_name_no_id = micro_objective[micro_objective.index(']')+1:].strip()
         #figure_title = title+"\n"+str(micro_objective_name_no_id)+" Micro-objective"
         figure_title = title
-        generate_pdf_broken_barchart(micro_objective_df, figure_title, title+" "+str(micro_objective_name_no_id)+".pdf", micro_objective)
+        file_name = title+"_"+str(micro_objective_name_no_id)+".pdf" if title else str(micro_objective_name_no_id)+".pdf"
+        generate_pdf_broken_barchart(micro_objective_df, figure_title, file_name, micro_objective)
 
 def clip_data(df: pd.DataFrame, quantile:int = 0.9) -> pd.DataFrame:
     """
@@ -181,7 +184,7 @@ def get_basic_colors(values_to_color: list) -> list:
             color_list.append(behavior_catalog_basic_colormap[value])
     return color_list
 
-def generate_pdf_radarchart(df: pd.DataFrame, fig_title: str, fig_name: str, micro_objective: str = None) -> None:
+def generate_pdf_radarchart(df: pd.DataFrame, fig_title: str, fig_name: str, radarchart_max_scale: int, micro_objective: str = None) -> None:
     normalized_df = normalize(df, 0 ,100)
     #df = normalize(df.mean(), 0, 100) # Normalization of the means
     # We are printing only the mean of all the samples, not each one of them individually
@@ -214,9 +217,9 @@ def generate_pdf_radarchart(df: pd.DataFrame, fig_title: str, fig_name: str, mic
     # Draw ylabels
     ax.set_rlabel_position(0)
     #plt.yticks([0,25,50,75,100], ["0","25","50","75","100"], color="grey", size=7)
-    plt.yticks([0,10,20,30,40,50], ["0%","10%","20%","30%","40%","50%"], color="black", size=8)
+    plt.yticks([0,10,20,30,40,50,60,70,80,90,100], ["0%","10%","20%","30%","40%","50%","60%","70%","80%","90%","100%"], color="black", size=8)
     #plt.ylim(0,50)
-    plt.ylim(0,40) # ad-hoc example for Alina
+    plt.ylim(0,radarchart_max_scale)
     # Format Y axis as percent https://stackoverflow.com/questions/31357611/format-y-axis-as-percent
     ax.yaxis.set_major_formatter(mtick.PercentFormatter())
     # ------- PART 2: Add plots
@@ -370,7 +373,7 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
     plt.savefig(fig_name, format="pdf", bbox_inches="tight")
     plt.close() # So data does not get mixed up
 
-def main(json_catalog_matches: str | list):
+def main(json_catalog_matches: str | list, figure_title: str, radarchart_max_scale: int) -> None:
 
 
 
@@ -424,7 +427,7 @@ def main(json_catalog_matches: str | list):
     df_dropped = drop_methods_indexes(df)
     rename_indexes(df_dropped)
 
-    title = arguments.fig_title if arguments.fig_title else ""
+    title = figure_title if figure_title else ""
 
     micro_objectives_df = get_micro_objectives_dataframe(df_dropped)
 
@@ -457,7 +460,8 @@ def main(json_catalog_matches: str | list):
     #generate_heatmap_per_micro_objective(micro_behaviors_df, micro_objective_names, title)
     
     ############ RADARCHART ############
-    generate_pdf_radarchart(micro_objectives_df, title, title+" Micro-Objectives.pdf")
+    file_name = title+"_Micro-Objectives.pdf" if title else "Micro-Objectives.pdf"
+    generate_pdf_radarchart(micro_objectives_df, title, file_name, radarchart_max_scale)
     #generate_pdf_radarchart(micro_behaviors_df, title, "micro_behavior_spider.pdf")
     #generate_radarchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title)
 
@@ -471,4 +475,4 @@ if __name__ == "__main__":
         # Turn off the logger
         logger.setLevel(logging.CRITICAL + 1)     
 
-    main(arguments.json)          
+    main(arguments.json, arguments.fig_title, arguments.radarchart_max_scale)          
