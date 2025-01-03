@@ -9,6 +9,7 @@ import matplotlib.patheffects as PathEffects
 import matplotlib.ticker as mtick
 import glob
 import logging
+from pathlib import Path
 from os import path
 from color_maps import *
 from configuration import *
@@ -29,14 +30,15 @@ def parse_arguments():
     parser.add_argument("json", help="The json file, directory/ies containing the matches or a list of match dictionaries, as produced by behavioral_pattern_occurrences.py.")
     parser.add_argument("--fig_title", help="(Optional) Specify the title of the generated figure. By default it is empty.")
     parser.add_argument("-rc_max", "--radarchart_max_scale", type=int, default=100, choices=range(0,101),
-                   metavar="[0-100]", help="Maximum value (0-100) for the scale to use on the radarcharts. Default: 100.")
+        metavar="[0-100]", help="Maximum value (0-100) for the scale to use on the radarcharts. Default: 100.")
     #parser.add_argument("--level", help="Specifies the desired behavioral catalog level for which the figure will be generated.", choices=["micro-objective", "micro-behavior"], required=True)
-
+    parser.add_argument("--catalog_matches_plot_dir", type=str, 
+        help="If specified, WBC matches plots are written in that directory otherwise they are generated in the current working directory.")
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-q", "--quiet", action="store_true",
-                        help="Only error and critical messages are printed.")
+        help="Only error and critical messages are printed.")
     group.add_argument("-s", "--silent", action="store_true",
-                        help="Nothing is printed.")
+        help="Nothing is printed.")
     arguments = parser.parse_args()
     return arguments
 
@@ -140,7 +142,7 @@ def generate_radarchart_per_micro_objective(df: pd.DataFrame, micro_objectives, 
         #generate_pdf_radarchart(micro_objective_df, title+" "+str(micro_objective), title+" "+str(micro_objective)+" radar.pdf")
         generate_pdf_radarchart(micro_objective_df, title+"\n"+str(micro_objective_name_no_id)+" Micro-objective", title+" "+str(micro_objective_name_no_id)+" radar.pdf", micro_objective)
 
-def generate_broken_barchart_per_micro_objective(df: pd.DataFrame, micro_objectives, title:str) -> None:
+def generate_broken_barchart_per_micro_objective(df: pd.DataFrame, micro_objectives, title:str, catalog_matches_plot_dir:str) -> None:
     for micro_objective in micro_objectives:
         micro_objective_df = [col for col in df if col.startswith(micro_objective)]
         micro_objective_df = df[micro_objective_df]
@@ -148,6 +150,7 @@ def generate_broken_barchart_per_micro_objective(df: pd.DataFrame, micro_objecti
         #figure_title = title+"\n"+str(micro_objective_name_no_id)+" Micro-objective"
         figure_title = title
         file_name = title+"_"+str(micro_objective_name_no_id)+".pdf" if title else str(micro_objective_name_no_id)+".pdf"
+        file_name = path.join(catalog_matches_plot_dir, file_name) if catalog_matches_plot_dir else file_name 
         generate_pdf_broken_barchart(micro_objective_df, figure_title, file_name, micro_objective)
 
 def clip_data(df: pd.DataFrame, quantile:int = 0.9) -> pd.DataFrame:
@@ -373,9 +376,7 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
     plt.savefig(fig_name, format="pdf", bbox_inches="tight")
     plt.close() # So data does not get mixed up
 
-def main(json_catalog_matches: str | list, figure_title: str, radarchart_max_scale: int) -> None:
-
-
+def main(json_catalog_matches: str | list, figure_title: str, radarchart_max_scale: int, catalog_matches_plot_dir: str) -> None:
 
     dataframe_list = list()
     json_files = list() 
@@ -417,6 +418,8 @@ def main(json_catalog_matches: str | list, figure_title: str, radarchart_max_sca
                 sample_nr += 1
     logger.info(f"[+][+][+] Total samples: {len(json_files)} - Processed: {sample_nr-1} - Discarded: {discarded} ")
 
+    Path(catalog_matches_plot_dir).mkdir(exist_ok=True, parents=True)
+
     # Concatenate the different DataFrames generated from the JSON files
     df = pd.concat(dataframe_list)
     # Call needed to make indexes incremental. Otherwise, they're all zeroes
@@ -449,7 +452,7 @@ def main(json_catalog_matches: str | list, figure_title: str, radarchart_max_sca
     ############ BARCHART ############
     #generate_pdf_stackedbars(separated_df, title, "stackedbars.pdf")
     #generate_barchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title)
-    generate_broken_barchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title)
+    generate_broken_barchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title, catalog_matches_plot_dir)
     
     ############ PIECHART ############
     #generate_pdf_piechart(micro_objectives_df, title, title+"piechart.pdf")
@@ -461,6 +464,7 @@ def main(json_catalog_matches: str | list, figure_title: str, radarchart_max_sca
     
     ############ RADARCHART ############
     file_name = title+"_Micro-Objectives.pdf" if title else "Micro-Objectives.pdf"
+    file_name = path.join(catalog_matches_plot_dir, file_name) if catalog_matches_plot_dir else file_name
     generate_pdf_radarchart(micro_objectives_df, title, file_name, radarchart_max_scale)
     #generate_pdf_radarchart(micro_behaviors_df, title, "micro_behavior_spider.pdf")
     #generate_radarchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title)
@@ -475,4 +479,4 @@ if __name__ == "__main__":
         # Turn off the logger
         logger.setLevel(logging.CRITICAL + 1)     
 
-    main(arguments.json, arguments.fig_title, arguments.radarchart_max_scale)          
+    main(arguments.json, arguments.fig_title, arguments.radarchart_max_scale, arguments.catalog_matches_plot_dir)          
