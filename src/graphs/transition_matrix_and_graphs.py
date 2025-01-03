@@ -264,7 +264,7 @@ def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, g
     CATEGORY_GRAPH_PATH = REPORTS_PATH+"/CATEGORY_GRAPH"       
 
     Path(BEHAVIOR_GRAPH_PATH).mkdir(exist_ok=True, parents=True)
-    Path(CATEGORY_GRAPH_PATH).mkdir(exist_ok=True)      
+    Path(CATEGORY_GRAPH_PATH).mkdir(exist_ok=True, parents=True)      
     
     # All categories: https://github.com/kevoreilly/CAPEv2/blob/8df267f658ac0ea6c8879e720815a6a432456ee6/web/templates/analysis/behavior/_search_results.html#L10
     # CAPEv2 web colors: https://github.com/kevoreilly/CAPEv2/blob/5d5ba06d8788ac561b267b20eec49e437decdf88/web/static/css/style.css#L166
