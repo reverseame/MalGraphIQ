@@ -170,7 +170,7 @@ def generate_barchart_per_micro_objective(df: pd.DataFrame,
         file_name = title+"_"+str(micro_objective_name_no_id)+".pdf" if title else str(micro_objective_name_no_id)+".pdf"
         file_name = path.join(catalog_matches_plot_dir, file_name) if catalog_matches_plot_dir else file_name 
         if broken: 
-            generate_pdf_broken_barchart(micro_objective_df, figure_title, file_name, micro_objective, lower_figure_limit, upper_figure_limit, lower_figure_ratio)
+            generate_pdf_broken_barchart(micro_objective_df, figure_title, file_name, lower_figure_limit, upper_figure_limit, lower_figure_ratio, micro_objective)
         else:
             generate_pdf_barchart(micro_objective_df, figure_title, file_name, micro_objective)
 
@@ -328,7 +328,7 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
 
     # Broken Axis figure: https://matplotlib.org/stable/gallery/subplots_axes_and_figures/broken_axis.html
     lower_figure_height_ratio = round(lower_figure_ratio / 100, 2)
-    higher_figure_height_ratio = rount(1 - lower_figure_ratio, 2)
+    higher_figure_height_ratio = round(1 - lower_figure_height_ratio, 2)
     height_ratios=[higher_figure_height_ratio, lower_figure_height_ratio]
     #fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, height_ratios=[.1, .9])
     fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, height_ratios=height_ratios)
