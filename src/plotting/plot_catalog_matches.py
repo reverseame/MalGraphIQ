@@ -42,8 +42,7 @@ def parse_arguments():
     parser.add_argument("--upper_figure_limit", type=int, default=50, choices=range(0,101),
         metavar="[0-100]", help="Specifies the lower limit of the upper half of the broken figure. Default: 50.")
     parser.add_argument("--lower_figure_ratio", type=int, default=50, choices=range(10,91),
-        metavar="[10-90]", help="Specified the ratio of the entire plot the lower figure will take. That is, at which height the barchart will broke. The upper figure ratio is 100 - the specified value (the remaining space within the plot).")
-    
+        metavar="[10-90]", help="Specified the ratio of the entire plot the lower figure will take. That is, at which height the barchart will broke. The upper figure ratio is 100 - the specified value (the remaining space within the plot). Default: 50.")
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-q", "--quiet", action="store_true",
@@ -153,7 +152,15 @@ def generate_radarchart_per_micro_objective(df: pd.DataFrame, micro_objectives, 
         #generate_pdf_radarchart(micro_objective_df, title+" "+str(micro_objective), title+" "+str(micro_objective)+" radar.pdf")
         generate_pdf_radarchart(micro_objective_df, title+"\n"+str(micro_objective_name_no_id)+" Micro-objective", title+" "+str(micro_objective_name_no_id)+" radar.pdf", micro_objective)
 
-def generate_broken_barchart_per_micro_objective(df: pd.DataFrame, micro_objectives, title:str, catalog_matches_plot_dir: str, broken: bool) -> None:
+def generate_barchart_per_micro_objective(df: pd.DataFrame, 
+    micro_objectives, 
+    title: str, 
+    catalog_matches_plot_dir: str, 
+    broken: bool,
+    lower_figure_limit: int, 
+    upper_figure_limit: int, 
+    lower_figure_ratio: int) -> None:
+
     for micro_objective in micro_objectives:
         micro_objective_df = [col for col in df if col.startswith(micro_objective)]
         micro_objective_df = df[micro_objective_df]
@@ -163,7 +170,7 @@ def generate_broken_barchart_per_micro_objective(df: pd.DataFrame, micro_objecti
         file_name = title+"_"+str(micro_objective_name_no_id)+".pdf" if title else str(micro_objective_name_no_id)+".pdf"
         file_name = path.join(catalog_matches_plot_dir, file_name) if catalog_matches_plot_dir else file_name 
         if broken: 
-            generate_pdf_broken_barchart(micro_objective_df, figure_title, file_name, micro_objective)
+            generate_pdf_broken_barchart(micro_objective_df, figure_title, file_name, micro_objective, lower_figure_limit, upper_figure_limit, lower_figure_ratio)
         else:
             generate_pdf_barchart(micro_objective_df, figure_title, file_name, micro_objective)
 
@@ -282,7 +289,7 @@ def generate_pdf_radarchart(df: pd.DataFrame, fig_title: str, fig_name: str, rad
     plt.close() # So data does not get mixed up
 
 # Broken-axis figure, genereted ad-hoc for Alina samples
-def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, user_supplied_ylim: int, micro_objective: str = None) -> None:
+def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, user_supplied_lowerylim: int, user_supplied_upperylim: int, lower_figure_ratio: int, micro_objective: str = None) -> None:
 
     # Normalize data
     normalized_df = normalize(df, 0, 100)
@@ -332,7 +339,7 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
     ax2bar = ax2.bar(xtick_labels, mean_df.values, label=xtick_labels, color=colors)
 
     # Upper-part of the figure limit:
-    ax1.set_ylim(90, 100)
+    ax1.set_ylim(user_supplied_upperylim, 100)
 
     # Lower-part of the figure limit:
     ####################################################################
@@ -347,7 +354,7 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
     #     ax2.set_ylim(0, 55)
     #     y_bbox_to_anchor = -.10
 
-    ax2.set_ylim(0, user_supplied_ylim)
+    ax2.set_ylim(0, user_supplied_lowerylim)
 
     # hide the spines between ax and ax2
     ax1.spines.bottom.set_visible(False)
@@ -456,7 +463,14 @@ def generate_pdf_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, micro
     plt.savefig(fig_name, format="pdf", bbox_inches="tight")
     plt.close() # So data does not get mixed up
 
-def main(json_catalog_matches: str | list, figure_title: str, radarchart_max_scale: int, catalog_matches_plot_dir: str) -> None:
+def main(json_catalog_matches: str | list, 
+    figure_title: str, 
+    radarchart_max_scale: int, 
+    catalog_matches_plot_dir: str,
+    broken_barcharts: bool,
+    lower_figure_limit: int,
+    upper_figure_limit: int,
+    lower_figure_ratio: int) -> None:
 
     dataframe_list = list()
     json_files = list() 
@@ -532,7 +546,7 @@ def main(json_catalog_matches: str | list, figure_title: str, radarchart_max_sca
     ############ BARCHART ############
     #generate_pdf_stackedbars(separated_df, title, "stackedbars.pdf")
     #generate_barchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title)
-    generate_broken_barchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title, catalog_matches_plot_dir, False)
+    generate_barchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title, catalog_matches_plot_dir, broken_barcharts, lower_figure_limit, upper_figure_limit, lower_figure_ratio)
     
     ############ PIECHART ############
     #generate_pdf_piechart(micro_objectives_df, title, title+"piechart.pdf")
@@ -559,4 +573,10 @@ if __name__ == "__main__":
         # Turn off the logger
         logger.setLevel(logging.CRITICAL + 1)     
 
-    main(arguments.json, arguments.fig_title, arguments.radarchart_max_scale, arguments.catalog_matches_plot_dir)          
+    main(arguments.json, arguments.fig_title, 
+        arguments.radarchart_max_scale, 
+        arguments.catalog_matches_plot_dir,
+        arguments.broken_barcharts,
+        arguments.lower_figure_limit,
+        arguments.upper_figure_limit,
+        arguments.lower_figure_ratio)
