@@ -34,6 +34,17 @@ def parse_arguments():
     #parser.add_argument("--level", help="Specifies the desired behavioral catalog level for which the figure will be generated.", choices=["micro-objective", "micro-behavior"], required=True)
     parser.add_argument("--catalog_matches_plot_dir", type=str, 
         help="If specified, WBC matches plots are written in that directory otherwise they are generated in the current working directory.")
+
+    parser.add_argument("-bb", "--broken_barcharts", action="store_true",
+        help="Break the Y-axis of the micro-behavior occurrences visualizations.")
+    parser.add_argument("--lower_figure_limit", type=int, default=50, choices=range(0,101),
+        metavar="[0-100]", help="Specifies the upper limit of the lower half of the broken figure. Default: 50.")
+    parser.add_argument("--upper_figure_limit", type=int, default=50, choices=range(0,101),
+        metavar="[0-100]", help="Specifies the lower limit of the upper half of the broken figure. Default: 50.")
+    parser.add_argument("--lower_figure_ratio", type=int, default=50, choices=range(10,91),
+        metavar="[10-90]", help="Specified the ratio of the entire plot the lower figure will take. That is, at which height the barchart will broke. The upper figure ratio is 100 - the specified value (the remaining space within the plot).")
+    
+
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-q", "--quiet", action="store_true",
         help="Only error and critical messages are printed.")
@@ -142,7 +153,7 @@ def generate_radarchart_per_micro_objective(df: pd.DataFrame, micro_objectives, 
         #generate_pdf_radarchart(micro_objective_df, title+" "+str(micro_objective), title+" "+str(micro_objective)+" radar.pdf")
         generate_pdf_radarchart(micro_objective_df, title+"\n"+str(micro_objective_name_no_id)+" Micro-objective", title+" "+str(micro_objective_name_no_id)+" radar.pdf", micro_objective)
 
-def generate_broken_barchart_per_micro_objective(df: pd.DataFrame, micro_objectives, title:str, catalog_matches_plot_dir:str) -> None:
+def generate_broken_barchart_per_micro_objective(df: pd.DataFrame, micro_objectives, title:str, catalog_matches_plot_dir: str, broken: bool) -> None:
     for micro_objective in micro_objectives:
         micro_objective_df = [col for col in df if col.startswith(micro_objective)]
         micro_objective_df = df[micro_objective_df]
@@ -151,7 +162,10 @@ def generate_broken_barchart_per_micro_objective(df: pd.DataFrame, micro_objecti
         figure_title = title
         file_name = title+"_"+str(micro_objective_name_no_id)+".pdf" if title else str(micro_objective_name_no_id)+".pdf"
         file_name = path.join(catalog_matches_plot_dir, file_name) if catalog_matches_plot_dir else file_name 
-        generate_pdf_broken_barchart(micro_objective_df, figure_title, file_name, micro_objective)
+        if broken: 
+            generate_pdf_broken_barchart(micro_objective_df, figure_title, file_name, micro_objective)
+        else:
+            generate_pdf_barchart(micro_objective_df, figure_title, file_name, micro_objective)
 
 def clip_data(df: pd.DataFrame, quantile:int = 0.9) -> pd.DataFrame:
     """
@@ -268,7 +282,7 @@ def generate_pdf_radarchart(df: pd.DataFrame, fig_title: str, fig_name: str, rad
     plt.close() # So data does not get mixed up
 
 # Broken-axis figure, genereted ad-hoc for Alina samples
-def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, micro_objective: str = None) -> None:
+def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, user_supplied_ylim: int, micro_objective: str = None) -> None:
 
     # Normalize data
     normalized_df = normalize(df, 0, 100)
@@ -306,7 +320,11 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
             xtick_labels.append(labels[i])
 
     # Broken Axis figure: https://matplotlib.org/stable/gallery/subplots_axes_and_figures/broken_axis.html
-    fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, height_ratios=[.1, .9]) # Upper part 30% of the size of the figure
+    lower_figure_height_ratio = round(lower_figure_ratio / 100, 2)
+    higher_figure_height_ratio = rount(1 - lower_figure_ratio, 2)
+    height_ratios=[higher_figure_height_ratio, lower_figure_height_ratio]
+    #fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, height_ratios=[.1, .9])
+    fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, height_ratios=height_ratios)
     fig.subplots_adjust(hspace=.1)  # adjust space between axes
 
     # ax1 is the upper part of the figure, ax2 is the lower one
@@ -317,12 +335,19 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
     ax1.set_ylim(90, 100)
 
     # Lower-part of the figure limit:
-    if micro_objective in ["[OC0001] Filesystem","[OC0003] Process"]:
-        ax2.set_ylim(0, 20)
-        y_bbox_to_anchor = -.20
-    else:
-        ax2.set_ylim(0, 55)
-        y_bbox_to_anchor = -.10
+    ####################################################################
+    # Ad-hoc barcharts. Uncomment and customize this code as you seem
+    # necessary in order to generate custom broken barcharts for your
+    # specific needs.
+    ####################################################################
+    # if micro_objective in ["[OC0001] Filesystem","[OC0003] Process"]:
+    #     ax2.set_ylim(0, 20)
+    #     y_bbox_to_anchor = -.20
+    # else:
+    #     ax2.set_ylim(0, 55)
+    #     y_bbox_to_anchor = -.10
+
+    ax2.set_ylim(0, user_supplied_ylim)
 
     # hide the spines between ax and ax2
     ax1.spines.bottom.set_visible(False)
@@ -370,6 +395,61 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
     plt.title(fig_title, fontsize=17)
     ncols = 2 if len(labels) >= 4 else 3
     plt.legend(labels, title=legend_title, loc="upper center", fontsize='small', ncols=ncols, bbox_to_anchor = (.5, -.07), prop={'size': 10})
+    #ax.legend(handles=labels)
+
+    # Show the graph
+    plt.savefig(fig_name, format="pdf", bbox_inches="tight")
+    plt.close() # So data does not get mixed up
+
+def generate_pdf_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, micro_objective: str = None) -> None:
+
+    # Normalize data
+    normalized_df = normalize(df, 0, 100)
+    #breakpoint()
+    # Get the mean
+    mean_df = normalized_df.mean()
+    # Delete the columns whose value is 0
+    #mean_df = mean_df[mean_df.values != 0]
+    #Transform data into percentage
+    mean_df = (100. * mean_df / mean_df.sum()).round(2)
+    mean_df = mean_df.replace(np.nan, 0)
+
+    # Rename indexes by deleting their category
+    for index_name in mean_df.index:
+        mean_df.rename(index={f"{index_name}":index_name.removeprefix(micro_objective+".")}, inplace=True) # Python +3.9 https://stackoverflow.com/a/1038845
+    #color = get_tonal_colors(mean_df.index)
+    colors = get_basic_colors(mean_df.index)
+    legend_title = "Micro Behaviors"
+
+    #hatch = get_hatches(mean_df.index)
+
+    # Delete the ID and replace space with newline
+    #labels = [index[index.index(']')+1:].strip().replace(" ","\n") for index in mean_df.index] 
+    labels = [index[index.index(']')+1:].strip() for index in mean_df.index]
+    #breakpoint()
+    #colors = get_basic_colors(mean_df.index)
+
+    #fig, ax = plt.subplots()
+    #plt.bar(mean_df.index, mean_df.values, label=labels, color=colors)
+    #ax = mean_df.plot(xticks=[], kind='bar', stacked=False, color=colors)
+    #breakpoint()
+    bar = plt.bar(labels, mean_df.values, label=labels, color=colors)
+    plt.yticks([0, 25, 50, 75, 100])
+    plt.bar_label(bar, label_type='edge', fmt='%.2f%%', size=6) # Converts 0 into 0.00
+    
+    #plt.bar_label(bar, label_type='edge')
+    
+    # Rotate labels https://stackoverflow.com/a/37708190
+    #plt.xticks(rotation=90)
+    
+    # Hide labels https://stackoverflow.com/a/40860688
+    plt.xticks([])
+
+    # Add legend and title
+    #plt.title(micro_objective[micro_objective.index(']')+1:].strip(), fontsize=13)
+    plt.title(fig_title, fontsize=13)
+    #breakpoint()
+    plt.legend(labels, title=legend_title, loc="center", fontsize='small', ncols=2, bbox_to_anchor = (.5, -.15))
     #ax.legend(handles=labels)
 
     # Show the graph
@@ -452,7 +532,7 @@ def main(json_catalog_matches: str | list, figure_title: str, radarchart_max_sca
     ############ BARCHART ############
     #generate_pdf_stackedbars(separated_df, title, "stackedbars.pdf")
     #generate_barchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title)
-    generate_broken_barchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title, catalog_matches_plot_dir)
+    generate_broken_barchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title, catalog_matches_plot_dir, False)
     
     ############ PIECHART ############
     #generate_pdf_piechart(micro_objectives_df, title, title+"piechart.pdf")
