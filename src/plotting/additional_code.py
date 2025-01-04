@@ -315,3 +315,10 @@ def generate_pdf_stackedbars(df: pd.DataFrame, fig_title: str, fig_name: str) ->
     plt.legend().remove()
     plt.savefig(fig_name, format="pdf", bbox_inches="tight")
     plt.close() # So data does not get mixed up
+
+def generate_radarchart_per_micro_objective(df: pd.DataFrame, micro_objectives, title:str) -> None:
+    for micro_objective in micro_objectives:
+        micro_objective_df = generate_dataframe_specific_micro_objective(df, micro_objective)
+        micro_objective_name_no_id = micro_objective[micro_objective.index(']')+1:].strip()
+        #generate_pdf_radarchart(micro_objective_df, title+" "+str(micro_objective), title+" "+str(micro_objective)+" radar.pdf")
+        generate_pdf_radarchart(micro_objective_df, title+"\n"+str(micro_objective_name_no_id)+" Micro-objective", title+" "+str(micro_objective_name_no_id)+" radar.pdf", micro_objective)

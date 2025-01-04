@@ -141,15 +141,10 @@ def normalize(df: pd.DataFrame, min: int = 0, max: int = 1, transpose:bool = Fal
         normalized_df = normalized_df.T
     return normalized_df
 
-
-
-def generate_radarchart_per_micro_objective(df: pd.DataFrame, micro_objectives, title:str) -> None:
-    for micro_objective in micro_objectives:
-        micro_objective_df = [col for col in df if col.startswith(micro_objective)]
-        micro_objective_df = df[micro_objective_df]
-        micro_objective_name_no_id = micro_objective[micro_objective.index(']')+1:].strip()
-        #generate_pdf_radarchart(micro_objective_df, title+" "+str(micro_objective), title+" "+str(micro_objective)+" radar.pdf")
-        generate_pdf_radarchart(micro_objective_df, title+"\n"+str(micro_objective_name_no_id)+" Micro-objective", title+" "+str(micro_objective_name_no_id)+" radar.pdf", micro_objective)
+def generate_dataframe_specific_micro_objective(original_dataframe: pd.DataFrame, micro_objective: str) -> pd.DataFrame:
+    micro_objective_df = [col for col in original_dataframe if col.startswith(micro_objective)]
+    micro_objective_df = original_dataframe[micro_objective_df]
+    return micro_objective_df
 
 def generate_barchart_per_micro_objective(df: pd.DataFrame, 
     micro_objectives, 
@@ -161,8 +156,7 @@ def generate_barchart_per_micro_objective(df: pd.DataFrame,
     lower_figure_ratio: int) -> None:
 
     for micro_objective in micro_objectives:
-        micro_objective_df = [col for col in df if col.startswith(micro_objective)]
-        micro_objective_df = df[micro_objective_df]
+        micro_objective_df = generate_dataframe_specific_micro_objective(df, micro_objective)
         micro_objective_name_no_id = micro_objective[micro_objective.index(']')+1:].strip()
         #figure_title = title+"\n"+str(micro_objective_name_no_id)+" Micro-objective"
         figure_title = title
