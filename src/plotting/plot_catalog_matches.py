@@ -398,7 +398,8 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
     
     # Add legend and title
     #plt.title(micro_objective[micro_objective.index(']')+1:].strip(), fontsize=13)
-    plt.title(fig_title, fontsize=17)
+    #plt.title(fig_title, fontsize=17)
+    ax1.set_title(fig_title, fontsize=17, y=1.0, pad=12) # We use ax1.set_title to make sure title is on top of ax1 (upper figure)
     ncols = 2 if len(labels) >= 4 else 3
     plt.legend(labels, title=legend_title, loc="upper center", fontsize='small', ncols=ncols, bbox_to_anchor = (.5, -.17))#, prop={'size': 10})
 
@@ -479,7 +480,7 @@ def generate_pdf_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, micro
 
     # Add legend and title
     #plt.title(micro_objective[micro_objective.index(']')+1:].strip(), fontsize=13)
-    plt.title(fig_title, fontsize=17)
+    plt.title(fig_title, fontsize=17, y=1.0, pad=12)
     ncols = 2 if len(labels) >= 4 else 3
     plt.legend(labels, title=legend_title, loc="upper center", fontsize='small', ncols=ncols, bbox_to_anchor = (.5, -.05))
     #ax.legend(handles=labels)
