@@ -52,7 +52,6 @@ def parse_arguments():
     arguments = parser.parse_args()
     return arguments
 
-
 def rename_indexes(df: pd.DataFrame) -> None:
     """Renames the indexes of the given pandas DataFrame _df_.
     
@@ -428,19 +427,41 @@ def generate_pdf_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, micro
     colors = get_basic_colors(mean_df.index)
     legend_title = "Micro Behaviors"
 
+     # Delete the ID and replace space with newline
+    labels = [index[index.index(']')+1:].strip() for index in mean_df.index]
+
+    # Generate xticks labels
+    xtick_labels = []
+
+    # Add abbreviations to labels in legend (if they got one)
+    for i, label in enumerate(labels):
+        # Delete redundant words on the fly
+        if "Communication" in label:
+            labels[i] = labels[i].replace("Communication", "")
+
+        if label in abbreviation_map:
+            labels[i] = label + f" ({abbreviation_map[label]})"
+            # Fix typo on the fly
+            if label == "Create or Open file":
+                labels[i] = labels[i].replace("file", "File")
+            xtick_labels.append(abbreviation_map[label])
+        else:
+            xtick_labels.append(labels[i])
+
     #hatch = get_hatches(mean_df.index)
 
     # Delete the ID and replace space with newline
     #labels = [index[index.index(']')+1:].strip().replace(" ","\n") for index in mean_df.index] 
-    labels = [index[index.index(']')+1:].strip() for index in mean_df.index]
+    #labels = [index[index.index(']')+1:].strip() for index in mean_df.index]
     #breakpoint()
     #colors = get_basic_colors(mean_df.index)
-
+    
     #fig, ax = plt.subplots()
     #plt.bar(mean_df.index, mean_df.values, label=labels, color=colors)
     #ax = mean_df.plot(xticks=[], kind='bar', stacked=False, color=colors)
     #breakpoint()
-    bar = plt.bar(labels, mean_df.values, label=labels, color=colors)
+
+    bar = plt.bar(xtick_labels, mean_df.values, label=xtick_labels, color=colors)
     plt.yticks([0, 25, 50, 75, 100])
     plt.bar_label(bar, label_type='edge', fmt='%.2f%%', size=6) # Converts 0 into 0.00
     
@@ -450,7 +471,7 @@ def generate_pdf_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, micro
     #plt.xticks(rotation=90)
     
     # Hide labels https://stackoverflow.com/a/40860688
-    plt.xticks([])
+    #plt.xticks([])
 
     # Add legend and title
     #plt.title(micro_objective[micro_objective.index(']')+1:].strip(), fontsize=13)
