@@ -400,7 +400,8 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
     #plt.title(micro_objective[micro_objective.index(']')+1:].strip(), fontsize=13)
     plt.title(fig_title, fontsize=17)
     ncols = 2 if len(labels) >= 4 else 3
-    plt.legend(labels, title=legend_title, loc="upper center", fontsize='small', ncols=ncols, bbox_to_anchor = (.5, -.07), prop={'size': 10})
+    plt.legend(labels, title=legend_title, loc="upper center", fontsize='small', ncols=ncols, bbox_to_anchor = (.5, -.05))#, prop={'size': 10})
+
     #ax.legend(handles=labels)
 
     # Show the graph
@@ -463,7 +464,10 @@ def generate_pdf_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, micro
 
     bar = plt.bar(xtick_labels, mean_df.values, label=xtick_labels, color=colors)
     plt.yticks([0, 25, 50, 75, 100])
-    plt.bar_label(bar, label_type='edge', fmt='%.2f%%', size=6) # Converts 0 into 0.00
+    plt.ylim(0, 100) # Set 100 as limit, to cut figure right there
+    plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(xmax=100)) # Format y-axis as percent
+    plt.bar_label(bar, label_type='edge', fmt='%.2f%%', size=9, weight='bold') # Converts 0 into 0.00
+
     
     #plt.bar_label(bar, label_type='edge')
     
@@ -475,9 +479,9 @@ def generate_pdf_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, micro
 
     # Add legend and title
     #plt.title(micro_objective[micro_objective.index(']')+1:].strip(), fontsize=13)
-    plt.title(fig_title, fontsize=13)
-    #breakpoint()
-    plt.legend(labels, title=legend_title, loc="center", fontsize='small', ncols=2, bbox_to_anchor = (.5, -.15))
+    plt.title(fig_title, fontsize=17)
+    ncols = 2 if len(labels) >= 4 else 3
+    plt.legend(labels, title=legend_title, loc="upper center", fontsize='small', ncols=ncols, bbox_to_anchor = (.5, -.05))
     #ax.legend(handles=labels)
 
     # Show the graph
