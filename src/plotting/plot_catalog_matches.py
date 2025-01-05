@@ -11,8 +11,8 @@ import glob
 import logging
 from pathlib import Path
 from os import path
-from color_maps import *
-from configuration import *
+import color_maps
+import configuration
 
 # micro_objectives_alphabet = [
 #     '[OC0001] Filesystem', 
