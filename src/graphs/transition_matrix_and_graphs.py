@@ -10,7 +10,7 @@ import logging
 import os
 import glob
 
-from categories_colors_map import categories_and_colors as colors
+import categories_colors_map
 
 JSON_DATA = {}
 PRINT_EDGE_LABELS = False
@@ -134,7 +134,7 @@ def render_matrix(matrix, alphabet, graphname, labels=True):
                     peripheries = "2"
                     start_of_graph = False
                 if row not in drawn_nodes:
-                    graph.node(row, label=row, peripheries = peripheries, style='filled', fillcolor=colors[alphabet[row]] if row != 'others' else colors['others']) # 'others' node
+                    graph.node(row, label=row, peripheries = peripheries, style='filled', fillcolor=categories_colors_map.categories_and_colors[alphabet[row]] if row != 'others' else categories_colors_map.categories_and_colors['others']) # 'others' node
                     drawn_nodes[row] = ""
                 # Unrolling the 'others' node
                 #if row in alphabet:
@@ -143,7 +143,7 @@ def render_matrix(matrix, alphabet, graphname, labels=True):
                     ##graph.node(row, label=row, style='filled', fillcolor=colors[row]) # Colored
                     #graph.node(row, label=row, style='filled', fillcolor='#FFFFFF') # Uncolored
                 if column not in drawn_nodes:
-                    graph.node(column, label=column, style='filled', fillcolor=colors[alphabet[column]] if column != 'others' else colors['others']) # 'others' node
+                    graph.node(column, label=column, style='filled', fillcolor=categories_colors_map.categories_and_colors[alphabet[column]] if column != 'others' else categories_colors_map.categories_and_colors['others']) # 'others' node
                     drawn_nodes[column] = ""
                 # Unrolling the 'others' node
                 #if column in alphabet:
