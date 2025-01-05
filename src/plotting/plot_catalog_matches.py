@@ -32,7 +32,7 @@ def parse_arguments():
     parser.add_argument("-rc_max", "--radarchart_max_scale", type=int, default=100, choices=range(0,101),
         metavar="[0-100]", help="Maximum value (0-100) for the scale to use on the radarcharts. Default: 100.")
     #parser.add_argument("--level", help="Specifies the desired behavioral catalog level for which the figure will be generated.", choices=["micro-objective", "micro-behavior"], required=True)
-    parser.add_argument("--catalog_matches_plot_dir", type=str, 
+    parser.add_argument("--catalog_matches_plot_dir", type=str, default="./",
         help="If specified, WBC matches plots are written in that directory otherwise they are generated in the current working directory.")
 
     parser.add_argument("-bb", "--broken_barcharts", action="store_true",
@@ -195,10 +195,10 @@ def get_basic_colors(values_to_color: list) -> list:
     """
     color_list = []
     for value in values_to_color:
-        if value not in behavior_catalog_basic_colormap:
+        if value not in color_maps.behavior_catalog_basic_colormap:
             color_list.append("#FFFFFF")
         else:
-            color_list.append(behavior_catalog_basic_colormap[value])
+            color_list.append(color_maps.behavior_catalog_basic_colormap[value])
     return color_list
 
 def generate_pdf_radarchart(df: pd.DataFrame, fig_title: str, fig_name: str, radarchart_max_scale: int, micro_objective: str = None) -> None:
@@ -265,7 +265,7 @@ def generate_pdf_radarchart(df: pd.DataFrame, fig_title: str, fig_name: str, rad
     # Add custom padding (per label) on x Axis so labels do not overlap with figure
     #ax.tick_params(axis='x', which='major', pad=15)
     for tick in ax.xaxis.get_major_ticks():
-        tick.set_pad(radarchart_padding[tick.label1.get_text()])
+        tick.set_pad(configuration.radarchart_padding[tick.label1.get_text()])
 
     # Title
     if micro_objective is None:
@@ -310,12 +310,12 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
         if "Communication" in label:
             labels[i] = labels[i].replace("Communication", "")
 
-        if label in abbreviation_map:
-            labels[i] = label + f" ({abbreviation_map[label]})"
+        if label in configuration.abbreviation_map:
+            labels[i] = label + f" ({configuration.abbreviation_map[label]})"
             # Fix typo on the fly
             if label == "Create or Open file":
                 labels[i] = labels[i].replace("file", "File")
-            xtick_labels.append(abbreviation_map[label])
+            xtick_labels.append(configuration.abbreviation_map[label])
         else:
             xtick_labels.append(labels[i])
 
@@ -435,12 +435,12 @@ def generate_pdf_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, micro
         if "Communication" in label:
             labels[i] = labels[i].replace("Communication", "")
 
-        if label in abbreviation_map:
-            labels[i] = label + f" ({abbreviation_map[label]})"
+        if label in configuration.abbreviation_map:
+            labels[i] = label + f" ({configuration.abbreviation_map[label]})"
             # Fix typo on the fly
             if label == "Create or Open file":
                 labels[i] = labels[i].replace("file", "File")
-            xtick_labels.append(abbreviation_map[label])
+            xtick_labels.append(configuration.abbreviation_map[label])
         else:
             xtick_labels.append(labels[i])
 
