@@ -1,6 +1,6 @@
 # Razvan Raducu. https://github.com/RazviOverflow
-#import networkx as nx (Imported in path_common)
-#import logging (Imported in path_common)
+import networkx as nx
+import logging 
 import sys
 import pandas as pd
 import argparse
@@ -8,7 +8,7 @@ import glob
 import json
 import time
 from pprint import pprint
-from graph_path_traversal_utils import *
+import graph_path_traversal_utils
 from os import path
 
 MAX_INTERMEDIATE_NODES = 0 # maximum number of intermediate nodes allowed
@@ -138,23 +138,23 @@ def find_paths(g_behavior, behavioral_patterns:dict, pattern_min_length: int):
     # is the ID of the pattern (.e.g: [C0036.004-P6]) and the value is the
     # pattern itself
     simple_paths = list(behavioral_patterns.values())
-    end_nodes = get_end_nodes(simple_paths)
+    end_nodes = graph_path_traversal_utils.get_end_nodes(simple_paths)
 
     # We get the list of uniques first nodes of each simple path (pattern) to find:
-    first_nodes = get_unique_start_nodes(simple_paths)
+    first_nodes = graph_path_traversal_utils.get_unique_start_nodes(simple_paths)
     # For each of these uniques first nodes, we get the probabilities from 'Start'
     # and insert them in a dictionary
     from_start_to_path = {}
     for node in first_nodes:
         if not g_behavior.has_node(node):
             continue
-        start_node = get_start_node(g_behavior)
+        start_node = graph_path_traversal_utils.get_start_node(g_behavior)
         # If start_node is the same node as target_node, nx.all_simple_paths(...) will return nothing when,
         # in this particular case, the path from start_node to target_node is the node itself
         if start_node == node:
             paths_for_node = [(1.0, start_node)]
         else:
-            paths_for_node = get_all_paths_from_node_to_node_and_probabilities(g_behavior, start_node, node, PROBABILITY_THRESHOLD)
+            paths_for_node = graph_path_traversal_utils.get_all_paths_from_node_to_node_and_probabilities(g_behavior, start_node, node, PROBABILITY_THRESHOLD)
         from_start_to_path[node] = paths_for_node
         #print(f"Paths from Start to node {node}_ {paths_for_node}")   
         '''
@@ -169,7 +169,7 @@ def find_paths(g_behavior, behavioral_patterns:dict, pattern_min_length: int):
         '''
     full_paths_found = 0
     for i, simple_path in enumerate(simple_paths):
-        if not is_path_feasible(g_behavior, simple_path): 
+        if not graph_path_traversal_utils.is_path_feasible(g_behavior, simple_path): 
             continue
         elif len(simple_path) < pattern_min_length:
             continue
