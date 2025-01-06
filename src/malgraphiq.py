@@ -57,7 +57,7 @@ def main():
     logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
     logger = logging.getLogger("MalGraphIQ Workflow")
 
-    if args.phase == "transition_matrix":
+    if args.phase == "graphs":
         transition_matrix_main(
             args.json_dir,
             args.output,
@@ -66,7 +66,7 @@ def main():
             args.no_download,
             args.print_transition_probabilities,
         )
-    elif args.phase == "behavior_patterns":
+    elif args.phase == "occurrences":
         try:
             with open(args.catalog) as catalog_file:
                 behavior_catalog = json.load(catalog_file)
@@ -82,7 +82,7 @@ def main():
         except Exception as e:
             logger.error(f"Error processing behavior catalog: {e}")
             sys.exit(1)
-    elif args.phase == "plot_matches":
+    elif args.phase == "plots":
         plot_matches_main(
             args.json,
             args.fig_title or "",
