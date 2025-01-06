@@ -11,8 +11,8 @@ import glob
 import logging
 from pathlib import Path
 from os import path
-import color_maps
-import configuration
+import plotting.color_maps as color_maps
+import plotting.configuration as configuration
 
 # micro_objectives_alphabet = [
 #     '[OC0001] Filesystem', 
@@ -490,7 +490,8 @@ def main(json_catalog_matches: str | list,
     broken_barcharts: bool,
     lower_figure_limit: int,
     upper_figure_limit: int,
-    lower_figure_ratio: int) -> None:
+    lower_figure_ratio: int,
+    logger: logging.Logger) -> None:
 
     dataframe_list = list()
     json_files = list() 
@@ -582,21 +583,3 @@ def main(json_catalog_matches: str | list,
     generate_pdf_radarchart(micro_objectives_df, title, file_name, radarchart_max_scale)
     #generate_pdf_radarchart(micro_behaviors_df, title, "micro_behavior_spider.pdf")
     #generate_radarchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title)
-
-if __name__ == "__main__":
-    arguments = parse_arguments()
-    logging.basicConfig(level=logging.INFO, format="%(name)s (%(asctime)s) %(levelname)s - %(message)s")
-    logger = logging.getLogger("MalGraphIQ (Plotting)")
-    if arguments.quiet:
-        logger.setLevel(logging.ERROR)
-    elif arguments.silent:
-        # Turn off the logger
-        logger.setLevel(logging.CRITICAL + 1)     
-
-    main(arguments.json, arguments.fig_title, 
-        arguments.radarchart_max_scale, 
-        arguments.catalog_matches_plot_dir,
-        arguments.broken_barcharts,
-        arguments.lower_figure_limit,
-        arguments.upper_figure_limit,
-        arguments.lower_figure_ratio)
