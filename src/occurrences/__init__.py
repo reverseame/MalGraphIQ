@@ -1,0 +1,1 @@
+from .behavioral_pattern_occurrences import main as behavioral_pattern_occurrences
