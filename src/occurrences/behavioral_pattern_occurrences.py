@@ -8,7 +8,7 @@ import glob
 import json
 import time
 from pprint import pprint
-import graph_path_traversal_utils
+import occurrences.graph_path_traversal_utils as graph_path_traversal_utils
 from os import path
 
 MAX_INTERMEDIATE_NODES = 0 # maximum number of intermediate nodes allowed
@@ -209,7 +209,14 @@ def find_paths(g_behavior, behavioral_patterns:dict, pattern_min_length: int):
     return full_paths_found
 
 
-def main(behavior_graph: str, catalog: dict, json_output_file:str, max_internmediate_nodes: int, probability_threshold: int, pattern_min_length: int) -> dict:
+def main(behavior_graph: str, 
+    catalog: str, 
+    output_file: str, 
+    max_internmediate_nodes: int, 
+    probability_threshold: int, 
+    pattern_min_length: int, 
+    logger: logging.Logger) -> dict:
+
     MAX_INTERMEDIATE_NODES = max_internmediate_nodes
     PROBABILITY_THRESHOLD = probability_threshold
 
@@ -221,7 +228,16 @@ def main(behavior_graph: str, catalog: dict, json_output_file:str, max_internmed
     else:
         logger.error("[!] ERROR. Unrecognized behavior parameters. Aborting.")
 
+    try:
+        with open(catalog) as catalog_file:
+            behavior_catalog = json.load(catalog_file)
+    except Exception as e:
+        logger.error(f"[!] An unexpected error occurred: {e}. Cannot open {catalog}. ABORTING [!]")
+        exit()
+
     combined_results = {}
+
+    json_output_file = f"pattern_results_{time.asctime().replace(' ','_')}.json" if not output_file else output_file+".json"
     
     for behavior_graph in behavior_graphs:
         logger.info(f"[*] Analyzing graph {behavior_graph}")
@@ -263,7 +279,7 @@ def main(behavior_graph: str, catalog: dict, json_output_file:str, max_internmed
     combined_results['Number of graphs processed'] = len(behavior_graphs)
     try:
         logger.info(f"[*] Dumping results to {json_output_file} file")
-        with open(f"{json_output_file}.json", "w") as f:
+        with open(f"{json_output_file}", "w") as f:
             json.dump(combined_results, f)
         logger.info("[*] Finished dumping to file.")
     except Exception as e:
@@ -271,24 +287,3 @@ def main(behavior_graph: str, catalog: dict, json_output_file:str, max_internmed
 
     logger.info(f"[*] Finished matching WBC patterns against {len(behavior_graphs)} graph files.")
     return combined_results
-
-if __name__ == "__main__":
-    arguments = parse_arguments()
-    logging.basicConfig(level=logging.INFO, format="%(name)s (%(asctime)s) %(levelname)s - %(message)s")
-    logger = logging.getLogger("MalGraphIQ (Behavior Occurrences)")
-    if arguments.quiet:
-        logger.setLevel(logging.ERROR)
-    elif arguments.silent:
-        # Turn off the logger
-        logger.setLevel(logging.CRITICAL + 1)
-
-    try:
-        with open(arguments.catalog) as catalog_file:
-            behavior_catalog = json.load(catalog_file)
-    except Exception as e:
-        logger.error(f"[!] An unexpected error occurred: {e}. Cannot open {catalog}. ABORTING [!]")
-        exit()
-
-    output_file = f"pattern_results_{time.asctime().replace(' ','_')}.json" if not arguments.json_output_file else arguments.json_output_file+".json"
-
-    main(arguments.behavior_graph, behavior_catalog, output_file, arguments.max_inter_nodes, arguments.prob_threshold, arguments.pattern_min_length)
