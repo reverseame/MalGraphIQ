@@ -27,7 +27,7 @@ def parse_arguments():
     subparsers = parser.add_subparsers(dest='phase', required=True, help="Specify the phase to run.")
 
     # Arguments for transition_matrix_and_graphs
-    parser_transition = subparsers.add_parser("graphs", help="Transition Matrix and Graphs phase. By default generates both behavior and category graphs.")
+    parser_transition = subparsers.add_parser("graphs", help="Transition Matrices and Graphs phase. By default generates both behavior and category transition matrices and graphs.")
     parser_transition.add_argument("json_dir", help="Directory containing JSON reports.")
     parser_transition.add_argument("-o", "--output", default="REPORTS", help="Output folder (default: %(default)s).")
     parser_transition.add_argument("-w", "--winapi_categories", default="./winapi_categories.json", help="Path to winapi_categories.json (default: %(default)s).")
@@ -47,7 +47,7 @@ def parse_arguments():
     )
 
     # Arguments for behavioral_pattern_occurrences
-    parser_behavior = subparsers.add_parser("occurrences", help="Behavior Pattern Occurrences phase.")
+    parser_behavior = subparsers.add_parser("occurrences", help="Behavior Pattern Occurrences phase. Generates the occurrences of each pattern from the Windows Behavior Catalog (WBC) against the specified graph/s.")
     parser_behavior.add_argument("behavior_graph", help="Behavior graph file or directory.")
     parser_behavior.add_argument("-c", "--catalog", required=True, help="Path to the behavior catalog JSON.")
     parser_behavior.add_argument("-m", "--max_inter_nodes", type=int, default=0, help="Max intermediate nodes allowed (default: %(default)s).")
@@ -56,7 +56,7 @@ def parse_arguments():
     parser_behavior.add_argument("-jf", "--json_output_file", help="Custom output JSON file for results (default: pattern_results_{asctime}.json).")
 
     # Arguments for plot_catalog_matches
-    parser_plot = subparsers.add_parser("plots", help="Plot Catalog Matches phase.")
+    parser_plot = subparsers.add_parser("plots", help="Plot Catalog Matches phase. Plots the Micro-Objective and Micro-Behavior occurrences from the previous phase.")
     parser_plot.add_argument("json", help="JSON file or directory of matches.")
     parser_plot.add_argument("--fig_title", help="Title of the generated figure.")
     parser_plot.add_argument("-rc_max", "--radarchart_max_scale", type=int, default=100, choices=range(0, 101), metavar="[0-100]", help="Max scale for radarcharts (default: %(default)s).")
