@@ -10,10 +10,11 @@ import logging
 import os
 import glob
 
-import graphs.categories_colors_map
+import graphs.categories_colors_map as categories_colors_map
 
 JSON_DATA = {}
 PRINT_EDGE_LABELS = False
+logger = None
 
 def parse_arguments():
     """
@@ -382,11 +383,18 @@ def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, g
     #*********** END FOR PROCESS IN DATA['BEHAVIOR']['PROCESS'] ****************        
     return CATEGORY_GRAPH_PATH    
 
-def main(json_dir: str, output_dir: str, graphs_to_generate: str, winapi_categories: str, no_download: bool, print_transition_probabilities: bool) -> None:
+def main(json_dir: str, 
+    output_dir: str, 
+    graphs_to_generate: str, 
+    winapi_categories: str, 
+    no_download: bool, 
+    print_transition_probabilities: bool,
+    local_logger: logging.Logger) -> None:
     """
     Returns: a list of each generated directory, which contains the .gv, .csv and .pdf files.
     """
-
+    global logger
+    logger = local_logger
     load_categories(winapi_categories, no_download)
 
     global PRINT_EDGE_LABELS
@@ -396,7 +404,7 @@ def main(json_dir: str, output_dir: str, graphs_to_generate: str, winapi_categor
     processed_category_graph_paths = []
     if os.path.isdir(json_dir):
         logger.info("[*] Report directory - attempting to parse all .json files.")
-        reports = glob.glob(arguments.json_dir + "/*.json")
+        reports = glob.glob(json_dir + "/*.json")
         for report in reports:
             logger.info(f"[*] Parsing {report}.")
             if (processed_path := generate_transition_matrices_and_graphs(report, output_dir, graphs_to_generate)) != -1:
@@ -406,21 +414,3 @@ def main(json_dir: str, output_dir: str, graphs_to_generate: str, winapi_categor
         if (processed_path := generate_transition_matrices_and_graphs(json_dir, output_dir, graphs_to_generate)) != -1:
             processed_category_graph_paths.append(processed_path)
     return processed_category_graph_paths
-
-if __name__ == '__main__':
-    arguments = parse_arguments()
-    logging.basicConfig(level=logging.INFO, format="%(name)s (%(asctime)s) %(levelname)s - %(message)s")
-    logger = logging.getLogger("MalGraphIQ (Transition Matrices and Graphs)")
-    if arguments.quiet:
-        logger.setLevel(logging.ERROR)
-    elif arguments.silent:
-        # Turn off the logger
-        logger.setLevel(logging.CRITICAL + 1)
-
-    graphs_to_generate = None
-    if arguments.category:
-        graphs_to_generate = 'category'
-    elif arguments.behavior:
-        graphs_to_generate = 'behavior'
-
-    main(arguments.json_dir, arguments.output, graphs_to_generate, arguments.winapi_categories, arguments.no_download, arguments.print_transition_probabilities)
