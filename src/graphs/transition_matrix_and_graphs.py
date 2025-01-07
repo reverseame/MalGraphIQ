@@ -10,7 +10,7 @@ import logging
 import os
 import glob
 
-import categories_colors_map
+import graphs.categories_colors_map
 
 JSON_DATA = {}
 PRINT_EDGE_LABELS = False
