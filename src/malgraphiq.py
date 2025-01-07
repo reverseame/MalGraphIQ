@@ -15,18 +15,36 @@ def parse_arguments():
     """
     parser = argparse.ArgumentParser(
         prog="MalGraphIQ",
-        description="Executes the full MalGraphIQ workflow in sequence: Transition Matrices and Graphs -> Behavioral Patterns -> Plotting."
+        description="Executes MalGraphIQ either in individual phases or the whole workflow: Transition Matrices and Graphs -> Behavioral Patterns -> Plotting."
     )
+
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("-q", "--quiet", action="store_true",
+                        help="Only error and critical messages are printed.")
+    group.add_argument("-s", "--silent", action="store_true",
+                        help="Nothing is printed.")
     
     subparsers = parser.add_subparsers(dest='phase', required=True, help="Specify the phase to run.")
 
     # Arguments for transition_matrix_and_graphs
-    parser_transition = subparsers.add_parser("graphs", help="Transition Matrix and Graphs phase.")
+    parser_transition = subparsers.add_parser("graphs", help="Transition Matrix and Graphs phase. By default generates both behavior and category graphs.")
     parser_transition.add_argument("json_dir", help="Directory containing JSON reports.")
     parser_transition.add_argument("-o", "--output", default="REPORTS", help="Output folder.")
     parser_transition.add_argument("-w", "--winapi_categories", default="./winapi_categories.json", help="Path to winapi_categories.json.")
     parser_transition.add_argument("-nd", "--no_download", action="store_true", help="Disable downloading of winapi_categories.json.")
     parser_transition.add_argument("-pp", "--print_transition_probabilities", action="store_true", help="Print transition probabilities on graphs.")
+
+    group = parser_transition.add_mutually_exclusive_group()
+    group.add_argument(
+        "-c", "--category", 
+        action="store_true", 
+        help="Generate only the category graph(s)."
+    )
+    group.add_argument(
+        "-b", "--behavior", 
+        action="store_true", 
+        help="Generate only the behavior graph(s)."
+    )
 
     # Arguments for behavioral_pattern_occurrences
     parser_behavior = subparsers.add_parser("occurrences", help="Behavior Pattern Occurrences phase.")
@@ -54,36 +72,47 @@ def parse_arguments():
 def main():
     args = parse_arguments()
 
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-    logger = logging.getLogger("MalGraphIQ Workflow")
+    logging.basicConfig(level=logging.INFO, format="%(name)s (%(asctime)s) %(levelname)s - %(message)s")
+    logger = logging.getLogger("MalGraphIQ")
+    if args.quiet:
+        logger.setLevel(logging.ERROR)
+    elif args.silent:
+        # Turn off the logger
+        logger.setLevel(logging.CRITICAL + 1) 
 
     if args.phase == "graphs":
-        transition_matrix_main(
+        logger.info("[+] MalGraphIQ - Starting graphs phase [+]")
+
+        graphs_to_generate = None
+        if args.category:
+            graphs_to_generate = 'category'
+        elif args.behavior:
+            graphs_to_generate = 'behavior'
+
+        graphs.transition_matrix_and_graphs(
             args.json_dir,
             args.output,
-            None,  # graph type auto-determined in transition_matrix script
+            graphs_to_generate,
             args.winapi_categories,
             args.no_download,
             args.print_transition_probabilities,
+            logger
         )
+        logger.info("[+] MalGraphIQ - Finishing graphs phase [+]")
     elif args.phase == "occurrences":
-        try:
-            with open(args.catalog) as catalog_file:
-                behavior_catalog = json.load(catalog_file)
-            output_file = args.json_output_file or f"pattern_results.json"
-            behavior_pattern_main(
-                args.behavior_graph,
-                behavior_catalog,
-                output_file,
-                args.max_inter_nodes,
-                args.prob_threshold,
-                args.pattern_min_length,
-            )
-        except Exception as e:
-            logger.error(f"Error processing behavior catalog: {e}")
-            sys.exit(1)
+        logger.info("[*] MalGraphIQ - Starting occurrences phase [*]")
+        occurrences.behavioral_pattern_occurrences(
+            args.behavior_graph,
+            args.catalog,
+            args.json_output_file,
+            args.max_inter_nodes,
+            args.prob_threshold,
+            args.pattern_min_length,
+            logger
+        )
+        logger.info("[*] MalGraphIQ - Finishing occurrences phase [*]")
     elif args.phase == "plots":
-        plot_matches_main(
+        plotting.plot_catalog_matches(
             args.json,
             args.fig_title or "",
             args.radarchart_max_scale,
@@ -92,6 +121,7 @@ def main():
             args.lower_figure_limit,
             args.upper_figure_limit,
             args.lower_figure_ratio,
+            logger
         )
     else:
         logger.error("Invalid phase specified.")
