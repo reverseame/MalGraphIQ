@@ -1,7 +1,6 @@
 import argparse
 import logging
 import sys
-from pathlib import Path
 
 # Import each phase
 import graphs

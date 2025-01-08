@@ -3,7 +3,6 @@ import requests
 import pandas as pd
 import numpy as np
 from graphviz import Digraph
-import matplotlib.pyplot as plt
 from pathlib import Path
 import argparse
 import logging
