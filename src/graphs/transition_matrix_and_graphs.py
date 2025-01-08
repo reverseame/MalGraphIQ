@@ -1,15 +1,16 @@
-import json
-import requests
-import pandas as pd
-import numpy as np
-from graphviz import Digraph
 from pathlib import Path
 import argparse
 import logging
 import os
 import glob
 
-import graphs.categories_colors_map as categories_colors_map
+import json
+import requests
+import pandas as pd
+import numpy as np
+from graphviz import Digraph
+
+from graphs import categories_colors_map
 
 JSON_DATA = {}
 PRINT_EDGE_LABELS = False
@@ -30,29 +31,26 @@ def parse_arguments():
 
     group2 = parser.add_mutually_exclusive_group()
     group2.add_argument(
-        "-c", "--category", 
-        action="store_true", 
+        "-c", "--category",
+        action="store_true",
         help="Generate only the category graph(s)."
     )
     group2.add_argument(
-        "-b", "--behavior", 
-        action="store_true", 
+        "-b", "--behavior",
+        action="store_true",
         help="Generate only the behavior graph(s)."
     )
 
     parser.add_argument("-nd", "--no-download", action="store_true",
                         help=f"Prevents {parser.prog} from downloading winapi_categories.json. By default it attempts to download it in the -w/--winapi-categories specified path.")
     parser.add_argument("-pp", "--print_transition_probabilities", action="store_true",
-                        help=f"If specified, transition probabilities are printed in the visualizations (behavior and category graphs). By default they aren't printed.")
+                        help="If specified, transition probabilities are printed in the visualizations (behavior and category graphs). By default they aren't printed.")
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-q", "--quiet", action="store_true",
                         help="Only error and critical messages are printed.")
     group.add_argument("-s", "--silent", action="store_true",
                         help="Nothing is printed.")
-
-    # Parse the arguments
-    args = parser.parse_args()
     
     return parser.parse_args()
 
@@ -66,13 +64,13 @@ def unique(sequence):
     return [x for x in sequence if not (x in seen or seen.add(x))]
 
 def transition_matrix(data, alphabet):
-    '''
+    """
     Generation of the transition matrix by creating a 
     len(alphabet)xlen(alphabet) matrix and fulfilling with 0.0 by now
-    '''
+    """
     # Buscar info acerca de las matrices dispersas
     matrix = pd.DataFrame(0.0, index=alphabet, columns=alphabet)
-    '''
+    """
     In order to count how many times each states transitions to
     one another, we use two pointers: previous_state and actual_state.
         previous_state: points to the first state in the alphabet and moves on
@@ -83,7 +81,7 @@ def transition_matrix(data, alphabet):
     
     In other words, we reached the actual state (matrix[actual_state]) from
     the previous state matrix[previous_state][actual_state], and that's a transition
-    '''
+    """
     previous_state = data[0]
     for actual_state in data[1:]:
         #matrix[actual_state][previous_state] += 1.0
@@ -91,23 +89,23 @@ def transition_matrix(data, alphabet):
         matrix.loc[actual_state, previous_state] += 1.0
         previous_state = actual_state
     
-    '''
+    """
     To get the probabilities, we must first know how many times a given state
     transitions. That is, the sum of all its transitions, regardless of the
     destiny state, To achieve that, the sum() method can be used
     https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sum.html
     the default axis is 0, which stand for index and it sums ALL the indexes
     of a given column (counterintuitive thinking)
-    '''
+    """
     total = matrix.sum()
     for element in alphabet:
         matrix[element] = matrix.div(total[element])[element]
     
-    '''
+    """
     Very important to transpose the DataFrame given that Panda's DF access is made
     by columns, not by rows as a normal matrix. So after generating the data and 
     getting the probabilities, it must be transposed to represent an actual matrix.
-    '''
+    """
     matrix = matrix.transpose()
     total_probabilities = matrix.sum(axis=1)
     for i, row in enumerate(total_probabilities):
@@ -123,11 +121,11 @@ def render_matrix(matrix, alphabet, graphname, labels=True):
 
     start_of_graph = True
     drawn_nodes = {} # Avoid re-adding nodes
-    for i, row in enumerate(matrix.index):
+    for row in matrix.index:
         for column in matrix.columns:
             if matrix.loc[row][column] > 0: # Use .loc() to access DataFrame by row label
                 #breakpoint()
-                shape = 'ellipse'
+                #shape = 'ellipse'
                 peripheries = "0"
                 if start_of_graph:
                     #shape = 'box'
@@ -168,8 +166,8 @@ def render_matrix(matrix, alphabet, graphname, labels=True):
 def obtain_winapi_file(winapi_categories_path: str) -> str | int:
     try:
         logger.info("[*] Downloading winapi_categories.json from official repo (https://github.com/reverseame/winapi-categories)")
-        r = requests.get("https://raw.githubusercontent.com/reverseame/winapi-categories/refs/heads/main/winapi_categories.json")
-        with open(winapi_categories_path, "w") as winapi_categories:
+        r = requests.get("https://raw.githubusercontent.com/reverseame/winapi-categories/refs/heads/main/winapi_categories.json", timeout=30)
+        with open(winapi_categories_path, "w", encoding="utf-8") as winapi_categories:
             winapi_categories.write(r.text)
         logger.info(f"[*] Successfully downloaded at {winapi_categories_path}")
         return winapi_categories_path
@@ -183,17 +181,17 @@ def load_categories(winapi_categories_path: str, dont_download_winapi: bool) -> 
             logger.warning("[!] winapi_categories.json file not found. Category refactoring can't be done. You can download it from https://github.com/reverseame/winapi-categories [!]")
             logger.warning("[!] You could, for example, run the following command: \n\t $ wget https://raw.githubusercontent.com/reverseame/winapi-categories/refs/heads/main/winapi_categories.json")
             return -1
-        else:
-            logger.info("[*] winapi_categories.json file not detected, attempting to download it.")
-            if (winapi_categories_path := obtain_winapi_file(winapi_categories_path)) == -1:
-                logger.error("[!] Cannot obtain winapi_categories.json. Continuing without it [!]")
-                return winapi_categories_path
+        
+        logger.info("[*] winapi_categories.json file not detected, attempting to download it.")
+        if (winapi_categories_path := obtain_winapi_file(winapi_categories_path)) == -1:
+            logger.error("[!] Cannot obtain winapi_categories.json. Continuing without it [!]")
+            return winapi_categories_path
     else:
         logger.info(f"[*] {winapi_categories_path} found. No need to download.")
 
     try:
         global JSON_DATA
-        with open(winapi_categories_path) as file:
+        with open(winapi_categories_path, encoding="utf-8") as file:
             JSON_DATA = json.load(file)
         return 0
     except Exception as e:
@@ -253,18 +251,18 @@ def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, g
     """
     logger.info(f"[+] Processing {os.path.basename(json_report)} [+]")
     try:
-        with open(json_report) as f:
+        with open(json_report, encoding="utf-8") as f:
             data = json.load(f)
     except Exception as e:
         logger.error(f"[!] ERROR. Cannot parse {json_report}: {e}. Skipping")
         return -1
 
-    REPORTS_PATH = f"./{output_dir}/{os.path.basename(json_report)[:os.path.basename(json_report).index('.')]}" # strip extension
-    BEHAVIOR_GRAPH_PATH = REPORTS_PATH+"/BEHAVIOR_GRAPH"
-    CATEGORY_GRAPH_PATH = REPORTS_PATH+"/CATEGORY_GRAPH"       
+    reports_path = f"./{output_dir}/{os.path.basename(json_report)[:os.path.basename(json_report).index('.')]}" # strip extension
+    behavior_graph_path = reports_path+"/BEHAVIOR_GRAPH"
+    category_graph_path = reports_path+"/CATEGORY_GRAPH"       
 
-    Path(BEHAVIOR_GRAPH_PATH).mkdir(exist_ok=True, parents=True)
-    Path(CATEGORY_GRAPH_PATH).mkdir(exist_ok=True, parents=True)      
+    Path(behavior_graph_path).mkdir(exist_ok=True, parents=True)
+    Path(category_graph_path).mkdir(exist_ok=True, parents=True)      
     
     # All categories: https://github.com/kevoreilly/CAPEv2/blob/8df267f658ac0ea6c8879e720815a6a432456ee6/web/templates/analysis/behavior/_search_results.html#L10
     # CAPEv2 web colors: https://github.com/kevoreilly/CAPEv2/blob/5d5ba06d8788ac561b267b20eec49e437decdf88/web/static/css/style.css#L166
@@ -321,7 +319,7 @@ def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, g
         pid = process['process_id']
         # Skip this particular process if its 'calls' key is empty. That is, the process
         # is tracked by cape but its behavior (API calls) is missing for some unknown reason
-        if not len(process['calls']):
+        if not process['calls']:
             logger.warning(f"[!] ERROR. Skipping process {pid} from analysis because no behavior activity was tracked [!]")
             continue
 
@@ -336,10 +334,8 @@ def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, g
         alphabet = {}
 
         for call in process['refactored_calls']:
-            cypher_query = ""
             api_call = call['api']
             api_category = call['new_category'] # After refactoring.
-            api_cape_category= call['category']
 
             # Rendering of the graph is done outside the loop
             # **************************************************************
@@ -370,17 +366,17 @@ def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, g
 
 
         actions = {
-            'category': lambda: generate_api_call_transitions(api_call_transitions, alphabet, process_name, process_id, BEHAVIOR_GRAPH_PATH, PRINT_EDGE_LABELS),
-            'behavior': lambda: generate_api_per_category_transitions(api_per_category_transitions, alphabet, process_name, process_id, CATEGORY_GRAPH_PATH, PRINT_EDGE_LABELS),
+            'category': lambda: generate_api_call_transitions(api_call_transitions, alphabet, process_name, process_id, behavior_graph_path, PRINT_EDGE_LABELS),
+            'behavior': lambda: generate_api_per_category_transitions(api_per_category_transitions, alphabet, process_name, process_id, category_graph_path, PRINT_EDGE_LABELS),
         }
 
         actions.get(graphs_to_generate, lambda: (
-            generate_api_call_transitions(api_call_transitions, alphabet, process_name, process_id, BEHAVIOR_GRAPH_PATH, PRINT_EDGE_LABELS), 
-            generate_api_per_category_transitions(api_per_category_transitions, alphabet, process_name, process_id, CATEGORY_GRAPH_PATH, PRINT_EDGE_LABELS)
+            generate_api_call_transitions(api_call_transitions, alphabet, process_name, process_id, behavior_graph_path, PRINT_EDGE_LABELS), 
+            generate_api_per_category_transitions(api_per_category_transitions, alphabet, process_name, process_id, category_graph_path, PRINT_EDGE_LABELS)
             ))()
 
     #*********** END FOR PROCESS IN DATA['BEHAVIOR']['PROCESS'] ****************        
-    return CATEGORY_GRAPH_PATH    
+    return category_graph_path    
 
 def main(json_dir: str, 
     output_dir: str, 
@@ -397,7 +393,7 @@ def main(json_dir: str,
     load_categories(winapi_categories, no_download)
 
     global PRINT_EDGE_LABELS
-    PRINT_EDGE_LABELS = True if print_transition_probabilities else False
+    PRINT_EDGE_LABELS = print_transition_probabilities
 
     processed_category_graph_paths = []
     if os.path.isdir(json_dir):

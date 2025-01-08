@@ -1,5 +1,4 @@
 import networkx as nx
-import logging
 
 # Paths to be discarded (usually because they have no operational meaning but 
 # result from our generation mechanism).
@@ -70,7 +69,7 @@ def filter_simple_paths(paths : list):
             paths[i] = simple_path[1:]
 
 
-    new_paths = list()
+    new_paths = []
 
     for path in paths:
         if str(path) not in paths_to_filter:
@@ -206,7 +205,7 @@ def get_all_paths_from_node_to_node_and_probabilities(graph, starting_node, dest
     ## Based on our experiments, 5 is enough for the vast majority of the cases.
     paths = list(nx.all_simple_paths(graph, starting_node, destiny_node, 5)) # NEED TO LIMIT SOMEHOW THE LENGTH OF SIMPLE PATHS
     graph_nodes_adjacency = graph._adj
-    all_paths = list()
+    all_paths = []
     for path in paths:
         skip = False
         probability = 1.0
@@ -228,7 +227,7 @@ def get_all_paths_from_node_to_node_and_probabilities(graph, starting_node, dest
     #    pprint(path)
     return all_paths
 
-def read_matrix_from_csv(file):
-    # It is very important to specify which column is the index.
-    transition_matrix = pd.read_csv(file, index_col=0) 
-    return transition_matrix
+# def read_matrix_from_csv(file):
+#     # It is very important to specify which column is the index.
+#     transition_matrix = pd.read_csv(file, index_col=0) 
+#     return transition_matrix

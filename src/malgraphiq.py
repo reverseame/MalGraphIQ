@@ -22,7 +22,6 @@ def parse_arguments():
                         help="Only error and critical messages are printed.")
     group.add_argument("-s", "--silent", action="store_true",
                         help="Nothing is printed.")
-    
     subparsers = parser.add_subparsers(dest='phase', required=True, help="Specify the phase to run.")
 
     # Arguments for transition_matrix_and_graphs
@@ -35,13 +34,13 @@ def parse_arguments():
 
     group = parser_transition.add_mutually_exclusive_group()
     group.add_argument(
-        "-c", "--category", 
-        action="store_true", 
+        "-c", "--category",
+        action="store_true",
         help="Generate only the category graph(s)."
     )
     group.add_argument(
-        "-b", "--behavior", 
-        action="store_true", 
+        "-b", "--behavior",
+        action="store_true",
         help="Generate only the behavior graph(s)."
     )
 
@@ -76,13 +75,13 @@ def parse_arguments():
 
     group = parser_all.add_mutually_exclusive_group()
     group.add_argument(
-        "--category", 
-        action="store_true", 
+        "--category",
+        action="store_true",
         help="Generate only the category graph(s)."
     )
     group.add_argument(
-        "--behavior", 
-        action="store_true", 
+        "--behavior",
+        action="store_true",
         help="Generate only the behavior graph(s)."
     )
 
@@ -113,7 +112,7 @@ def main():
         logger.setLevel(logging.ERROR)
     elif args.silent:
         # Turn off the logger
-        logger.setLevel(logging.CRITICAL + 1) 
+        logger.setLevel(logging.CRITICAL + 1)
 
     if args.phase == "graphs":
         logger.info("[+] MalGraphIQ - Starting graphs phase [+]")
@@ -217,6 +216,7 @@ def main():
     else:
         logger.error("Invalid phase specified.")
         sys.exit(1)
+    return 0
 
 
 if __name__ == "__main__":

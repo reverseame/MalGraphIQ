@@ -121,3 +121,4 @@ behavior_catalog_hatchmap = {
         "[C0036] Registry":"/",
         "[C0034] Environment Variable":"\\",
     }
+    

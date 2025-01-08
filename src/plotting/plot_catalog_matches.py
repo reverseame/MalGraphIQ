@@ -1,16 +1,17 @@
 # Razvan Raducu. https://github.com/RazviOverflow
+import glob
+import logging
+from pathlib import Path
+from os import path
 import argparse
 import json
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
-import glob
-import logging
-from pathlib import Path
-from os import path
-import plotting.color_maps as color_maps
-import plotting.configuration as configuration
+
+from plotting import color_maps
+from plotting import configuration
 
 # micro_objectives_alphabet = [
 #     '[OC0001] Filesystem', 
@@ -165,7 +166,7 @@ def generate_barchart_per_micro_objective(df: pd.DataFrame,
         else:
             generate_pdf_barchart(micro_objective_df, figure_title, file_name, micro_objective)
 
-def clip_data(df: pd.DataFrame, quantile:int = 0.9) -> pd.DataFrame:
+def clip_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     Clips data (only upper threshold) according to the value in the 0.9 quantile
     of the __df__ DataFrame. The midpoint technique is used for interpolation.
@@ -219,8 +220,8 @@ def generate_pdf_radarchart(df: pd.DataFrame, fig_title: str, fig_name: str, rad
     labels = [index[index.index(']')+1:].strip().replace(" ", "\n") for index in mean_df.index] 
        
     categories=list(labels)
-    N = len(categories)
-    angles = [n / float(N) * 2 * np.pi for n in range(N)]
+    number_of_categories = len(categories)
+    angles = [n / float(number_of_categories) * 2 * np.pi for n in range(number_of_categories)]
     angles += angles[:1]
     # Initialise the spider plot
     ax = plt.subplot(111, polar=True)
@@ -362,8 +363,13 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
     # Finally, we need to disable clipping.
 
     d = .5  # proportion of vertical to horizontal extent of the slanted line
-    kwargs = dict(marker=[(-1, -d), (1, d)], markersize=12,
-                  linestyle="none", color='k', mec='k', mew=1, clip_on=False)
+    kwargs = {"marker":[(-1, -d), (1, d)], 
+                "markersize":12,
+                "linestyle":"none",
+                "color":"k",
+                "mec":"k",
+                "mew":1,
+                "clip_on":False}
     ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
     ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
     
@@ -455,11 +461,11 @@ def generate_pdf_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, micro
     #ax = mean_df.plot(xticks=[], kind='bar', stacked=False, color=colors)
     #breakpoint()
 
-    bar = plt.bar(xtick_labels, mean_df.values, label=xtick_labels, color=colors)
+    actual_bar = plt.bar(xtick_labels, mean_df.values, label=xtick_labels, color=colors)
     #plt.yticks([0, 25, 50, 75, 100])
     plt.ylim(0, 100) # Set 100 as limit, to cut figure right there
     plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(xmax=100)) # Format y-axis as percent
-    plt.bar_label(bar, label_type='edge', fmt='%.2f%%', size=9, weight='bold') # Converts 0 into 0.00
+    plt.bar_label(actual_bar, label_type='edge', fmt='%.2f%%', size=9, weight='bold') # Converts 0 into 0.00
 
     
     #plt.bar_label(bar, label_type='edge')
@@ -491,8 +497,8 @@ def main(json_catalog_matches: str | list,
     lower_figure_ratio: int,
     logger: logging.Logger) -> None:
 
-    dataframe_list = list()
-    json_files = list() 
+    dataframe_list = []
+    json_files = []
     sample_nr = 1
     discarded = 0
 
@@ -515,7 +521,7 @@ def main(json_catalog_matches: str | list,
         # Read all JSON files, in case the user passed a directory
 
         for json_file in json_files:
-            with open(json_file) as f:
+            with open(json_file, encoding='utf-8') as f:
                 data = json.load(f)
                 dataframe = pd.json_normalize(data)
                 if not correct_execution(dataframe):
