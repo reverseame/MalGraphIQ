@@ -16,45 +16,6 @@ JSON_DATA = {}
 PRINT_EDGE_LABELS = False
 logger = None
 
-def parse_arguments():
-    """
-    Arguments parsing.
-    """
-    parser = argparse.ArgumentParser(
-        prog="MalGraphIQ (Transition Matrices and Graphs)",
-        description="Renders CAPE reports and transforms them into transition matrixes and different graphs (visualizations).")
-    parser.add_argument("json_dir", help="A .json report o a directory containing one or more JSON reports. If the parameter is a directory, the program automatically parses all .JSON files within it.")
-    parser.add_argument("-o", "--output", default="REPORTS",
-                        help="Output folder.")
-    parser.add_argument("-w", "--winapi-categories", default="./winapi_categories.json",
-                        help="Path to winapi_categories.json file (as obtained from https://github.com/reverseame/winapi-categories). By default the program will look into the current working directory. If the file does not exist, the program will attempt to download it unless -nd/--no-download is specified.")
-
-    group2 = parser.add_mutually_exclusive_group()
-    group2.add_argument(
-        "-c", "--category",
-        action="store_true",
-        help="Generate only the category graph(s)."
-    )
-    group2.add_argument(
-        "-b", "--behavior",
-        action="store_true",
-        help="Generate only the behavior graph(s)."
-    )
-
-    parser.add_argument("-nd", "--no-download", action="store_true",
-                        help=f"Prevents {parser.prog} from downloading winapi_categories.json. By default it attempts to download it in the -w/--winapi-categories specified path.")
-    parser.add_argument("-pp", "--print_transition_probabilities", action="store_true",
-                        help="If specified, transition probabilities are printed in the visualizations (behavior and category graphs). By default they aren't printed.")
-
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument("-q", "--quiet", action="store_true",
-                        help="Only error and critical messages are printed.")
-    group.add_argument("-s", "--silent", action="store_true",
-                        help="Nothing is printed.")
-    
-    return parser.parse_args()
-
-
 def prob_error(row, total_probabilities, matrix):
     return f"The probabilities of row: {row} do not sum 1\n{total_probabilities}\n{matrix}"
 

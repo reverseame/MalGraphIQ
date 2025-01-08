@@ -14,32 +14,6 @@ MAX_INTERMEDIATE_NODES = 0 # maximum number of intermediate nodes allowed
 PROBABILITY_THRESHOLD = 0.0
 #NO_PROBABILITY = False
 
-def parse_arguments():
-    parser = argparse.ArgumentParser(
-        prog="MalGraphIQ (Behavior Occurrences)",
-        description="Identifies WBC patterns in the specified graph using a backtracking algorithm.")
-    parser.add_argument("behavior_graph", 
-        help="The behavior .gv file or directory in which patterns will be sought. In case a directory is specified, only .gv files will be considered.")
-    parser.add_argument("-c", "--catalog", required=True, type=str,
-        help="The path of the behavior catalog in JSON format. (See https://github.com/reverseame/windows-behavior-catalog)")
-    parser.add_argument("-m", "--max_inter_nodes", type=int, default=0,
-        help="(Default 0) The maximum number of intermediate nodes between each pattern node to consider in the behavior graph.")
-    parser.add_argument("-p", "--prob_threshold", type=float, default=0.0,
-        help="(Default 0.0) The probability threshold. Paths below the threshold are discarded.")
-    parser.add_argument("-l", "--pattern_min_length", type=int, default=1,
-        help="(Default 1) Minimum numbers of nodes the patterns (simple paths) must have to be considered.")
-    parser.add_argument("-jf", "--json_output_file", type=str, 
-        help="By default the pattern matching results (that is, the occurrences) will be written to a file named pattern_results_$timestamp$.json, in case you want to customize the visualizations in the next phase (so you do not have to process everything again). If this parameter is specified, the result will written to the specified file name, automatically appending the .json extension")
-
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument("-q", "--quiet", action="store_true",
-                        help="Only error and critical messages are printed.")
-    group.add_argument("-s", "--silent", action="store_true",
-                        help="Nothing is printed.")
-
-    arguments = parser.parse_args()
-    return arguments
-
 def search(g_behavior,
     behavior_actual_node,
     pattern_node,

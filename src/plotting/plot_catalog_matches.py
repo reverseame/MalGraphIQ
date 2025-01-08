@@ -22,35 +22,6 @@ from plotting import configuration
 #     '[OC0008] Operating System'
 # ]
 
-def parse_arguments():
-    parser = argparse.ArgumentParser(
-        prog="MalGraphIQ (Plotting)",
-        description="Transform JSON behavioral catalog matches to specific figures. Radarcharts are employed for micro-objective occurrences while barcharts are used to represent micro-behavior occurrences. You can find code for other type of visualizations in additional_code.py.")
-    parser.add_argument("json", help="The json file, directory/ies containing the matches or a list of match dictionaries, as produced by behavioral_pattern_occurrences.py.")
-    parser.add_argument("--fig_title", help="(Optional) Specify the title of the generated figure. By default it is empty.")
-    parser.add_argument("-rc_max", "--radarchart_max_scale", type=int, default=100, choices=range(0,101),
-        metavar="[0-100]", help="Maximum value (0-100) for the scale to use on the radarcharts. Default: 100.")
-    #parser.add_argument("--level", help="Specifies the desired behavioral catalog level for which the figure will be generated.", choices=["micro-objective", "micro-behavior"], required=True)
-    parser.add_argument("--catalog_matches_plot_dir", type=str, default="./",
-        help="If specified, WBC matches plots are written in that directory otherwise they are generated in the current working directory.")
-
-    parser.add_argument("-bb", "--broken_barcharts", action="store_true",
-        help="Break the Y-axis of the micro-behavior occurrences visualizations.")
-    parser.add_argument("--lower_figure_limit", type=int, default=50, choices=range(0,101),
-        metavar="[0-100]", help="Specifies the upper limit of the lower half of the broken figure. Default: 50.")
-    parser.add_argument("--upper_figure_limit", type=int, default=50, choices=range(0,101),
-        metavar="[0-100]", help="Specifies the lower limit of the upper half of the broken figure. Default: 50.")
-    parser.add_argument("--lower_figure_ratio", type=int, default=50, choices=range(10,91),
-        metavar="[10-90]", help="Specified the ratio of the entire plot the lower figure will take. That is, at which height the barchart will broke. The upper figure ratio is 100 - the specified value (the remaining space within the plot). Default: 50.")
-
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument("-q", "--quiet", action="store_true",
-        help="Only error and critical messages are printed.")
-    group.add_argument("-s", "--silent", action="store_true",
-        help="Nothing is printed.")
-    arguments = parser.parse_args()
-    return arguments
-
 def rename_indexes(df: pd.DataFrame) -> None:
     """Renames the indexes of the given pandas DataFrame _df_.
     
