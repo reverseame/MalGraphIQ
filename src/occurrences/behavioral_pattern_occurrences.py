@@ -5,7 +5,9 @@ import argparse
 import glob
 import json
 import time
+from pprint import pprint
 import occurrences.graph_path_traversal_utils as graph_path_traversal_utils
+from os import path
 
 MAX_INTERMEDIATE_NODES = 0 # maximum number of intermediate nodes allowed
 PROBABILITY_THRESHOLD = 0.0
