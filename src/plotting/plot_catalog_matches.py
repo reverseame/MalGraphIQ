@@ -500,13 +500,13 @@ def main(json_catalog_matches: str | list,
 
     if isinstance(json_catalog_matches, list):
         for i, individual_pattern_matches in enumerate(json_catalog_matches):
-            dataframe = pd.DataFrame.from_records(individual_pattern_matches)
+            dataframe = pd.json_normalize(individual_pattern_matches)
             if not correct_execution(dataframe):
                 logger.info(f"[!] Discarded dict number {i}, considered incorrect execution.")
                 discarded += 1
                 continue
-                dataframe_list.append(dataframe)
-                sample_nr += 1
+            dataframe_list.append(dataframe)
+            sample_nr += 1
     else:
         # Collect all JSON files
         if path.isfile(json_catalog_matches):
