@@ -400,7 +400,6 @@ def main(json_dir: str,
     global PRINT_EDGE_LABELS
     PRINT_EDGE_LABELS = True if print_transition_probabilities else False
 
-
     processed_category_graph_paths = []
     if os.path.isdir(json_dir):
         logger.info("[*] Report directory - attempting to parse all .json files.")
