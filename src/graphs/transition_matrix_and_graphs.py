@@ -3,6 +3,7 @@ import argparse
 import logging
 import os
 import glob
+import sys
 
 import json
 import requests
@@ -15,9 +16,6 @@ from graphs import categories_colors_map
 JSON_DATA = {}
 PRINT_EDGE_LABELS = False
 logger = None
-
-def prob_error(row, total_probabilities, matrix):
-    return f"The probabilities of row: {row} do not sum 1\n{total_probabilities}\n{matrix}"
 
 # https://stackoverflow.com/a/58666031
 def unique(sequence):
@@ -74,7 +72,9 @@ def transition_matrix(data, alphabet):
             logger.debug(f"[!] Skipping ASSERT. Probability is zero. Probably last API call?\n{total_probabilities.index[i]}: {total_probabilities.iloc[i]}")
             continue
         row = np.around(row, 2) # Rounding to 2 decimals so 0.9999999000001 becomes 1
-        assert row == 1, prob_error(row, total_probabilities, matrix)
+        if row != 1:
+            logger.error(f"The probabilities of row: {row} do not sum 1\n{total_probabilities}\n{matrix}")
+            sys.exit(1)
     return matrix
 
 def render_matrix(matrix, alphabet, graphname, labels=True):
