@@ -18,16 +18,31 @@ PRINT_EDGE_LABELS = False
 logger = None
 
 # https://stackoverflow.com/a/58666031
-def unique(sequence):
+def unique(sequence: list) -> list:
+    """
+    Remove duplicate elements from a sequence while maintaining order.
+
+    Args:
+        sequence (list): Input sequence.
+
+    Returns:
+        list: Sequence with duplicates removed.
+    """
     seen = set()
     return [x for x in sequence if not (x in seen or seen.add(x))]
 
-def transition_matrix(data, alphabet):
+def transition_matrix(data: list[str], alphabet: list[str]) -> pd.DataFrame:
     """
-    Generation of the transition matrix by creating a 
-    len(alphabet)xlen(alphabet) matrix and fulfilling with 0.0 by now
+    Generate a transition matrix by creating a len(alphabet) x len(alphabet) matrix.
+
+    Args:
+        data (list[str]): Sequence of states.
+        alphabet (list[str]): Possible states.
+
+    Returns:
+        pd.DataFrame: Transition matrix.
     """
-    # Buscar info acerca de las matrices dispersas
+
     matrix = pd.DataFrame(0.0, index=alphabet, columns=alphabet)
     """
     In order to count how many times each states transitions to
@@ -35,7 +50,7 @@ def transition_matrix(data, alphabet):
         previous_state: points to the first state in the alphabet and moves on
         actual_state: points to the second state in the alphabet and moves on
     Counting means adding (sum) 1 to the cell of the transition matrix
-    corrseponding to the row actual_state and the column previous_state. That is:
+    corresponding to the row actual_state and the column previous_state. That is:
     matrix[previous_state][actual_state]
     
     In other words, we reached the actual state (matrix[actual_state]) from
@@ -77,7 +92,16 @@ def transition_matrix(data, alphabet):
             sys.exit(1)
     return matrix
 
-def render_matrix(matrix, alphabet, graphname, labels=True):
+def render_matrix(matrix: pd.DataFrame, alphabet: dict[str, str], graphname: str, labels: bool = True) -> None:
+    """
+    Render a graph visualization of a transition matrix. Output format: PDF. Engine: dot.
+
+    Args:
+        matrix (pd.DataFrame): Transition matrix to render.
+        alphabet (Dict[str, str]): Mapping of state labels to categories.
+        graphname (str): Name of the output graph.
+        labels (bool): Whether to include edge labels.
+    """
     graph = Digraph(graphname, format='pdf', engine='dot')
 
     start_of_graph = True
@@ -125,6 +149,15 @@ def render_matrix(matrix, alphabet, graphname, labels=True):
     graph.render()
 
 def obtain_winapi_file(winapi_categories_path: str) -> str | int:
+    """
+    Download the winapi_categories.json file from https://github.com/reverseame/winapi-categories.
+
+    Args:
+        winapi_categories_path (str): Path to save the downloaded file.
+
+    Returns:
+        str | int: Path to the downloaded file or -1 on error.
+    """
     try:
         logger.info("[*] Downloading winapi_categories.json from official repo (https://github.com/reverseame/winapi-categories)")
         r = requests.get("https://raw.githubusercontent.com/reverseame/winapi-categories/refs/heads/main/winapi_categories.json", timeout=30)
@@ -137,6 +170,16 @@ def obtain_winapi_file(winapi_categories_path: str) -> str | int:
         return -1
 
 def load_categories(winapi_categories_path: str, dont_download_winapi: bool) -> int:
+    """
+    Load categories from winapi_categories.json or download it if missing.
+
+    Args:
+        winapi_categories_path (str): Path to winapi_categories.json.
+        dont_download_winapi (bool): Whether to prevent downloading if the file is missing.
+
+    Returns:
+        int: 0 on success or -1 on failure.
+    """
     if not os.path.exists(winapi_categories_path):
         if dont_download_winapi:
             logger.warning("[!] winapi_categories.json file not found. Category refactoring can't be done. You can download it from https://github.com/reverseame/winapi-categories [!]")
@@ -159,9 +202,16 @@ def load_categories(winapi_categories_path: str, dont_download_winapi: bool) -> 
         logger.error(f"[!] An unexpected error occurred: {e}. Cannot open winapi_categories.json [!]")
         return -1
 
-def generate_api_call_transitions(api_call_transitions, alphabet, process_name, process_id, behavior_graph_path, print_edge_labels):
+def generate_api_call_transitions(
+    api_call_transitions: list[str],
+    alphabet: dict[str, str],
+    process_name: str,
+    process_id: int,
+    behavior_graph_path: str,
+    print_edge_labels: bool
+) -> None:
     """
-    Generate API call transitions matrix and save it to a file.
+    Generate API call transitions matrix and graphs, and save them to their corresponding output file.
 
     Args:
         api_call_transitions (list): API call transitions data.
@@ -176,9 +226,16 @@ def generate_api_call_transitions(api_call_transitions, alphabet, process_name, 
     api_call_transitions_matrix.to_csv(f"{filename}.csv")
     render_matrix(api_call_transitions_matrix, alphabet, filename, print_edge_labels)
 
-def generate_api_per_category_transitions(api_per_category_transitions, alphabet, process_name, process_id, category_graph_path, print_edge_labels):
+def generate_api_per_category_transitions(
+    api_per_category_transitions: dict[str, list[str]],
+    alphabet: dict[str, str],
+    process_name: str,
+    process_id: int,
+    category_graph_path: str,
+    print_edge_labels: bool
+) -> None:
     """
-    Generate API per category transitions matrix and save it to a file.
+    Generate API per category transitions matrix and graphs, and save them to their corresponding output file.
 
     Args:
         api_per_category_transitions (dict): API per category transitions data.
@@ -206,9 +263,15 @@ def generate_api_per_category_transitions(api_per_category_transitions, alphabet
 
 def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, graphs_to_generate: str) -> str | int:
     """
+    Generate transition matrices and graphs for processes in a JSON report.
+
+    Args:
+        json_report (str): Path to the JSON report.
+        output_dir (str): Directory to save the generated files.
+        graphs_to_generate (str): Type of graphs to generate.
 
     Returns: 
-        The directory where files were created
+        str | int: Path to the generated category graph directory or -1 on error.
     """
     logger.info(f"[+] Processing {os.path.basename(json_report)} [+]")
     try:
@@ -347,7 +410,8 @@ def main(json_dir: str,
     print_transition_probabilities: bool,
     local_logger: logging.Logger) -> None:
     """
-    Returns: a list of each generated directory, which contains the .gv, .csv and .pdf files.
+    Returns: 
+        List of each generated directory, which contains the .gv, .csv and .pdf files.
     """
     global logger
     logger = local_logger

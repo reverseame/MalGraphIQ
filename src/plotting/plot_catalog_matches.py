@@ -23,15 +23,18 @@ from plotting import configuration
 # ]
 
 def rename_indexes(df: pd.DataFrame) -> None:
-    """Renames the indexes of the given pandas DataFrame _df_.
+    """
+    Rename the indexes of the given pandas DataFrame _df_.
     
     All changes are made **inplace** so no DataFrame is returned, given that
     the one passed in as parameter will be modified.
 
     This functions assumes a DataFrame in a specific format.
 
-    If the index name is "n_processes", replaces it with "Spawned Processes".
-    Otherwise, delete the ".Total matches" suffix from the indexes.    
+    If the index name is "Number of graphs processed", replaces it with "Spawned Processes", otherwise, delete the ".Total matches" suffix from the indexes.
+
+    Args:
+        df (pd.DataFrame): DataFrame to modify.
     """
     #https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rename.html
     for column_name in df:
@@ -42,7 +45,8 @@ def rename_indexes(df: pd.DataFrame) -> None:
     return df
 
 def drop_methods_indexes(df: pd.DataFrame) -> pd.DataFrame:
-    """Deletes all entrieis from _df_ corresponding to the method-level 
+    """
+    Delete all entrieis from _df_ corresponding to the method-level 
     of the behavioral catalog
 
     https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop.html
@@ -91,7 +95,8 @@ def get_micro_behaviors_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     return new_df
 
 def normalize(df: pd.DataFrame, min: int = 0, max: int = 1, transpose:bool = False) -> pd.DataFrame:
-    """Normalizes the values of the DataFrame _df_ in the given range [min, max].
+    """
+    Normalize the values of the DataFrame _df_ in the given range [min, max].
     By default min is 0 and max is 1.
 
     Transpose is used to indicate whether to transpose de dataframe before normalizing it.
@@ -99,6 +104,15 @@ def normalize(df: pd.DataFrame, min: int = 0, max: int = 1, transpose:bool = Fal
     instead of each micro-behavior. This is used when printing the figures of each category
     where we care about the min() and max() of each sample for the category, not the
     min() and max() of each micro-behavior (the latter sometimes results in divison by zero)
+
+    Args:
+        df (pd.DataFrame): DataFrame to normalize.
+        min (int): Minimum value for normalization (default: 0).
+        max (int): Maximum value for normalization (default: 1).
+        transpose (bool): Whether to transpose the DataFrame before normalization (default: False).
+
+    Returns:
+        pd.DataFrame: Normalized DataFrame.
     """
     if transpose:
         df = df.T
@@ -171,7 +185,23 @@ def get_basic_colors(values_to_color: list) -> list:
             color_list.append(color_maps.behavior_catalog_basic_colormap[value])
     return color_list
 
-def generate_pdf_radarchart(df: pd.DataFrame, fig_title: str, fig_name: str, radarchart_max_scale: int, micro_objective: str = None) -> None:
+def generate_pdf_radarchart(
+    df: pd.DataFrame, 
+    fig_title: str, 
+    fig_name: str, r
+    adarchart_max_scale: int, 
+    micro_objective: str = None
+) -> None:
+    """
+    Generate a radar chart from a DataFrame.
+
+    Args:
+        df (pd.DataFrame): DataFrame with values to plot.
+        fig_title (str): Title of the figure.
+        fig_name (str): Name of the output file.
+        radarchart_max_scale (int): Maximum scale value for the radar chart.
+        micro_objective (Optional[str]): Specific micro-objective for labeling (optional).
+    """
     normalized_df = normalize(df, 0 ,100)
     #df = normalize(df.mean(), 0, 100) # Normalization of the means
     # We are printing only the mean of all the samples, not each one of them individually

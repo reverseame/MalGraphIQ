@@ -14,40 +14,32 @@ MAX_INTERMEDIATE_NODES = 0 # maximum number of intermediate nodes allowed
 PROBABILITY_THRESHOLD = 0.0
 #NO_PROBABILITY = False
 
-def search(g_behavior,
-    behavior_actual_node,
-    pattern_node,
-    pattern_path_to_find,
-    result_path,
-    end_node,
-    step,
-    solutions):
-    '''
+def search(
+    g_behavior: nx.Graph,
+    behavior_actual_node: str,
+    pattern_node: str,
+    pattern_path_to_find: list[str],
+    result_path: list[str],
+    end_node: str,
+    step: int,
+    solutions: list[list[str]]
+) -> list[str]:
+    """
+    Perform a backtracking search for patterns in the behavior graph.
 
-    Parameters:
-        g_behavior: 
-            Graph in which the pattern_path_to_find must be found, in case it exists.
-        behavior_actual_node: 
-            Pointer to the node of g_behavior being iterated over.
-        pattern_node:
-            The node of the pattern we're seeking in the behavior graph at the moment.
-        pattern_path_to_find: 
-            List of nodes (path) to find in g_behavior. This is the 'objective'.
-        result_path: 
-            The path from g_beh that starts and finishes with the same nodes
-            as pattern_path_to_find and contains all the intermediate nodes in the same
-            order with MAX_INTERMEDIATE_NODES intermediary nodes or less.
-        end_node:
-            Final node of pattern_to_find. If this node is found, it means the rest
-            of the pattern has been already traversed and it is present in g_beh with
-            max MAX_INTERMEDIATE_NODES intermediate nodes.
-        step: 
-            Number of steps so far. 
-        solutions:
-            The list of all the paths that represent a solution.
+    Args:
+        g_behavior (nx.Graph): Graph in which the pattern_path_to_find must be found, in case it exists.
+        behavior_actual_node (str): Pointer to the node of g_behavior being iterated over (current node).
+        pattern_node (str): The node of the pattern we're seeking in the behavior graph at the moment.
+        pattern_path_to_find (list[str]): List of nodes (path) to find in g_behavior. This is the 'objective'.
+        result_path (list[str]): The path from g_behavior that starts and finishes with the same nodes as pattern_path_to_find and contains all the intermediate nodes in the same order with MAX_INTERMEDIATE_NODES intermediary nodes or less.
+        end_node (str): Final node of pattern_to_find. If this node is found, it means the rest of the pattern has been already traversed and it is present in g_beh with max MAX_INTERMEDIATE_NODES intermediate nodes.
+        step (int): Current step count.
+        solutions (list[list[str]]): List of all the paths that represent a solution (all matched patterns so far).
 
-    This function is an implementation of the backtracking algorithm
-    '''
+    Returns:
+        list[str]: The result path.
+    """
     # Base condition: the pattern_node we're looking for at the moment 
     # is the end_node of the pattern. In that case, add it to the behavior_path
     # we've got so far and append the solution to solutions
@@ -91,18 +83,17 @@ def search(g_behavior,
 #         return float(edge_attributes[0]['label'])
 #     return 0
 
-def find_paths(g_behavior, behavioral_patterns:dict, pattern_min_length: int):
-    '''
-    Returns the simple paths present in g_behavior in MAX_INTERMEDIATE_NODES
+def find_paths(g_behavior, behavioral_patterns:dict, pattern_min_length: int) -> int:
+    """
+    Finds the simple paths specified in behavioral_patterns present in g_behavior in MAX_INTERMEDIATE_NODES.
 
-    Parameters:
-        g_behavior:
-            Graph in which the simple_paths will be seek.
-        behavioral_patterns:
-            Dict of pairs pattern-id:simple_path to seek in the graph.
-        pattern_min_length:
-            Minimum lenghth (measured in number of nodes) for the simple paths to be considered
-    '''
+    Args:
+        g_behavior (nx.Graph): Behavior graph.
+        behavioral_patterns (dict): Dictionary (pattern-id:simple_path) of patterns to match.
+        pattern_min_length (int): Minimum length of patterns to consider.
+    Returns:
+        int: Number of paths found.
+    """
 
     #print(f"{len(simple_paths)} individual paths to seek {simple_paths}")
 
@@ -186,6 +177,12 @@ def main(behavior_graph: str,
     probability_threshold: int, 
     pattern_min_length: int, 
     logger: logging.Logger) -> dict:
+    """
+    Writes the number of occurrences of each WBC pattern to the output file (or other default name in case output_file is None).
+
+    Returns:
+        Dictionary containing the number of occurrences.
+    """
 
     global MAX_INTERMEDIATE_NODES, PROBABILITY_THRESHOLD
     MAX_INTERMEDIATE_NODES = max_internmediate_nodes
