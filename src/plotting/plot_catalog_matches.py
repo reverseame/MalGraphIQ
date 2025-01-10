@@ -188,8 +188,8 @@ def get_basic_colors(values_to_color: list) -> list:
 def generate_pdf_radarchart(
     df: pd.DataFrame, 
     fig_title: str, 
-    fig_name: str, r
-    adarchart_max_scale: int, 
+    fig_name: str,
+    radarchart_max_scale: int, 
     micro_objective: str = None
 ) -> None:
     """
