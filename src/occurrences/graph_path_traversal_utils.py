@@ -18,17 +18,33 @@ paths_to_filter = {
     "['CryptDestroyKey']":"",
 }
 
-def get_start_node(g: nx.classes.digraph.DiGraph):
+def get_start_node(g: nx.DiGraph) -> str:
+    """
+    Retrieve the start node from a directed graph.
+
+    Args:
+        g (nx.DiGraph): Input graph.
+
+    Returns:
+        str: Start node label.
+    """
     nodes_iterator = iter(g._node)
     first_node = next(nodes_iterator)
     # Start node should also be the first one and the only one with peripheries
     assert(g._node[first_node]["peripheries"] == "2") 
     return first_node
 
-def already_in_paths(simple_paths, path):
-    '''
-    Returns whether a node from the path _path_ is in at least one of the paths in _paths_
-    '''
+def already_in_paths(simple_paths: list[list[str]], path: list[str]) -> bool:
+    """
+    Check if any node from the the path _path_ is in at least one of the paths in _paths_.
+
+    Args:
+        simple_paths (list[list[str]]): List of existing paths.
+        path (list[str]): Path to check for node presence.
+
+    Returns:
+        bool: True if any node from the path is present in the existing paths, False otherwise.
+    """
 
     for aux_path in simple_paths:
         for node in path:
@@ -36,30 +52,36 @@ def already_in_paths(simple_paths, path):
                 return True
     return False
 
-def node_already_in_paths(paths, node):
-    '''
-    Returns whether the node _node_ is in at least one of the paths in _paths_
-    '''
+def node_already_in_paths(paths: list[str], node: str) -> bool:
+    """
+    Check if he node _node_ is present in any of the provided paths.
+
+    Args:
+        paths (list[str]): List of paths, where each path is a list of nodes.
+        node (str): Node to check for presence.
+
+    Returns:
+        bool: True if the node is present in any path, False otherwise.
+    """
     for path in paths:
         if node in path:
             return True
     return False
 
-def filter_simple_paths(paths : list):
-    '''
+def filter_simple_paths(paths: list) -> list:
+    """
     Filters the list paths by deleting all its elements (representing simple paths)
     present in the dict `paths_to_filter`, defined in this file. 
 
     Additionally, this function also deletes the sequence GetCommandLineA, GetCommandLineW
     from the beginning of the path.
 
-    Parameters:
-        paths:
-            The list to filter, where each element is a simple path.
+    Args:
+        paths (list): The list to filter, where each element is a simple path.
 
     Returns:
-        The filtered path list.
-    '''
+        list: The filtered path list.
+    """
 
    
     for i, simple_path in enumerate(paths):
@@ -77,8 +99,8 @@ def filter_simple_paths(paths : list):
 
     return new_paths
     
-def get_simple_paths(g: nx.classes.digraph.DiGraph, start_node, min_length: int = 1):
-    '''
+def get_simple_paths(g: nx.DiGraph, start_node: str, min_length: int = 1) -> list:
+    """
     Returns all the simple paths from start_node to 'others' node in graph g.
 
     If there are other nodes after the 'others' node (that is, 'others'
@@ -87,14 +109,14 @@ def get_simple_paths(g: nx.classes.digraph.DiGraph, start_node, min_length: int 
 
     This function filters the irrelevant paths by invoking filter_simple_paths()
 
-    Parameters:
-        g:
-            The category graph to get the categorical walk from.
-        start_node:
-            The 'Start' node, according to its id/label (they're the same)
-        min_length:
-            Minimum numbers of nodes the simple paths must have. Defaults to 1.
-    '''
+    Args:
+        g (nx.DiGraph): The category graph to get the categorical walk from.
+        start_node (str): The 'Start' node, according to its id/label (they're the same).
+        min_length (int): Minimum numbers of nodes the simple paths must have (default: 1).
+
+    Returns:
+        list: List of simple paths.
+    """
     simple_paths = []
     # get direct paths from 'Start' to 'others'
     for path in nx.all_simple_paths(g, source=start_node, target='others'):
@@ -131,19 +153,31 @@ def get_simple_paths(g: nx.classes.digraph.DiGraph, start_node, min_length: int 
 
     return all_paths
 
-def get_unique_start_nodes(paths):
-    '''
-    Returns a list with the final node of each path in paths (without repetition)
-    '''
+def get_unique_start_nodes(paths: list) -> list:
+    """
+    Get unique start nodes from a list of paths.
+
+    Args:
+        paths (list): List of paths.
+
+    Returns:
+        list: List of unique start nodes.
+    """
     start_nodes = []
     for path in paths:
         start_nodes.append(path[0])
     return list(set(start_nodes))
 
-def get_end_nodes(paths):
-    '''
-    Returns a list with the final node of each path in paths
-    '''
+def get_end_nodes(paths: list) -> list:
+    """
+    Get end nodes from a list of paths.
+
+    Args:
+        paths (list[list[str]]): List of paths.
+
+    Returns:
+        list[str]: List of end nodes.
+    """
     end_nodes = []
     for path in paths:
         end_nodes.append(path[-1])
@@ -151,11 +185,19 @@ def get_end_nodes(paths):
     # this could be a set instead of a list to avoid repeated end nodes (they are unneeded)
     return end_nodes
 
-def is_path_feasible(g_behavior, path):
-    '''
-    Returns whether the path _path_ is feasible in graph _g_behavior_. That is,
-    if all the nodes in _path_ are present in graph _g_behavior_.
-    '''
+def is_path_feasible(g_behavior: nx.Graph, path: list[str]) -> bool:
+    """
+    Check if the path _path_ is feasible in graph _g_behavior_.
+
+    A path is considered feasible if all its nodes are present in the graph.
+
+    Args:
+        g_behavior (nx.Graph): Behavior graph to check against.
+        path (list[str]): Path to verify.
+
+    Returns:
+        bool: True if the path is feasible, False otherwise.
+    """
     behavior_nodes = g_behavior.nodes()
     for node in path:
         if node not in behavior_nodes:
@@ -163,16 +205,22 @@ def is_path_feasible(g_behavior, path):
             return False
     return True
 
-def get_path_probability(g: nx.classes.multidigraph.MultiDiGraph , path: list, initial_probability = 1.0):
-    '''
-    Returns the probability of the path (sequence of connected nodes) _path_ given
-    the graph _g_
+def get_path_probability(g: nx.MultiDiGraph, path: list[str], initial_probability: float = 1.0) -> float:
+    """
+    Calculate the probability of the path (sequence of connected nodes) _path_ given
+    the graph _g_.
 
-    Parameters:
-        g: nx.classes.multidigraph.MultiDiGraph
-        path: list
-        initial_probability = 1.0 (Optional)
-    '''
+    The probability is calculated by multiplying the edge weights (labeled as probabilities)
+    along the path.
+
+    Args:
+        g (nx.MultiDiGraph): Graph containing the path.
+        path (list[str]): List of nodes representing the path.
+        initial_probability (float): Initial probability to start with (default: 1.0).
+
+    Returns:
+        float: Probability of the path.
+    """
     probability = initial_probability
     graph_nodes_adjacency = g._adj
     for src_node, dst_node in zip(path, path[1:]):
@@ -180,23 +228,27 @@ def get_path_probability(g: nx.classes.multidigraph.MultiDiGraph , path: list, i
 
     return probability
 
-def get_all_paths_from_node_to_node_and_probabilities(graph, starting_node, destiny_node, probability_threshold):
-    '''
-    Returns a list of tuples containing each path from starting_node to destiny_node 
-    in graph and the probability of each one of them. The returned list is in the
-    form of: [[path, prob],[path, prob]] where each path is, in turn, a list of 
-    nodes.
-    
-    Parameters:
-        graph:
-            The graph in to perform the operations with.
-        starting_node:
-            The node from which the path to seek will start.
-        destiny_node:
-            The node in which the path to seek will end.
-        probability_threshold:
-            The probability threshold to discard found paths.
-    '''
+def get_all_paths_from_node_to_node_and_probabilities(
+    graph: nx.MultiDiGraph, 
+    starting_node: str,
+    destiny_node: str, 
+    probability_threshold: float
+) -> list[tuple[float, list[str]]]:
+    """
+    Get all paths and their probabilities between two nodes in a graph (from starting_node to destiny_node 
+    in graph).
+
+    Each path is represented as a tuple containing its probability and the sequence of nodes.
+
+    Args:
+        graph (nx.MultiDiGraph): Graph to search for paths.
+        starting_node (str): Node to start the paths from.
+        destiny_node (str): Node where the paths should end.
+        probability_threshold (float): Minimum probability threshold for paths to be considered.
+
+    Returns:
+        list[tuple[float, list[str]]]: List of tuples, each containing the probability and path.
+    """
     #paths = nx.single_source_dijkstra(graph, starting_node, destiny_node, weight=get_label_weight)
     #for i, simple_path in enumerate(nx.all_simple_paths(graph, starting_node, destiny_node, 8)):
     #    print(i, simple_path)

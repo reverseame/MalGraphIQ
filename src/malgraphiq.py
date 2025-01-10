@@ -8,9 +8,12 @@ import occurrences
 import plotting
 
 
-def parse_arguments():
+def parse_arguments() -> argparse.Namespace:
     """
-    Parse and combine arguments required by all three phases.
+    Parse and combine arguments required by all phases.
+
+    Returns:
+        argparse.Namespace: Parsed arguments.
     """
     parser = argparse.ArgumentParser(
         prog="MalGraphIQ",
@@ -144,7 +147,13 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def main():
+def main() -> int:
+    """
+    Entry point for the MalGraphIQ program. Executes different phases based on user input.
+
+    Returns:
+        int: Exit code (0 for success).
+    """
     args = parse_arguments()
 
     logging.basicConfig(level=logging.INFO, format="%(name)s (%(asctime)s) %(levelname)s - %(message)s")

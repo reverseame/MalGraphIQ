@@ -1,4 +1,8 @@
-# Category color scheme. 
+"""
+Category color scheme. 
+No functions defined, only a dictionary of category-to-color mappings.
+"""
+ 
 categories_and_colors = {'filesystem':'#ffe3c5',
     'registry':'#ffc5c5',
     'process':'#c5e0ff',
