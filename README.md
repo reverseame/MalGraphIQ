@@ -14,6 +14,11 @@ Besides installing the modules listed in [requirements.txt](./requirements.txt),
 # How To Use
 TODO
 
+Documentation generated with [pdoc3](https://github.com/pdoc3/pdoc).
+```
+$ PYTHONPATH=src/malgraphiq pdoc3 src/malgraphiq -o doc --html
+```
+
 # Example Data
 TODO
 
