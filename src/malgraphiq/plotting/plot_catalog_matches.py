@@ -416,8 +416,8 @@ def generate_pdf_broken_barchart(
     fig.subplots_adjust(hspace=.1)  # adjust space between axes
 
     # ax1 is the upper part of the figure, ax2 is the lower one
-    ax1bar = ax1.bar(xtick_labels, mean_df.values, label=xtick_labels, color=colors)
-    ax2bar = ax2.bar(xtick_labels, mean_df.values, label=xtick_labels, color=colors)
+    ax1bar = ax1.bar(xtick_labels, mean_df.values, label=xtick_labels, color=colors, zorder=1)
+    ax2bar = ax2.bar(xtick_labels, mean_df.values, label=xtick_labels, color=colors, zorder=1)
 
     # Upper-part of the figure limit:
     ax1.set_ylim(user_supplied_upperylim, 100)
@@ -466,8 +466,21 @@ def generate_pdf_broken_barchart(
     #bar = plt.bar(labels, mean_df.values, label=labels, color=colors)
     #plt.yticks([0, 25, 50, 75, 100])
     
-    ax1.bar_label(ax1bar, label_type='edge', fmt='%.2f%%', size=9, weight='bold') # Converts 0 into 0.00
-    ax2.bar_label(ax2bar, label_type='edge', fmt='%.2f%%', size=9, weight='bold')
+    ax1.bar_label(ax1bar, label_type='edge', fmt='%.2f%%', size=9, weight='bold', zorder=1) # Converts 0 into 0.00
+    ax2.bar_label(ax2bar, label_type='edge', fmt='%.2f%%', size=9, weight='bold', zorder=1)
+    ax1.set_facecolor('none')
+    ax2.set_facecolor('none')
+
+    # Add bar labels based on value range
+    for i, (value, bar) in enumerate(zip(mean_df.values, ax1bar)):
+        # if value <= user_supplied_lowerylim:  # Label in lower part
+        #     ax2.text(bar.get_x() + bar.get_width() / 2, value - 5, f"{value:.2f}%", ha='center', va='bottom', fontsize=9)
+        # elif value >= user_supplied_upperylim:  # Label in upper part
+        #     ax1.text(bar.get_x() + bar.get_width() / 2, value - 5, f"{value:.2f}%", ha='center', va='bottom', fontsize=9)
+        # else:  # Label at the split boundary
+        #     ax1.text(bar.get_x() + bar.get_width() / 2, user_supplied_upperylim - 5, f"{value:.2f}%", ha='center', va='bottom', fontsize=9)
+        if value >= user_supplied_lowerylim and value <= user_supplied_upperylim:
+            ax1.text(bar.get_x() + bar.get_width() / 2, user_supplied_upperylim, f"{value:.2f}%", ha='center', va='bottom', fontsize=9, zorder=2, color='black', weight='bold')
 
     # Format Y axis as percent https://stackoverflow.com/questions/31357611/format-y-axis-as-percent
     ax1.yaxis.set_major_formatter(mtick.PercentFormatter())
