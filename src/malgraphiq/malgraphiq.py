@@ -56,7 +56,7 @@ def parse_arguments() -> argparse.Namespace:
     parser_behavior = subparsers.add_parser("occurrences", 
         help="Behavior Pattern Occurrences phase. Generates the occurrences of each pattern from the Windows Behavior Catalog (WBC) against the specified graph/s. WBC patterns are identified in the specified graph/s using a backtracking algorithm.")
     parser_behavior.add_argument("behavior_graph", 
-        help="The behavior .gv file or directory in which patterns will be sought. In case a directory is specified, only .gv files will be considered.")
+        help="A behavior .gv file directory or list of directories containing .gv files in which patterns will be sought. In the second and third case, the program automatically parses all the .gv files contained in each directory.")
     parser_behavior.add_argument("-c", "--catalog", required=True, type=str, 
         help="Path to the Windows Behavior Catalog (WBC) in JSON format. See https://github.com/reverseame/windows-behavior-catalog.")
     parser_behavior.add_argument("-m", "--max_inter_nodes", type=int, default=0, 
@@ -236,17 +236,15 @@ def main() -> int:
 
         # Step 2: Occurrences Phase
         logger.info("[+] Starting occurrences phase [+]")
-        wbc_occurrences_list = []
-        for category_graph_path in generated_category_graph_paths:
-            wbc_occurrences_list.append(occurrences.behavioral_pattern_occurrences(
-                category_graph_path,
+        wbc_occurrences_list = occurrences.behavioral_pattern_occurrences(
+                generated_category_graph_paths,
                 args.catalog,
                 args.json_output_file,
                 args.max_inter_nodes,
                 args.prob_threshold,
                 args.pattern_min_length,
                 logger
-            ))
+            )
         logger.info("[+] Occurrences phase completed [+]")
 
         # Step 3: Plots Phase

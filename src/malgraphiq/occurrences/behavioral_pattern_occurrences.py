@@ -91,7 +91,7 @@ def find_paths(g_behavior, behavioral_patterns:dict, pattern_min_length: int) ->
         g_behavior (nx.Graph): Behavior graph.
         behavioral_patterns (dict): Dictionary (pattern-id:simple_path) of patterns to match.
         pattern_min_length (int): Minimum length of patterns to consider.
-        
+
     Returns:
         int: Number of paths found.
     """
@@ -171,7 +171,7 @@ def find_paths(g_behavior, behavioral_patterns:dict, pattern_min_length: int) ->
     return full_paths_found
 
 
-def main(behavior_graph: str, 
+def main(behavior_graph_or_dir: str | list[str], 
     catalog: str, 
     output_file: str, 
     max_internmediate_nodes: int, 
@@ -180,6 +180,8 @@ def main(behavior_graph: str,
     logger: logging.Logger) -> dict:
     """
     Writes the number of occurrences of each WBC pattern to the output file (or other default name in case output_file is None).
+    The first arguments can be either a .gv file, a directory containing .gv files or a list of directories containing .gv files. 
+    In the second and third case, the program automatically parses all the .gv files contained in each directory.
 
     Returns:
         Dictionary containing the number of occurrences.
@@ -189,13 +191,18 @@ def main(behavior_graph: str,
     MAX_INTERMEDIATE_NODES = max_internmediate_nodes
     PROBABILITY_THRESHOLD = probability_threshold
 
-    behavior_graphs = []
-    if path.isfile(behavior_graph):
-        behavior_graphs.append(behavior_graph)
-    elif path.isdir(behavior_graph):
-        behavior_graphs = glob.glob(behavior_graph+"/*.gv")
+    behavior_graphs = {}
+
+    if isinstance(behavior_graph_or_dir, list):
+        for directory in behavior_graph_or_dir:
+            behavior_graphs[directory] = glob.glob(directory+"/*.gv")
     else:
-        logger.error("[!] ERROR. Unrecognized behavior parameters. Aborting.")
+        if path.isfile(behavior_graph_or_dir):
+            behavior_graphs[behavior_graph_or_dir] = behavior_graph_or_dir
+        elif path.isdir(behavior_graph_or_dir):
+            behavior_graphs[behavior_graph_or_dir] = glob.glob(behavior_graph_or_dir+"/*.gv")
+        else:
+            logger.error("[!] ERROR. Unrecognized behavior parameters. Aborting.")
 
     try:
         with open(catalog, encoding='utf-8') as catalog_file:
@@ -205,54 +212,57 @@ def main(behavior_graph: str,
         sys.exit()
 
     combined_results = {}
+    results = []
 
-    json_output_file = f"pattern_results_{time.asctime().replace(' ','_')}.json" if not output_file else output_file+".json"
     
-    for behavior_graph in behavior_graphs:
-        logger.info(f"[*] Analyzing graph {behavior_graph}")
-        g_behavior = nx.nx_agraph.read_dot(behavior_graph)
-        for micro_objective in behavior_catalog:
-            # micro_objective_id = micro_objective[:8]
-            number_of_matches_per_micro_objective = 0
-            for micro_behavior in behavior_catalog[micro_objective]:
-                # micro_behavior_id = micro_behavior[:7]
-                number_of_matches_per_micro_behavior = 0
-                for method in behavior_catalog[micro_objective][micro_behavior]:
-                    #method_id = method[:method.index(']')]                    
-                    behavioral_patterns = behavior_catalog[micro_objective][micro_behavior][method]
-                    number_of_full_paths = find_paths(g_behavior, behavioral_patterns, pattern_min_length)
-                    if number_of_full_paths > 0:
-                        number_of_matches_per_micro_behavior += number_of_full_paths                        
-                    # Creating the dictionary skeleton and populating it
-                    if f"{micro_objective}" not in combined_results:
-                        combined_results[f"{micro_objective}"] = {}
-                    if f"{micro_behavior}" not in combined_results[f"{micro_objective}"]:
-                        combined_results[f"{micro_objective}"][f"{micro_behavior}"] = {}
-                    if f"{method}" not in combined_results[f"{micro_objective}"][f"{micro_behavior}"]:
-                        combined_results[f"{micro_objective}"][f"{micro_behavior}"][f"{method}"] = number_of_full_paths
+    for directory in behavior_graphs:
+        json_output_file = f"pattern_results_{time.asctime().replace(' ','_')}_{directory.replace(' ','').replace('/', '_')}.json" if not output_file else output_file+f"_{directory.replace(' ','').replace('/', '_')}.json"
+        logger.info(f"[*] Analyzing graphs from {directory}")
+        for behavior_graph in behavior_graphs[directory]:
+            logger.info(f"[*] Analyzing graph {behavior_graph}")
+            g_behavior = nx.nx_agraph.read_dot(behavior_graph)
+            for micro_objective in behavior_catalog:
+                # micro_objective_id = micro_objective[:8]
+                number_of_matches_per_micro_objective = 0
+                for micro_behavior in behavior_catalog[micro_objective]:
+                    # micro_behavior_id = micro_behavior[:7]
+                    number_of_matches_per_micro_behavior = 0
+                    for method in behavior_catalog[micro_objective][micro_behavior]:
+                        #method_id = method[:method.index(']')]                    
+                        behavioral_patterns = behavior_catalog[micro_objective][micro_behavior][method]
+                        number_of_full_paths = find_paths(g_behavior, behavioral_patterns, pattern_min_length)
+                        if number_of_full_paths > 0:
+                            number_of_matches_per_micro_behavior += number_of_full_paths                        
+                        # Creating the dictionary skeleton and populating it
+                        if f"{micro_objective}" not in combined_results:
+                            combined_results[f"{micro_objective}"] = {}
+                        if f"{micro_behavior}" not in combined_results[f"{micro_objective}"]:
+                            combined_results[f"{micro_objective}"][f"{micro_behavior}"] = {}
+                        if f"{method}" not in combined_results[f"{micro_objective}"][f"{micro_behavior}"]:
+                            combined_results[f"{micro_objective}"][f"{micro_behavior}"][f"{method}"] = number_of_full_paths
+                        else:
+                            combined_results[f"{micro_objective}"][f"{micro_behavior}"][f"{method}"] += number_of_full_paths
+                    # After each micro_behavior is done, we add its matches to the total per micro_objectvie
+                    number_of_matches_per_micro_objective += number_of_matches_per_micro_behavior
+                    # After each micro_behavior is done, we add its total matches to the dictionary
+                    if "Total matches" not in combined_results[f"{micro_objective}"][f"{micro_behavior}"]:
+                        combined_results[f"{micro_objective}"][f"{micro_behavior}"]["Total matches"] = number_of_matches_per_micro_behavior
                     else:
-                        combined_results[f"{micro_objective}"][f"{micro_behavior}"][f"{method}"] += number_of_full_paths
-                # After each micro_behavior is done, we add its matches to the total per micro_objectvie
-                number_of_matches_per_micro_objective += number_of_matches_per_micro_behavior
-                # After each micro_behavior is done, we add its total matches to the dictionary
-                if "Total matches" not in combined_results[f"{micro_objective}"][f"{micro_behavior}"]:
-                    combined_results[f"{micro_objective}"][f"{micro_behavior}"]["Total matches"] = number_of_matches_per_micro_behavior
+                        combined_results[f"{micro_objective}"][f"{micro_behavior}"]["Total matches"] += number_of_matches_per_micro_behavior
+                # After each micro_objective is done, we add its total matches to the dictionary
+                if "Total matches" not in combined_results[f"{micro_objective}"]:
+                    combined_results[f"{micro_objective}"]["Total matches"] = number_of_matches_per_micro_objective
                 else:
-                    combined_results[f"{micro_objective}"][f"{micro_behavior}"]["Total matches"] += number_of_matches_per_micro_behavior
-            # After each micro_objective is done, we add its total matches to the dictionary
-            if "Total matches" not in combined_results[f"{micro_objective}"]:
-                combined_results[f"{micro_objective}"]["Total matches"] = number_of_matches_per_micro_objective
-            else:
-                combined_results[f"{micro_objective}"]["Total matches"] += number_of_matches_per_micro_objective
+                    combined_results[f"{micro_objective}"]["Total matches"] += number_of_matches_per_micro_objective
 
-    combined_results['Number of graphs processed'] = len(behavior_graphs)
-    try:
-        logger.info(f"[*] Dumping results to {json_output_file} file")
-        with open(f"{json_output_file}", "w") as f:
-            json.dump(combined_results, f)
-        logger.info("[*] Finished dumping to file.")
-    except Exception as e:
-        logger.error(f"[!] An unexpected error occurred: {e}. Cannot write file {json_output_file}")
-
+        combined_results['Number of graphs processed'] = len(behavior_graphs)
+        try:
+            logger.info(f"[*] Dumping results to {json_output_file} file")
+            with open(f"{json_output_file}", "w") as f:
+                json.dump(combined_results, f)
+            logger.info("[*] Finished dumping to file.")
+        except Exception as e:
+            logger.error(f"[!] An unexpected error occurred: {e}. Cannot write file {json_output_file}")
+        results.append(combined_results)
     logger.info(f"[*] Finished matching WBC patterns against {len(behavior_graphs)} graph files.")
-    return combined_results
+    return results

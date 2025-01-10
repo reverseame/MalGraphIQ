@@ -137,6 +137,7 @@ def normalize(df: pd.DataFrame, min: int = 0, max: int = 1, transpose:bool = Fal
     if transpose:
         df = df.T
     #normalized_df = (df-df.min()) / (df.max()-df.min()) * ((max - min) + min)
+    
     normalized_df = (df) / (df.max()) * ((max - min) + min)
     #normalized_df = df / (df.max()-df.min()) * ((max - min) + min)
     #normalized_df['Spawned Processes'] = df['Spawned Processes'] #Restore value, no need to normalize
@@ -267,7 +268,8 @@ def generate_pdf_radarchart(
         radarchart_max_scale (int): Maximum scale value for the radar chart.
         micro_objective (Optional[str]): Specific micro-objective for labeling (optional).
     """
-    normalized_df = normalize(df, 0 ,100)
+    breakpoint()
+    normalized_df = normalize(df, 0, 100)
     #df = normalize(df.mean(), 0, 100) # Normalization of the means
     # We are printing only the mean of all the samples, not each one of them individually
     mean_df = normalized_df.mean() # IMPORTANT!!! Get the mean() AFTER normalization
@@ -374,6 +376,7 @@ def generate_pdf_broken_barchart(
 
     # Normalize data
     normalized_df = normalize(df, 0, 100)
+
     # Get the mean
     mean_df = normalized_df.mean()
     #Transform data into percentage
@@ -616,7 +619,7 @@ def main(json_catalog_matches: str | list,
     Generate charts and visualizations for catalog matches.
 
     Args:
-        json_catalog_matches (Union[str, list[dict]]): JSON file(s) or dictionary of catalog matches.
+        json_catalog_matches (str | dict): JSON file, directory containing JSON files or a list of dictionaries of catalog matches.
         figure_title (str): Title for the generated charts.
         radarchart_max_scale (int): Maximum scale for radar charts.
         catalog_matches_plot_dir (str): Directory to save generated plots.
