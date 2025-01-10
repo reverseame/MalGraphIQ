@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>malgraphiq.occurrences.behavioral_pattern_occurrences API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>malgraphiq.occurrences.behavioral_pattern_occurrences</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="malgraphiq.occurrences.behavioral_pattern_occurrences.find_paths"><code class="name flex">
+<span>def <span class="ident">find_paths</span></span>(<span>g_behavior, behavioral_patterns: dict, pattern_min_length: int) ‑> int</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def find_paths(g_behavior, behavioral_patterns:dict, pattern_min_length: int) -&gt; int:
+    &#34;&#34;&#34;
+    Finds the simple paths specified in behavioral_patterns present in g_behavior in MAX_INTERMEDIATE_NODES.
+
+    Args:
+        g_behavior (nx.Graph): Behavior graph.
+        behavioral_patterns (dict): Dictionary (pattern-id:simple_path) of patterns to match.
+        pattern_min_length (int): Minimum length of patterns to consider.
+        
+    Returns:
+        int: Number of paths found.
+    &#34;&#34;&#34;
+
+    #print(f&#34;{len(simple_paths)} individual paths to seek {simple_paths}&#34;)
+
+    # Get only .values() because behavioral_patterns is a dictionary whose key
+    # is the ID of the pattern (.e.g: [C0036.004-P6]) and the value is the
+    # pattern itself
+    simple_paths = list(behavioral_patterns.values())
+    end_nodes = graph_path_traversal_utils.get_end_nodes(simple_paths)
+
+    # We get the list of uniques first nodes of each simple path (pattern) to find:
+    first_nodes = graph_path_traversal_utils.get_unique_start_nodes(simple_paths)
+    # For each of these uniques first nodes, we get the probabilities from &#39;Start&#39;
+    # and insert them in a dictionary
+    from_start_to_path = {}
+    for node in first_nodes:
+        if not g_behavior.has_node(node):
+            continue
+        start_node = graph_path_traversal_utils.get_start_node(g_behavior)
+        # If start_node is the same node as target_node, nx.all_simple_paths(...) will return nothing when,
+        # in this particular case, the path from start_node to target_node is the node itself
+        if start_node == node:
+            paths_for_node = [(1.0, start_node)]
+        else:
+            paths_for_node = graph_path_traversal_utils.get_all_paths_from_node_to_node_and_probabilities(g_behavior, start_node, node, PROBABILITY_THRESHOLD)
+        from_start_to_path[node] = paths_for_node
+        #print(f&#34;Paths from Start to node {node}_ {paths_for_node}&#34;)   
+        &#34;&#34;&#34;
+        from_Start_to_path contains all the possible paths for any given node 
+        from the &#39;Start&#39; node to that node in the form of:
+        {&#39;Node&#39;:[
+            (probability, [path_from_Start_to_node]),
+            (probability, [path_from_Start_to_node]),
+            (probability, [path_from_Start_to_node])
+            ]
+        }
+        &#34;&#34;&#34;
+    full_paths_found = 0
+    for i, simple_path in enumerate(simple_paths):
+        if (not graph_path_traversal_utils.is_path_feasible(g_behavior, simple_path)) or (len(simple_path) &lt; pattern_min_length): 
+            continue
+
+        start_node = simple_path[0]
+        current_path = []
+        solutions = []
+        current_path.append(start_node)
+
+        if len(simple_path) == 1: # Single node simple_path
+            solutions.append(simple_path) # Since this pattern is only 1 node long and the paths is feasible, just add it to solutions
+        else:
+            search(g_behavior, start_node, simple_path[1], simple_path[1:], current_path, end_nodes[i], 0, solutions) # Notice simple_path got deleted the first node because it is start_node and also the first one in path. We want to find the next nodes, excluding this first node.
+        if not solutions:
+            continue
+        
+        # If there is no probability threshold, the number of solutions found equals to the number 
+        # of paths from the &#39;Start&#39; node to solution[0]
+        if PROBABILITY_THRESHOLD == 0.0:
+            for solution in solutions:
+                full_paths_found += len(from_start_to_path[solution[0]])
+        else:
+            for solution in solutions:
+                if len(solution) == 1:
+                    for prior_path in from_start_to_path[solution[0]]:
+                        probability_of_full_solution = prior_path[0]
+                        if probability_of_full_solution &gt; PROBABILITY_THRESHOLD:
+                            full_paths_found += 1
+                else:
+                    probability_of_solution = get_path_probability(g_behavior, solution)
+                    if probability_of_solution &gt; PROBABILITY_THRESHOLD:
+                        for prior_path in from_start_to_path[solution[0]]:
+
+                            probability_of_full_solution = probability_of_solution*prior_path[0]
+                            if probability_of_full_solution &gt; PROBABILITY_THRESHOLD:
+                                full_paths_found += 1
+    return full_paths_found</code></pre>
+</details>
+<div class="desc"><p>Finds the simple paths specified in behavioral_patterns present in g_behavior in MAX_INTERMEDIATE_NODES.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>g_behavior</code></strong> :&ensp;<code>nx.Graph</code></dt>
+<dd>Behavior graph.</dd>
+<dt><strong><code>behavioral_patterns</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary (pattern-id:simple_path) of patterns to match.</dd>
+<dt><strong><code>pattern_min_length</code></strong> :&ensp;<code>int</code></dt>
+<dd>Minimum length of patterns to consider.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>Number of paths found.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.occurrences.behavioral_pattern_occurrences.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>behavior_graph: str,<br>catalog: str,<br>output_file: str,<br>max_internmediate_nodes: int,<br>probability_threshold: int,<br>pattern_min_length: int,<br>logger: logging.Logger) ‑> dict</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main(behavior_graph: str, 
+    catalog: str, 
+    output_file: str, 
+    max_internmediate_nodes: int, 
+    probability_threshold: int, 
+    pattern_min_length: int, 
+    logger: logging.Logger) -&gt; dict:
+    &#34;&#34;&#34;
+    Writes the number of occurrences of each WBC pattern to the output file (or other default name in case output_file is None).
+
+    Returns:
+        Dictionary containing the number of occurrences.
+    &#34;&#34;&#34;
+
+    global MAX_INTERMEDIATE_NODES, PROBABILITY_THRESHOLD
+    MAX_INTERMEDIATE_NODES = max_internmediate_nodes
+    PROBABILITY_THRESHOLD = probability_threshold
+
+    behavior_graphs = []
+    if path.isfile(behavior_graph):
+        behavior_graphs.append(behavior_graph)
+    elif path.isdir(behavior_graph):
+        behavior_graphs = glob.glob(behavior_graph+&#34;/*.gv&#34;)
+    else:
+        logger.error(&#34;[!] ERROR. Unrecognized behavior parameters. Aborting.&#34;)
+
+    try:
+        with open(catalog, encoding=&#39;utf-8&#39;) as catalog_file:
+            behavior_catalog = json.load(catalog_file)
+    except Exception as e:
+        logger.error(f&#34;[!] An unexpected error occurred: {e}. Cannot open {catalog}. ABORTING [!]&#34;)
+        sys.exit()
+
+    combined_results = {}
+
+    json_output_file = f&#34;pattern_results_{time.asctime().replace(&#39; &#39;,&#39;_&#39;)}.json&#34; if not output_file else output_file+&#34;.json&#34;
+    
+    for behavior_graph in behavior_graphs:
+        logger.info(f&#34;[*] Analyzing graph {behavior_graph}&#34;)
+        g_behavior = nx.nx_agraph.read_dot(behavior_graph)
+        for micro_objective in behavior_catalog:
+            # micro_objective_id = micro_objective[:8]
+            number_of_matches_per_micro_objective = 0
+            for micro_behavior in behavior_catalog[micro_objective]:
+                # micro_behavior_id = micro_behavior[:7]
+                number_of_matches_per_micro_behavior = 0
+                for method in behavior_catalog[micro_objective][micro_behavior]:
+                    #method_id = method[:method.index(&#39;]&#39;)]                    
+                    behavioral_patterns = behavior_catalog[micro_objective][micro_behavior][method]
+                    number_of_full_paths = find_paths(g_behavior, behavioral_patterns, pattern_min_length)
+                    if number_of_full_paths &gt; 0:
+                        number_of_matches_per_micro_behavior += number_of_full_paths                        
+                    # Creating the dictionary skeleton and populating it
+                    if f&#34;{micro_objective}&#34; not in combined_results:
+                        combined_results[f&#34;{micro_objective}&#34;] = {}
+                    if f&#34;{micro_behavior}&#34; not in combined_results[f&#34;{micro_objective}&#34;]:
+                        combined_results[f&#34;{micro_objective}&#34;][f&#34;{micro_behavior}&#34;] = {}
+                    if f&#34;{method}&#34; not in combined_results[f&#34;{micro_objective}&#34;][f&#34;{micro_behavior}&#34;]:
+                        combined_results[f&#34;{micro_objective}&#34;][f&#34;{micro_behavior}&#34;][f&#34;{method}&#34;] = number_of_full_paths
+                    else:
+                        combined_results[f&#34;{micro_objective}&#34;][f&#34;{micro_behavior}&#34;][f&#34;{method}&#34;] += number_of_full_paths
+                # After each micro_behavior is done, we add its matches to the total per micro_objectvie
+                number_of_matches_per_micro_objective += number_of_matches_per_micro_behavior
+                # After each micro_behavior is done, we add its total matches to the dictionary
+                if &#34;Total matches&#34; not in combined_results[f&#34;{micro_objective}&#34;][f&#34;{micro_behavior}&#34;]:
+                    combined_results[f&#34;{micro_objective}&#34;][f&#34;{micro_behavior}&#34;][&#34;Total matches&#34;] = number_of_matches_per_micro_behavior
+                else:
+                    combined_results[f&#34;{micro_objective}&#34;][f&#34;{micro_behavior}&#34;][&#34;Total matches&#34;] += number_of_matches_per_micro_behavior
+            # After each micro_objective is done, we add its total matches to the dictionary
+            if &#34;Total matches&#34; not in combined_results[f&#34;{micro_objective}&#34;]:
+                combined_results[f&#34;{micro_objective}&#34;][&#34;Total matches&#34;] = number_of_matches_per_micro_objective
+            else:
+                combined_results[f&#34;{micro_objective}&#34;][&#34;Total matches&#34;] += number_of_matches_per_micro_objective
+
+    combined_results[&#39;Number of graphs processed&#39;] = len(behavior_graphs)
+    try:
+        logger.info(f&#34;[*] Dumping results to {json_output_file} file&#34;)
+        with open(f&#34;{json_output_file}&#34;, &#34;w&#34;) as f:
+            json.dump(combined_results, f)
+        logger.info(&#34;[*] Finished dumping to file.&#34;)
+    except Exception as e:
+        logger.error(f&#34;[!] An unexpected error occurred: {e}. Cannot write file {json_output_file}&#34;)
+
+    logger.info(f&#34;[*] Finished matching WBC patterns against {len(behavior_graphs)} graph files.&#34;)
+    return combined_results</code></pre>
+</details>
+<div class="desc"><p>Writes the number of occurrences of each WBC pattern to the output file (or other default name in case output_file is None).</p>
+<h2 id="returns">Returns</h2>
+<p>Dictionary containing the number of occurrences.</p></div>
+</dd>
+<dt id="malgraphiq.occurrences.behavioral_pattern_occurrences.search"><code class="name flex">
+<span>def <span class="ident">search</span></span>(<span>g_behavior: networkx.classes.graph.Graph,<br>behavior_actual_node: str,<br>pattern_node: str,<br>pattern_path_to_find: list[str],<br>result_path: list[str],<br>end_node: str,<br>step: int,<br>solutions: list[list[str]]) ‑> list[str]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def search(
+    g_behavior: nx.Graph,
+    behavior_actual_node: str,
+    pattern_node: str,
+    pattern_path_to_find: list[str],
+    result_path: list[str],
+    end_node: str,
+    step: int,
+    solutions: list[list[str]]
+) -&gt; list[str]:
+    &#34;&#34;&#34;
+    Perform a backtracking search for patterns in the behavior graph.
+
+    Args:
+        g_behavior (nx.Graph): Graph in which the pattern_path_to_find must be found, in case it exists.
+        behavior_actual_node (str): Pointer to the node of g_behavior being iterated over (current node).
+        pattern_node (str): The node of the pattern we&#39;re seeking in the behavior graph at the moment.
+        pattern_path_to_find (list[str]): List of nodes (path) to find in g_behavior. This is the &#39;objective&#39;.
+        result_path (list[str]): The path from g_behavior that starts and finishes with the same nodes as pattern_path_to_find and contains all the intermediate nodes in the same order with MAX_INTERMEDIATE_NODES intermediary nodes or less.
+        end_node (str): Final node of pattern_to_find. If this node is found, it means the rest of the pattern has been already traversed and it is present in g_beh with max MAX_INTERMEDIATE_NODES intermediate nodes.
+        step (int): Current step count.
+        solutions (list[list[str]]): List of all the paths that represent a solution (all matched patterns so far).
+
+    Returns:
+        list[str]: The result path.
+    &#34;&#34;&#34;
+    # Base condition: the pattern_node we&#39;re looking for at the moment 
+    # is the end_node of the pattern. In that case, add it to the behavior_path
+    # we&#39;ve got so far and append the solution to solutions
+    if behavior_actual_node == end_node:
+        solution = result_path.copy()
+        solutions.append(solution) 
+        return result_path
+
+    previous_length = len(result_path)
+    # children = g_behavior.successors(behavior_actual_node)
+    # The difference with successors() is that descendants() does not include itself
+    # in case there is a loop (edge with same source and destiny) like (Node_X) ----&gt; (Node_X))
+    children = nx.descendants_at_distance(g_behavior,behavior_actual_node, 1)
+    for child in children:
+        if child == pattern_node:
+            aux_path = result_path.copy()
+            # If this child turns out to be the pattern_node we&#39;re seeking, add it to the result_path
+            aux_path.append(child)
+            # and now the next node we&#39;re seeking is the next node in pattern_path_to_find
+            if pattern_path_to_find[-1] != pattern_node:
+                aux_pattern_node = pattern_path_to_find[pattern_path_to_find.index(pattern_node)+1] 
+            else:
+                aux_pattern_node = pattern_node
+            search(g_behavior, child, aux_pattern_node, pattern_path_to_find, aux_path, end_node, 0, solutions)
+        elif step &lt; MAX_INTERMEDIATE_NODES:
+            aux_path = result_path.copy()
+            aux_path.append(child)
+            search(g_behavior, child, pattern_node, pattern_path_to_find, aux_path, end_node, step + 1, solutions)
+
+        if result_path[-1] != end_node and len(result_path) != previous_length:
+            # If finished iterating the branch of this child and the final node (end_node)
+            # has not been reached (result_path[-1] != end_node) which means the pattern has not been found
+            # yet and, at the same time, this child has been added to the result_path (len(result_path) != previous_length):
+            # pop it because this child is not part of the solution (the seeked path)
+            result_path.pop()
+
+    return result_path</code></pre>
+</details>
+<div class="desc"><p>Perform a backtracking search for patterns in the behavior graph.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>g_behavior</code></strong> :&ensp;<code>nx.Graph</code></dt>
+<dd>Graph in which the pattern_path_to_find must be found, in case it exists.</dd>
+<dt><strong><code>behavior_actual_node</code></strong> :&ensp;<code>str</code></dt>
+<dd>Pointer to the node of g_behavior being iterated over (current node).</dd>
+<dt><strong><code>pattern_node</code></strong> :&ensp;<code>str</code></dt>
+<dd>The node of the pattern we're seeking in the behavior graph at the moment.</dd>
+<dt><strong><code>pattern_path_to_find</code></strong> :&ensp;<code>list[str]</code></dt>
+<dd>List of nodes (path) to find in g_behavior. This is the 'objective'.</dd>
+<dt><strong><code>result_path</code></strong> :&ensp;<code>list[str]</code></dt>
+<dd>The path from g_behavior that starts and finishes with the same nodes as pattern_path_to_find and contains all the intermediate nodes in the same order with MAX_INTERMEDIATE_NODES intermediary nodes or less.</dd>
+<dt><strong><code>end_node</code></strong> :&ensp;<code>str</code></dt>
+<dd>Final node of pattern_to_find. If this node is found, it means the rest of the pattern has been already traversed and it is present in g_beh with max MAX_INTERMEDIATE_NODES intermediate nodes.</dd>
+<dt><strong><code>step</code></strong> :&ensp;<code>int</code></dt>
+<dd>Current step count.</dd>
+<dt><strong><code>solutions</code></strong> :&ensp;<code>list[list[str]]</code></dt>
+<dd>List of all the paths that represent a solution (all matched patterns so far).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list[str]</code></dt>
+<dd>The result path.</dd>
+</dl></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="malgraphiq.occurrences" href="index.html">malgraphiq.occurrences</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="malgraphiq.occurrences.behavioral_pattern_occurrences.find_paths" href="#malgraphiq.occurrences.behavioral_pattern_occurrences.find_paths">find_paths</a></code></li>
+<li><code><a title="malgraphiq.occurrences.behavioral_pattern_occurrences.main" href="#malgraphiq.occurrences.behavioral_pattern_occurrences.main">main</a></code></li>
+<li><code><a title="malgraphiq.occurrences.behavioral_pattern_occurrences.search" href="#malgraphiq.occurrences.behavioral_pattern_occurrences.search">search</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

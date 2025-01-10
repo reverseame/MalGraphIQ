@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>malgraphiq.occurrences.graph_path_traversal_utils API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>malgraphiq.occurrences.graph_path_traversal_utils</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="malgraphiq.occurrences.graph_path_traversal_utils.already_in_paths"><code class="name flex">
+<span>def <span class="ident">already_in_paths</span></span>(<span>simple_paths: list[list[str]], path: list[str]) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def already_in_paths(simple_paths: list[list[str]], path: list[str]) -&gt; bool:
+    &#34;&#34;&#34;
+    Check if any node from the the path _path_ is in at least one of the paths in _paths_.
+
+    Args:
+        simple_paths (list[list[str]]): List of existing paths.
+        path (list[str]): Path to check for node presence.
+
+    Returns:
+        bool: True if any node from the path is present in the existing paths, False otherwise.
+    &#34;&#34;&#34;
+
+    for aux_path in simple_paths:
+        for node in path:
+            if node in aux_path:
+                return True
+    return False</code></pre>
+</details>
+<div class="desc"><p>Check if any node from the the path <em>path</em> is in at least one of the paths in <em>paths</em>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>simple_paths</code></strong> :&ensp;<code>list[list[str]]</code></dt>
+<dd>List of existing paths.</dd>
+<dt><strong><code>path</code></strong> :&ensp;<code>list[str]</code></dt>
+<dd>Path to check for node presence.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if any node from the path is present in the existing paths, False otherwise.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.occurrences.graph_path_traversal_utils.filter_simple_paths"><code class="name flex">
+<span>def <span class="ident">filter_simple_paths</span></span>(<span>paths: list) ‑> list</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def filter_simple_paths(paths: list) -&gt; list:
+    &#34;&#34;&#34;
+    Filters the list paths by deleting all its elements (representing simple paths)
+    present in the dict `paths_to_filter`, defined in this file. 
+
+    Additionally, this function also deletes the sequence GetCommandLineA, GetCommandLineW
+    from the beginning of the path.
+
+    Args:
+        paths (list): The list to filter, where each element is a simple path.
+
+    Returns:
+        list: The filtered path list.
+    &#34;&#34;&#34;
+
+   
+    for i, simple_path in enumerate(paths):
+        #if len(simple_path) &gt;= 2 and simple_path[0] == &#39;GetCommandLine&#39; and simple_path[1] == &#39;GetCommandLine&#39;:
+        #    paths[i] = simple_path[2:]
+        if len(simple_path) &gt;= 1 and simple_path[0] == &#39;GetCommandLine&#39;:
+            paths[i] = simple_path[1:]
+
+
+    new_paths = []
+
+    for path in paths:
+        if str(path) not in paths_to_filter:
+            new_paths.append(path)
+
+    return new_paths</code></pre>
+</details>
+<div class="desc"><p>Filters the list paths by deleting all its elements (representing simple paths)
+present in the dict <code>paths_to_filter</code>, defined in this file. </p>
+<p>Additionally, this function also deletes the sequence GetCommandLineA, GetCommandLineW
+from the beginning of the path.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>paths</code></strong> :&ensp;<code>list</code></dt>
+<dd>The list to filter, where each element is a simple path.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>The filtered path list.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.occurrences.graph_path_traversal_utils.get_all_paths_from_node_to_node_and_probabilities"><code class="name flex">
+<span>def <span class="ident">get_all_paths_from_node_to_node_and_probabilities</span></span>(<span>graph: networkx.classes.multidigraph.MultiDiGraph,<br>starting_node: str,<br>destiny_node: str,<br>probability_threshold: float) ‑> list[tuple[float, list[str]]]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_all_paths_from_node_to_node_and_probabilities(
+    graph: nx.MultiDiGraph, 
+    starting_node: str,
+    destiny_node: str, 
+    probability_threshold: float
+) -&gt; list[tuple[float, list[str]]]:
+    &#34;&#34;&#34;
+    Get all paths and their probabilities between two nodes in a graph (from starting_node to destiny_node 
+    in graph).
+
+    Each path is represented as a tuple containing its probability and the sequence of nodes.
+
+    Args:
+        graph (nx.MultiDiGraph): Graph to search for paths.
+        starting_node (str): Node to start the paths from.
+        destiny_node (str): Node where the paths should end.
+        probability_threshold (float): Minimum probability threshold for paths to be considered.
+
+    Returns:
+        list[tuple[float, list[str]]]: List of tuples, each containing the probability and path.
+    &#34;&#34;&#34;
+    #paths = nx.single_source_dijkstra(graph, starting_node, destiny_node, weight=get_label_weight)
+    #for i, simple_path in enumerate(nx.all_simple_paths(graph, starting_node, destiny_node, 8)):
+    #    print(i, simple_path)
+
+    ## CONFIGURATION PARAMETER: &#39;cutoff&#39; -&gt; This has a huge impact on the results.
+    ## Based on our experiments, 5 is enough for the vast majority of the cases.
+    paths = list(nx.all_simple_paths(graph, starting_node, destiny_node, 5)) # NEED TO LIMIT SOMEHOW THE LENGTH OF SIMPLE PATHS
+    graph_nodes_adjacency = graph._adj
+    all_paths = []
+    for path in paths:
+        skip = False
+        probability = 1.0
+        for src_node, dst_node in zip(path, path[1:]):
+            weight = graph_nodes_adjacency[src_node][dst_node][0]
+            if &#39;label&#39; in weight:
+                probability *= float(weight[&#39;label&#39;])
+            # If the probability of the path so far is under the threshold, we omit
+            # this path and skip to the next one
+            if probability &lt; probability_threshold:
+                skip = True
+                break
+        #print(f&#34;Probability is: {probability} and threshold: {PROBABILITY_THRESHOLD}&#34;)
+        if not skip:
+            all_paths.append((probability, path))
+    #pprint(sorted(all_paths))
+    #sys.exit()
+    #for path in paths:
+    #    pprint(path)
+    return all_paths</code></pre>
+</details>
+<div class="desc"><p>Get all paths and their probabilities between two nodes in a graph (from starting_node to destiny_node
+in graph).</p>
+<p>Each path is represented as a tuple containing its probability and the sequence of nodes.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>graph</code></strong> :&ensp;<code>nx.MultiDiGraph</code></dt>
+<dd>Graph to search for paths.</dd>
+<dt><strong><code>starting_node</code></strong> :&ensp;<code>str</code></dt>
+<dd>Node to start the paths from.</dd>
+<dt><strong><code>destiny_node</code></strong> :&ensp;<code>str</code></dt>
+<dd>Node where the paths should end.</dd>
+<dt><strong><code>probability_threshold</code></strong> :&ensp;<code>float</code></dt>
+<dd>Minimum probability threshold for paths to be considered.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list[tuple[float, list[str]]]</code></dt>
+<dd>List of tuples, each containing the probability and path.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.occurrences.graph_path_traversal_utils.get_end_nodes"><code class="name flex">
+<span>def <span class="ident">get_end_nodes</span></span>(<span>paths: list) ‑> list</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_end_nodes(paths: list) -&gt; list:
+    &#34;&#34;&#34;
+    Get end nodes from a list of paths.
+
+    Args:
+        paths (list[list[str]]): List of paths.
+
+    Returns:
+        list[str]: List of end nodes.
+    &#34;&#34;&#34;
+    end_nodes = []
+    for path in paths:
+        end_nodes.append(path[-1])
+    
+    # this could be a set instead of a list to avoid repeated end nodes (they are unneeded)
+    return end_nodes</code></pre>
+</details>
+<div class="desc"><p>Get end nodes from a list of paths.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>paths</code></strong> :&ensp;<code>list[list[str]]</code></dt>
+<dd>List of paths.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list[str]</code></dt>
+<dd>List of end nodes.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.occurrences.graph_path_traversal_utils.get_path_probability"><code class="name flex">
+<span>def <span class="ident">get_path_probability</span></span>(<span>g: networkx.classes.multidigraph.MultiDiGraph,<br>path: list[str],<br>initial_probability: float = 1.0) ‑> float</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_path_probability(g: nx.MultiDiGraph, path: list[str], initial_probability: float = 1.0) -&gt; float:
+    &#34;&#34;&#34;
+    Calculate the probability of the path (sequence of connected nodes) _path_ given
+    the graph _g_.
+
+    The probability is calculated by multiplying the edge weights (labeled as probabilities)
+    along the path.
+
+    Args:
+        g (nx.MultiDiGraph): Graph containing the path.
+        path (list[str]): List of nodes representing the path.
+        initial_probability (float): Initial probability to start with (default: 1.0).
+
+    Returns:
+        float: Probability of the path.
+    &#34;&#34;&#34;
+    probability = initial_probability
+    graph_nodes_adjacency = g._adj
+    for src_node, dst_node in zip(path, path[1:]):
+        probability *= float(graph_nodes_adjacency[src_node][dst_node][0][&#39;label&#39;])
+
+    return probability</code></pre>
+</details>
+<div class="desc"><p>Calculate the probability of the path (sequence of connected nodes) <em>path</em> given
+the graph <em>g</em>.</p>
+<p>The probability is calculated by multiplying the edge weights (labeled as probabilities)
+along the path.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>g</code></strong> :&ensp;<code>nx.MultiDiGraph</code></dt>
+<dd>Graph containing the path.</dd>
+<dt><strong><code>path</code></strong> :&ensp;<code>list[str]</code></dt>
+<dd>List of nodes representing the path.</dd>
+<dt><strong><code>initial_probability</code></strong> :&ensp;<code>float</code></dt>
+<dd>Initial probability to start with (default: 1.0).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>Probability of the path.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.occurrences.graph_path_traversal_utils.get_simple_paths"><code class="name flex">
+<span>def <span class="ident">get_simple_paths</span></span>(<span>g: networkx.classes.digraph.DiGraph, start_node: str, min_length: int = 1) ‑> list</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_simple_paths(g: nx.DiGraph, start_node: str, min_length: int = 1) -&gt; list:
+    &#34;&#34;&#34;
+    Returns all the simple paths from start_node to &#39;others&#39; node in graph g.
+
+    If there are other nodes after the &#39;others&#39; node (that is, &#39;others&#39;
+    node has successors), consider them as other individual paths
+    from &#39;others&#39; to &#39;others&#39;. Then combine them to get every possible path.
+
+    This function filters the irrelevant paths by invoking filter_simple_paths()
+
+    Args:
+        g (nx.DiGraph): The category graph to get the categorical walk from.
+        start_node (str): The &#39;Start&#39; node, according to its id/label (they&#39;re the same).
+        min_length (int): Minimum numbers of nodes the simple paths must have (default: 1).
+
+    Returns:
+        list: List of simple paths.
+    &#34;&#34;&#34;
+    simple_paths = []
+    # get direct paths from &#39;Start&#39; to &#39;others&#39;
+    for path in nx.all_simple_paths(g, source=start_node, target=&#39;others&#39;):
+        path = path[:-1] # Eliminate the &#39;others&#39; node from the path
+        #path = path[1:-1] # Eliminate the first (source) and last (target) nodes from the path
+        #path = path[1:]
+        #if len(path) &gt; 1: # avoid single-node paths
+        simple_paths.append(path)
+
+    # Calculate all the successors of &#39;Start&#39; that are also predecessors of &#39;others&#39;.
+    # This way, the paths whose start node is &#39;others&#39; get preffixed with these
+    # intermediate nodes, generating a new path for each one of them. 
+    # start_successors = g.successors(&#39;Start&#39;)
+    # others_predecessors = g.predecessors(&#39;others&#39;)
+    # beginning_nodes = [node for node in start_successors if node in others_predecessors]
+
+    # Calculate all the simple paths from &#39;others&#39; to &#39;others&#39;. Combine with 
+    # previously calculated simple paths
+    concatenated_paths = []
+    if &#39;others&#39; in g:
+        for node in g.successors(&#39;others&#39;):
+            if not node_already_in_paths(simple_paths, node):
+                for path in nx.all_simple_paths(g, source=node, target=&#39;others&#39;):
+                    path = path[:-1] # we only need to remove here the target, not the source
+                    #if len(path) &gt; 1: # avoid single-node paths
+                    #if not already_in_paths(simple_paths, path):
+                    for simple_path in simple_paths:
+                        concatenated_paths.append(simple_path + path)
+                    
+    # Now merge the lists and delete those whose length is lesser than min_length
+    all_paths = simple_paths+concatenated_paths
+    all_paths = filter_simple_paths(all_paths) 
+    all_paths[:] = [path for path in all_paths if len(path) &gt; min_length]
+
+    return all_paths</code></pre>
+</details>
+<div class="desc"><p>Returns all the simple paths from start_node to 'others' node in graph g.</p>
+<p>If there are other nodes after the 'others' node (that is, 'others'
+node has successors), consider them as other individual paths
+from 'others' to 'others'. Then combine them to get every possible path.</p>
+<p>This function filters the irrelevant paths by invoking filter_simple_paths()</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>g</code></strong> :&ensp;<code>nx.DiGraph</code></dt>
+<dd>The category graph to get the categorical walk from.</dd>
+<dt><strong><code>start_node</code></strong> :&ensp;<code>str</code></dt>
+<dd>The 'Start' node, according to its id/label (they're the same).</dd>
+<dt><strong><code>min_length</code></strong> :&ensp;<code>int</code></dt>
+<dd>Minimum numbers of nodes the simple paths must have (default: 1).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>List of simple paths.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.occurrences.graph_path_traversal_utils.get_start_node"><code class="name flex">
+<span>def <span class="ident">get_start_node</span></span>(<span>g: networkx.classes.digraph.DiGraph) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_start_node(g: nx.DiGraph) -&gt; str:
+    &#34;&#34;&#34;
+    Retrieve the start node from a directed graph.
+
+    Args:
+        g (nx.DiGraph): Input graph.
+
+    Returns:
+        str: Start node label.
+    &#34;&#34;&#34;
+    nodes_iterator = iter(g._node)
+    first_node = next(nodes_iterator)
+    # Start node should also be the first one and the only one with peripheries
+    assert(g._node[first_node][&#34;peripheries&#34;] == &#34;2&#34;) 
+    return first_node</code></pre>
+</details>
+<div class="desc"><p>Retrieve the start node from a directed graph.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>g</code></strong> :&ensp;<code>nx.DiGraph</code></dt>
+<dd>Input graph.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>Start node label.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.occurrences.graph_path_traversal_utils.get_unique_start_nodes"><code class="name flex">
+<span>def <span class="ident">get_unique_start_nodes</span></span>(<span>paths: list) ‑> list</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_unique_start_nodes(paths: list) -&gt; list:
+    &#34;&#34;&#34;
+    Get unique start nodes from a list of paths.
+
+    Args:
+        paths (list): List of paths.
+
+    Returns:
+        list: List of unique start nodes.
+    &#34;&#34;&#34;
+    start_nodes = []
+    for path in paths:
+        start_nodes.append(path[0])
+    return list(set(start_nodes))</code></pre>
+</details>
+<div class="desc"><p>Get unique start nodes from a list of paths.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>paths</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of paths.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>List of unique start nodes.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.occurrences.graph_path_traversal_utils.is_path_feasible"><code class="name flex">
+<span>def <span class="ident">is_path_feasible</span></span>(<span>g_behavior: networkx.classes.graph.Graph, path: list[str]) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_path_feasible(g_behavior: nx.Graph, path: list[str]) -&gt; bool:
+    &#34;&#34;&#34;
+    Check if the path _path_ is feasible in graph _g_behavior_.
+
+    A path is considered feasible if all its nodes are present in the graph.
+
+    Args:
+        g_behavior (nx.Graph): Behavior graph to check against.
+        path (list[str]): Path to verify.
+
+    Returns:
+        bool: True if the path is feasible, False otherwise.
+    &#34;&#34;&#34;
+    behavior_nodes = g_behavior.nodes()
+    for node in path:
+        if node not in behavior_nodes:
+            #print(f&#34;Node {node} not in behavior graph!&#34;)
+            return False
+    return True</code></pre>
+</details>
+<div class="desc"><p>Check if the path <em>path</em> is feasible in graph <em>g_behavior</em>.</p>
+<p>A path is considered feasible if all its nodes are present in the graph.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>g_behavior</code></strong> :&ensp;<code>nx.Graph</code></dt>
+<dd>Behavior graph to check against.</dd>
+<dt><strong><code>path</code></strong> :&ensp;<code>list[str]</code></dt>
+<dd>Path to verify.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the path is feasible, False otherwise.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.occurrences.graph_path_traversal_utils.node_already_in_paths"><code class="name flex">
+<span>def <span class="ident">node_already_in_paths</span></span>(<span>paths: list[str], node: str) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def node_already_in_paths(paths: list[str], node: str) -&gt; bool:
+    &#34;&#34;&#34;
+    Check if he node _node_ is present in any of the provided paths.
+
+    Args:
+        paths (list[str]): List of paths, where each path is a list of nodes.
+        node (str): Node to check for presence.
+
+    Returns:
+        bool: True if the node is present in any path, False otherwise.
+    &#34;&#34;&#34;
+    for path in paths:
+        if node in path:
+            return True
+    return False</code></pre>
+</details>
+<div class="desc"><p>Check if he node <em>node</em> is present in any of the provided paths.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>paths</code></strong> :&ensp;<code>list[str]</code></dt>
+<dd>List of paths, where each path is a list of nodes.</dd>
+<dt><strong><code>node</code></strong> :&ensp;<code>str</code></dt>
+<dd>Node to check for presence.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the node is present in any path, False otherwise.</dd>
+</dl></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="malgraphiq.occurrences" href="index.html">malgraphiq.occurrences</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="malgraphiq.occurrences.graph_path_traversal_utils.already_in_paths" href="#malgraphiq.occurrences.graph_path_traversal_utils.already_in_paths">already_in_paths</a></code></li>
+<li><code><a title="malgraphiq.occurrences.graph_path_traversal_utils.filter_simple_paths" href="#malgraphiq.occurrences.graph_path_traversal_utils.filter_simple_paths">filter_simple_paths</a></code></li>
+<li><code><a title="malgraphiq.occurrences.graph_path_traversal_utils.get_all_paths_from_node_to_node_and_probabilities" href="#malgraphiq.occurrences.graph_path_traversal_utils.get_all_paths_from_node_to_node_and_probabilities">get_all_paths_from_node_to_node_and_probabilities</a></code></li>
+<li><code><a title="malgraphiq.occurrences.graph_path_traversal_utils.get_end_nodes" href="#malgraphiq.occurrences.graph_path_traversal_utils.get_end_nodes">get_end_nodes</a></code></li>
+<li><code><a title="malgraphiq.occurrences.graph_path_traversal_utils.get_path_probability" href="#malgraphiq.occurrences.graph_path_traversal_utils.get_path_probability">get_path_probability</a></code></li>
+<li><code><a title="malgraphiq.occurrences.graph_path_traversal_utils.get_simple_paths" href="#malgraphiq.occurrences.graph_path_traversal_utils.get_simple_paths">get_simple_paths</a></code></li>
+<li><code><a title="malgraphiq.occurrences.graph_path_traversal_utils.get_start_node" href="#malgraphiq.occurrences.graph_path_traversal_utils.get_start_node">get_start_node</a></code></li>
+<li><code><a title="malgraphiq.occurrences.graph_path_traversal_utils.get_unique_start_nodes" href="#malgraphiq.occurrences.graph_path_traversal_utils.get_unique_start_nodes">get_unique_start_nodes</a></code></li>
+<li><code><a title="malgraphiq.occurrences.graph_path_traversal_utils.is_path_feasible" href="#malgraphiq.occurrences.graph_path_traversal_utils.is_path_feasible">is_path_feasible</a></code></li>
+<li><code><a title="malgraphiq.occurrences.graph_path_traversal_utils.node_already_in_paths" href="#malgraphiq.occurrences.graph_path_traversal_utils.node_already_in_paths">node_already_in_paths</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

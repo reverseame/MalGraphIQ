@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>malgraphiq.plotting.additional_code API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>malgraphiq.plotting.additional_code</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="malgraphiq.plotting.additional_code.generate_heatmap_per_micro_objective"><code class="name flex">
+<span>def <span class="ident">generate_heatmap_per_micro_objective</span></span>(<span>df: pandas.core.frame.DataFrame, micro_objectives, title: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_heatmap_per_micro_objective(df: pd.DataFrame, micro_objectives, title:str) -&gt; None:
+    for micro_objective in micro_objectives:
+        micro_objective_df = [col for col in df if col.startswith(micro_objective)]
+        micro_objective_df = df[micro_objective_df]
+        generate_pdf_heatmap(micro_objective_df, title+&#34; &#34;+str(micro_objective), title+&#34; &#34;+str(micro_objective)+&#34; heatmap.pdf&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="malgraphiq.plotting.additional_code.generate_pdf_heatmap"><code class="name flex">
+<span>def <span class="ident">generate_pdf_heatmap</span></span>(<span>df: pandas.core.frame.DataFrame,<br>fig_title: str,<br>fig_name: str,<br>fig_type: str = '',<br>categories=None) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_pdf_heatmap(df: pd.DataFrame, fig_title: str, fig_name: str, fig_type: str = &#34;&#34;, categories = None) -&gt; None:
+    figure_width = 0.5 * len(df.index) # inches for each sample (width)
+    figure_height = 0.5 * len(df.columns) # inches for each micro(objective/behavior) (height)
+    plt.figure(figsize = (figure_width, figure_height))
+    match fig_type:
+        case &#34;spawned_processes&#34;:
+            df = df[&#39;Spawned Processes&#39;]
+            df = np.asarray([df]) # Heatmap requires 2D dimensional array https://stackoverflow.com/questions/57888688/inconsistent-shape-between-the-condition-and-the-input-while-using-seaborn#comment102199104_57888688
+            figure = sns.heatmap(df, square=True, annot=True, annot_kws={&#39;size&#39;: 9}, cbar_kws={&#39;shrink&#39;: .5}, fmt=&#39;d&#39;, cbar=False, cmap=&#34;rocket&#34;, vmin=0, vmax=25)
+            plt.tick_params(axis=&#39;both&#39;, which=&#39;major&#39;, labelsize=6, labelbottom=False, labelleft=False, bottom=False, left=False, top=False)# https://stackoverflow.com/a/53304154
+            #plt.tick_params(left=False, bottom=False, labelbottom=False, labelleft=False)
+            plt.title(fig_title, fontsize=13)
+            figure = figure.get_figure()
+            figure.savefig(fig_name, bbox_inches=&#34;tight&#34;) #https://stackoverflow.com/a/49201252
+            plt.close()
+            return
+        case &#34;micro-behavior&#34;:
+            horizontal_lines_indexes = list()
+            actual_index = 0
+            for category in categories:
+                actual_index += sum(category in s for s in df.columns)
+                horizontal_lines_indexes.append(actual_index)
+            horizontal_lines_indexes = horizontal_lines_indexes[:-1]
+            df = normalize(df, 0, 100)
+        case &#34;micro-objective&#34;:
+            df = normalize(df, 0, 100)
+        case _: #_ is the default case
+            df = normalize(df, 0, 100)
+    
+    #### ATTENTION!!! df is transposed before drawing it!
+    figure = sns.heatmap(df.T, square=True, annot=True, annot_kws={&#39;size&#39;: 5}, cbar_kws={&#39;shrink&#39;: .5}, fmt=&#39;.3f&#39;, cbar=True, cmap=&#34;magma&#34;)
+    if fig_type == &#34;micro-behavior&#34;:
+        ax = figure.axes
+        #breakpoint()
+        ax.hlines(horizontal_lines_indexes, *ax.get_xlim(), color=&#34;Red&#34;)
+    plt.tick_params(axis=&#39;both&#39;, which=&#39;major&#39;, labelsize=6, labelbottom=True, bottom=True, left=True, top=False)# https://stackoverflow.com/a/53304154
+    plt.title(fig_title, fontsize=16)
+    plt.xlabel(&#34;Sample&#34;, fontsize=8)
+    plt.ylabel(&#34;Behavior&#34;, fontsize=8)
+    figure = figure.get_figure()
+    figure.savefig(fig_name, bbox_inches=&#34;tight&#34;) #https://stackoverflow.com/a/49201252
+    plt.close()</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="malgraphiq.plotting.additional_code.generate_pdf_nestedpie"><code class="name flex">
+<span>def <span class="ident">generate_pdf_nestedpie</span></span>(<span>df: pandas.core.frame.DataFrame, fig_title: str, fig_name: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_pdf_nestedpie(df: pd.DataFrame, fig_title: str, fig_name: str) -&gt; None:
+    &#34;&#34;&#34;
+
+    Inspired by: https://stackoverflow.com/a/67221817
+    &#34;&#34;&#34;
+
+    # Delete the columns whose value is 0
+    df = df[df.value != 0]
+
+    outer_ring = df.groupby(&#39;Micro Objective&#39;).sum()
+    inner_ring = df.groupby([&#39;Micro Objective&#39;, &#39;Micro Behavior&#39;]).sum()
+
+    # Create a nested pie chart
+    fig, ax = plt.subplots(figsize=(15,15))
+    size = 0.3
+
+    # Outer ring
+    outer_colors = get_basic_colors(outer_ring.index)
+    # More info about returne valued by ax.pie: https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.axes.Axes.pie.html
+    outer_patches, outer_texts, outer_autotexts = ax.pie(outer_ring.values.flatten(), radius=1,
+        #labels = outer_ring.index,
+        autopct=&#39;%.3f&#39;,
+        pctdistance=1.05,
+        textprops=dict(weight=&#39;bold&#39;),
+        wedgeprops=dict(width=size, edgecolor=&#39;w&#39;),
+        colors=outer_colors)
+
+    # Centering outer texts and outer numeric valuesfor patch, text in zip(inner_patches, inner_texts):
+        #mang =(patch.theta1 + patch.theta2)/2.  # get mean_angle of the wedge
+        ##print(mang, text.get_rotation())
+        #text.set_rotation(mang)         # rotate the label by (mean_angle + 270)
+        #text.set_va(&#34;center&#34;)
+        #text.set_ha(&#34;center&#34;)
+    #for number in outer_autotexts:
+        #number.set_horizontalalignment(&#39;center&#39;)
+        #number.set_verticalalignment(&#39;top&#39;)
+
+    # Innter ring
+    inner_labels = inner_ring.index.get_level_values(1)
+    inner_colors = get_baisc_colors(inner_labels)
+    inner_patches, inner_texts, inner_autotexts = ax.pie(inner_ring.values.flatten(), radius=1-size,
+        labels = inner_labels,
+        autopct=&#39;%.3f&#39;,
+        pctdistance=0.75,
+        labeldistance=1.05,
+        rotatelabels=True,
+        textprops=dict(fontsize=8),
+        wedgeprops=dict(width=size, edgecolor=&#39;w&#39;),
+        colors=inner_colors)
+
+    # Rotating labels: https://stackoverflow.com/a/50237578 
+    #for patch, text in zip(inner_patches, inner_texts):
+        #mang =(patch.theta1 + patch.theta2)/2.  # get mean_angle of the wedge
+        ##print(mang, text.get_rotation())
+        #text.set_rotation(mang)         # rotate the label by (mean_angle + 270)
+        #text.set_va(&#34;center&#34;)
+        #text.set_ha(&#34;center&#34;)
+
+    # Centering inner texts and inner numeric values
+    #for text in inner_texts:
+        #text.set_horizontalalignment(&#39;center&#39;)
+    #for number in inner_autotexts:
+        #number.set_horizontalalignment(&#39;center&#39;)
+        #number.set_verticalalignment(&#39;bottom&#39;)
+
+    ax.set(aspect=&#34;equal&#34;)
+
+    ax.legend(outer_ring.index, title=&#34;Micro Objectives&#34;)
+
+    plt.title(fig_title, fontsize=13)
+    
+    # Add legend
+    #plt.legend( bbox_to_anchor=(0.1, 0.1), fontsize=&#39;small&#39;)
+
+    # Show the graph
+    plt.savefig(fig_name, format=&#34;pdf&#34;, bbox_inches=&#34;tight&#34;)
+    plt.close() # So data does not get mixed up</code></pre>
+</details>
+<div class="desc"><p>Inspired by: <a href="https://stackoverflow.com/a/67221817">https://stackoverflow.com/a/67221817</a></p></div>
+</dd>
+<dt id="malgraphiq.plotting.additional_code.generate_pdf_piechart"><code class="name flex">
+<span>def <span class="ident">generate_pdf_piechart</span></span>(<span>df: pandas.core.frame.DataFrame,<br>fig_title: str,<br>fig_name: str,<br>micro_objective: str = None) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_pdf_piechart(df: pd.DataFrame, fig_title: str, fig_name: str, micro_objective: str = None) -&gt; None:
+    # If the sum of every value in the DataFrame is 0, it means there is no
+    # micro behavior from this micro objective present during the execution
+    # In such case, exit the function because there is nothing to draw
+    if df.sum().sum() == 0.0:
+        return
+   
+    # Normalize data
+    normalized_df = normalize(df, 0, 100)
+    # Get the mean
+    mean_df = normalized_df.mean()
+    # Delete the columns whose value is 0
+    mean_df = mean_df[mean_df.values != 0]
+    #Transform data into percentage
+    mean_df = (100. * mean_df / mean_df.sum()).round(2)
+
+    # Obtain the biggest value in the list so it can be exploded in the pie chart
+    # Given that mean_df.values is a np.array, instead of using max() and index() functions (for python lists)
+    # np.argmax()can be used
+    biggest_value_index = np.argmax(mean_df.values)
+   
+    hatch = None
+    #breakpoint()
+    if micro_objective is None:
+        #color = get_tonal_colors(mean_df.index)
+        color = get_basic_colors(mean_df.index)
+        explode = None
+        legend_title = &#34;Micro Objectives&#34;
+        #hatch = get_hatches(mean_df.index)
+    else:
+        # Rename indexes by deleting their category
+        for index_name in mean_df.index:
+            mean_df.rename(index={f&#34;{index_name}&#34;:index_name.removeprefix(micro_objective+&#34;.&#34;)}, inplace=True) # Python +3.9 https://stackoverflow.com/a/1038845
+        #color = get_tonal_colors(mean_df.index)
+        color = get_basic_colors(mean_df.index)
+        #color = [behavior_catalog_colormap[micro_objective]] * len(df.index) # Repeat same color for each slice
+        explode = [0.0] * len(mean_df.index)
+        #breakpoint()
+        explode[biggest_value_index] = 0.1
+        #hatch = None
+        legend_title = &#34;Micro Behaviors&#34;
+
+    #hatch = get_hatches(mean_df.index)
+
+    # Delete the ID
+    labels = [index[index.index(&#39;]&#39;)+1:].strip() for index in mean_df.index] 
+    
+    patches, texts, autotexts = plt.pie(mean_df.values, radius=1,
+        #labels = labels,
+        autopct=&#39;%1.2f%%&#39;,
+        explode=explode,
+        labeldistance=1.05,
+        #pctdistance=1.05,
+        #textprops=dict(weight=&#39;bold&#39;),
+        textprops=dict(size=7),
+        #wedgeprops=dict(width=size, edgecolor=&#39;w&#39;),
+        #height=1,
+        #bottom=3,
+        wedgeprops=dict(edgecolor=&#39;w&#39;),
+        colors=color,
+        hatch=hatch,
+        )
+
+    # Apply a different edgecolor to the slice corresponding to the biggest value (the exploded one)
+    # Only for micro-behaviors
+    if micro_objective is not None:
+        #patches[biggest_value_index].set_edgecolor(&#39;black&#39;)
+        #patches[biggest_value_index].set_hatchcolor(&#39;white&#39;)
+        patches[biggest_value_index].set_path_effects([PathEffects.Stroke(linewidth=1, foreground=&#39;black&#39;)])
+
+
+    # Now that hatches are active, set the value color to white to improve readability
+    # Only for micro-behaviors
+    #if micro_objective is not None:
+    #if micro_objective is None:
+        #for autotext in autotexts:
+            #autotext.set_color(&#39;white&#39;)
+            #autotext.set_antialiased(True)
+            #autotext.set_weight(&#39;bold&#39;)
+            #autotext.zorder = 2
+            ##autotext.set_fontsize(8)
+            ##https://matplotlib.org/stable/api/patheffects_api.html#matplotlib.patheffects.Stroke
+            #autotext.set_path_effects([PathEffects.withStroke(linewidth=2, foreground=&#39;black&#39;)])
+
+    # Set 
+    #breakpoint()
+
+    # Add legend
+    plt.legend(labels, title=legend_title, loc=&#34;center&#34;, fontsize=&#39;small&#39;, ncols=2, bbox_to_anchor = (.5, -.1))
+
+    if micro_objective:
+        plt.title(micro_objective[micro_objective.index(&#39;]&#39;)+1:].strip(), fontsize=13)
+    else :
+        plt.title(fig_title, fontsize=13)
+
+    # Show the graph
+    plt.savefig(fig_name, format=&#34;pdf&#34;, bbox_inches=&#34;tight&#34;)
+    plt.close() # So data does not get mixed up</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="malgraphiq.plotting.additional_code.generate_pdf_stackedbars"><code class="name flex">
+<span>def <span class="ident">generate_pdf_stackedbars</span></span>(<span>df: pandas.core.frame.DataFrame, fig_title: str, fig_name: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_pdf_stackedbars(df: pd.DataFrame, fig_title: str, fig_name: str) -&gt; None:
+    # Pivot the DataFrame
+    df_pivot = df.pivot(index=&#39;Micro Objective&#39;, columns=&#39;Micro Behavior&#39;, values=&#39;value&#39;)
+    #breakpoint()
+    colors = get_basic_colors(df_pivot.columns)
+
+    # Remove IDs both from index (micro-behaviors) and columns (micro-objective)
+    for index_name in df_pivot.index:
+        df_pivot.rename(index={f&#34;{index_name}&#34;:index_name[index_name.index(&#39;]&#39;)+1:].strip()}, inplace=True) # Python +3.9 https://stackoverflow.com/a/1038845
+    for column_name in df_pivot.columns:
+        df_pivot.rename(columns={f&#34;{column_name}&#34;:column_name[column_name.index(&#39;]&#39;)+1:].strip()}, inplace=True)
+
+    # Plot the stacked bar chart
+    ax = df_pivot.plot(kind=&#39;bar&#39;, stacked=True, color=colors, yticks=[0, 25, 50, 75, 100])
+
+    # Customize the plot
+    ax.set_ylabel(&#39;Matches&#39;)
+    ax.set_xlabel(&#39;Micro Objective&#39;)
+    ax.set_title(&#39;Stacked Bar Plot by Subcategory&#39;)
+
+    plt.title(fig_title, fontsize=13)
+
+    # Show the graph
+    #plt.legend(bbox_to_anchor=(1.05, 1.0), loc=&#39;upper left&#39;, fontsize=&#39;small&#39;, title=&#39;Micro Behavior&#39;)
+    plt.legend().remove()
+    plt.savefig(fig_name, format=&#34;pdf&#34;, bbox_inches=&#34;tight&#34;)
+    plt.close() # So data does not get mixed up</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="malgraphiq.plotting.additional_code.generate_piechart_per_micro_objective"><code class="name flex">
+<span>def <span class="ident">generate_piechart_per_micro_objective</span></span>(<span>df: pandas.core.frame.DataFrame, micro_objectives, title: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_piechart_per_micro_objective(df: pd.DataFrame, micro_objectives, title:str) -&gt; None:
+    for micro_objective in micro_objectives:
+        micro_objective_df = [col for col in df if col.startswith(micro_objective)]
+        micro_objective_df = df[micro_objective_df]
+        micro_objective_name_no_id = micro_objective[micro_objective.index(&#39;]&#39;)+1:].strip()
+        generate_pdf_piechart(micro_objective_df, title+&#34;\n&#34;+str(micro_objective_name_no_id)+&#34; Micro-objective&#34;, title+&#34; &#34;+str(micro_objective_name_no_id)+&#34; pie.pdf&#34;, micro_objective)
+
+        #def generate_pdf_piechart(values: list, colors: list, fig_title: str, fig_name: str, legend_title: str) -&gt; None:</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="malgraphiq.plotting.additional_code.generate_radarchart_per_micro_objective"><code class="name flex">
+<span>def <span class="ident">generate_radarchart_per_micro_objective</span></span>(<span>df: pandas.core.frame.DataFrame, micro_objectives, title: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_radarchart_per_micro_objective(df: pd.DataFrame, micro_objectives, title:str) -&gt; None:
+    for micro_objective in micro_objectives:
+        micro_objective_df = generate_dataframe_specific_micro_objective(df, micro_objective)
+        micro_objective_name_no_id = micro_objective[micro_objective.index(&#39;]&#39;)+1:].strip()
+        #generate_pdf_radarchart(micro_objective_df, title+&#34; &#34;+str(micro_objective), title+&#34; &#34;+str(micro_objective)+&#34; radar.pdf&#34;)
+        generate_pdf_radarchart(micro_objective_df, title+&#34;\n&#34;+str(micro_objective_name_no_id)+&#34; Micro-objective&#34;, title+&#34; &#34;+str(micro_objective_name_no_id)+&#34; radar.pdf&#34;, micro_objective)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="malgraphiq.plotting.additional_code.get_hatches"><code class="name flex">
+<span>def <span class="ident">get_hatches</span></span>(<span>values_to_hatch: list) ‑> list</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_hatches(values_to_hatch: list) -&gt; list:
+    &#34;&#34;&#34;
+    Returns a list comprising the hatch patterns corresponding to each value from __values_to_hatch__
+    &#34;&#34;&#34;
+    hatch_list = []
+    for value in values_to_hatch:
+        if value not in behavior_catalog_hatchmap:
+            hatch_list.append(&#34;&#34;)
+        else:
+            hatch_list.append(behavior_catalog_hatchmap[value])
+    return hatch_list </code></pre>
+</details>
+<div class="desc"><p>Returns a list comprising the hatch patterns corresponding to each value from <strong>values_to_hatch</strong></p></div>
+</dd>
+<dt id="malgraphiq.plotting.additional_code.get_tonal_colors"><code class="name flex">
+<span>def <span class="ident">get_tonal_colors</span></span>(<span>values_to_color: list) ‑> list</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_tonal_colors(values_to_color: list) -&gt; list:
+    &#34;&#34;&#34;
+    Returns a list comprising the tonal color values corresponding to each value from __values_to_color__
+    &#34;&#34;&#34;
+    color_list = []
+    for value in values_to_color:
+        if value not in behavior_catalog_tonal_colormap:
+            color_list.append(&#34;#FFFFFF&#34;)
+        else:
+            color_list.append(behavior_catalog_tonal_colormap[value])
+    return color_list</code></pre>
+</details>
+<div class="desc"><p>Returns a list comprising the tonal color values corresponding to each value from <strong>values_to_color</strong></p></div>
+</dd>
+<dt id="malgraphiq.plotting.additional_code.separate_micro_objectives_and_behaviors_by_mean"><code class="name flex">
+<span>def <span class="ident">separate_micro_objectives_and_behaviors_by_mean</span></span>(<span>df: pandas.core.frame.DataFrame) ‑> pandas.core.frame.DataFrame</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def separate_micro_objectives_and_behaviors_by_mean(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &#34;&#34;&#34;Computes the mean of the __df__ dataframe and separates it into a DataFrame of the form:
+    | Micro-Objective   | Micro-Behavior| Value |
+    |                   |               |       |
+    ...
+    
+    Returns the new DataFrame
+    &#34;&#34;&#34;
+    # Initialize an empty list to store the new data
+    new_data = []
+
+    # Compute the mean of the incoming df and normalize the values
+    local_df = normalize(df, 0, 100).mean() # Computing the mean of the normalizations
+    #local_df = normalize(df.mean(), 0, 100) # Normalizing the means
+
+    #Transform data into percentage
+    local_df = (100. * local_df / local_df.sum()).round(2)
+
+    # Iterate over rows in the original DataFrame
+    for col, value in local_df.items():
+        # Split the column name into category and subcategory
+        micro_objective, micro_behavior = col.split(&#39;.&#39;)
+        # Append a new row to the list with category, subcategory, and value
+        new_data.append({&#39;Micro Objective&#39;: micro_objective, &#39;Micro Behavior&#39;: micro_behavior, &#39;value&#39;: value})
+
+    # Create a new DataFrame from the list
+    new_df = pd.DataFrame(new_data)
+    return new_df</code></pre>
+</details>
+<div class="desc"><p>Computes the mean of the <strong>df</strong> dataframe and separates it into a DataFrame of the form:
+| Micro-Objective
+| Micro-Behavior| Value |
+|
+|
+|
+|
+&hellip;</p>
+<p>Returns the new DataFrame</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="malgraphiq.plotting" href="index.html">malgraphiq.plotting</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="malgraphiq.plotting.additional_code.generate_heatmap_per_micro_objective" href="#malgraphiq.plotting.additional_code.generate_heatmap_per_micro_objective">generate_heatmap_per_micro_objective</a></code></li>
+<li><code><a title="malgraphiq.plotting.additional_code.generate_pdf_heatmap" href="#malgraphiq.plotting.additional_code.generate_pdf_heatmap">generate_pdf_heatmap</a></code></li>
+<li><code><a title="malgraphiq.plotting.additional_code.generate_pdf_nestedpie" href="#malgraphiq.plotting.additional_code.generate_pdf_nestedpie">generate_pdf_nestedpie</a></code></li>
+<li><code><a title="malgraphiq.plotting.additional_code.generate_pdf_piechart" href="#malgraphiq.plotting.additional_code.generate_pdf_piechart">generate_pdf_piechart</a></code></li>
+<li><code><a title="malgraphiq.plotting.additional_code.generate_pdf_stackedbars" href="#malgraphiq.plotting.additional_code.generate_pdf_stackedbars">generate_pdf_stackedbars</a></code></li>
+<li><code><a title="malgraphiq.plotting.additional_code.generate_piechart_per_micro_objective" href="#malgraphiq.plotting.additional_code.generate_piechart_per_micro_objective">generate_piechart_per_micro_objective</a></code></li>
+<li><code><a title="malgraphiq.plotting.additional_code.generate_radarchart_per_micro_objective" href="#malgraphiq.plotting.additional_code.generate_radarchart_per_micro_objective">generate_radarchart_per_micro_objective</a></code></li>
+<li><code><a title="malgraphiq.plotting.additional_code.get_hatches" href="#malgraphiq.plotting.additional_code.get_hatches">get_hatches</a></code></li>
+<li><code><a title="malgraphiq.plotting.additional_code.get_tonal_colors" href="#malgraphiq.plotting.additional_code.get_tonal_colors">get_tonal_colors</a></code></li>
+<li><code><a title="malgraphiq.plotting.additional_code.separate_micro_objectives_and_behaviors_by_mean" href="#malgraphiq.plotting.additional_code.separate_micro_objectives_and_behaviors_by_mean">separate_micro_objectives_and_behaviors_by_mean</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

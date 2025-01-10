@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>malgraphiq.graphs.transition_matrix_and_graphs API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>malgraphiq.graphs.transition_matrix_and_graphs</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="malgraphiq.graphs.transition_matrix_and_graphs.generate_api_call_transitions"><code class="name flex">
+<span>def <span class="ident">generate_api_call_transitions</span></span>(<span>api_call_transitions: list[str],<br>alphabet: dict[str, str],<br>process_name: str,<br>process_id: int,<br>behavior_graph_path: str,<br>print_edge_labels: bool) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_api_call_transitions(
+    api_call_transitions: list[str],
+    alphabet: dict[str, str],
+    process_name: str,
+    process_id: int,
+    behavior_graph_path: str,
+    print_edge_labels: bool
+) -&gt; None:
+    &#34;&#34;&#34;
+    Generate API call transitions matrix and graphs, and save them to their corresponding output file.
+
+    Args:
+        api_call_transitions (list): API call transitions data.
+        alphabet (list): Alphabet for transitions.
+        process_name (str): Process name.
+        process_id (int): Process ID.
+        behavior_graph_path (str): Path to save the API call transitions matrix.
+        print_edge_labels (bool): Whether to print edge labels.
+    &#34;&#34;&#34;
+    api_call_transitions_matrix = transition_matrix(api_call_transitions, list(alphabet))
+    filename = f&#34;{behavior_graph_path}/{process_name}_{process_id}_API_Calls_Transition_Matrix&#34;
+    api_call_transitions_matrix.to_csv(f&#34;{filename}.csv&#34;)
+    render_matrix(api_call_transitions_matrix, alphabet, filename, print_edge_labels)</code></pre>
+</details>
+<div class="desc"><p>Generate API call transitions matrix and graphs, and save them to their corresponding output file.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>api_call_transitions</code></strong> :&ensp;<code>list</code></dt>
+<dd>API call transitions data.</dd>
+<dt><strong><code>alphabet</code></strong> :&ensp;<code>list</code></dt>
+<dd>Alphabet for transitions.</dd>
+<dt><strong><code>process_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Process name.</dd>
+<dt><strong><code>process_id</code></strong> :&ensp;<code>int</code></dt>
+<dd>Process ID.</dd>
+<dt><strong><code>behavior_graph_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to save the API call transitions matrix.</dd>
+<dt><strong><code>print_edge_labels</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print edge labels.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.graphs.transition_matrix_and_graphs.generate_api_per_category_transitions"><code class="name flex">
+<span>def <span class="ident">generate_api_per_category_transitions</span></span>(<span>api_per_category_transitions: dict[str, list[str]],<br>alphabet: dict[str, str],<br>process_name: str,<br>process_id: int,<br>category_graph_path: str,<br>print_edge_labels: bool) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_api_per_category_transitions(
+    api_per_category_transitions: dict[str, list[str]],
+    alphabet: dict[str, str],
+    process_name: str,
+    process_id: int,
+    category_graph_path: str,
+    print_edge_labels: bool
+) -&gt; None:
+    &#34;&#34;&#34;
+    Generate API per category transitions matrix and graphs, and save them to their corresponding output file.
+
+    Args:
+        api_per_category_transitions (dict): API per category transitions data.
+        process_name (str): Process name.
+        process_id (int): Process ID.
+        category_graph_path (str): Path to save the API per category transitions matrix.
+        print_edge_labels (bool): Whether to print edge labels.
+    &#34;&#34;&#34;
+    for category in api_per_category_transitions:
+        api_per_category_alphabet = list(unique(api_per_category_transitions[category]))
+        api_per_category_transitions_matrix = transition_matrix(api_per_category_transitions[category], api_per_category_alphabet)
+        category = category.replace(&#39;/&#39;, &#39;_&#39;) # Needed to dele slashes from category names like &#39;.. I/O ...&#39;
+        filename = f&#34;{category_graph_path}/{process_name}_{process_id}_{category}_API_per_Category_Transition_Matrix&#34;
+        api_per_category_transitions_matrix.to_csv(f&#34;{filename}.csv&#34;)
+        render_matrix(api_per_category_transitions_matrix, alphabet, filename, print_edge_labels)</code></pre>
+</details>
+<div class="desc"><p>Generate API per category transitions matrix and graphs, and save them to their corresponding output file.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>api_per_category_transitions</code></strong> :&ensp;<code>dict</code></dt>
+<dd>API per category transitions data.</dd>
+<dt><strong><code>process_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Process name.</dd>
+<dt><strong><code>process_id</code></strong> :&ensp;<code>int</code></dt>
+<dd>Process ID.</dd>
+<dt><strong><code>category_graph_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to save the API per category transitions matrix.</dd>
+<dt><strong><code>print_edge_labels</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to print edge labels.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.graphs.transition_matrix_and_graphs.generate_transition_matrices_and_graphs"><code class="name flex">
+<span>def <span class="ident">generate_transition_matrices_and_graphs</span></span>(<span>json_report: str, output_dir: str, graphs_to_generate: str) ‑> str | int</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_transition_matrices_and_graphs(json_report: str, output_dir: str, graphs_to_generate: str) -&gt; str | int:
+    &#34;&#34;&#34;
+    Generate transition matrices and graphs for processes in a JSON report.
+
+    Args:
+        json_report (str): Path to the JSON report.
+        output_dir (str): Directory to save the generated files.
+        graphs_to_generate (str): Type of graphs to generate.
+
+    Returns: 
+        str | int: Path to the generated category graph directory or -1 on error.
+    &#34;&#34;&#34;
+    logger.info(f&#34;[+] Processing {os.path.basename(json_report)} [+]&#34;)
+    try:
+        with open(json_report, encoding=&#34;utf-8&#34;) as f:
+            data = json.load(f)
+    except Exception as e:
+        logger.error(f&#34;[!] ERROR. Cannot parse {json_report}: {e}. Skipping&#34;)
+        return -1
+
+    reports_path = f&#34;./{output_dir}/{os.path.basename(json_report)[:os.path.basename(json_report).index(&#39;.&#39;)]}&#34; # strip extension
+    behavior_graph_path = reports_path+&#34;/BEHAVIOR_GRAPH&#34;
+    category_graph_path = reports_path+&#34;/CATEGORY_GRAPH&#34;       
+
+    Path(behavior_graph_path).mkdir(exist_ok=True, parents=True)
+    Path(category_graph_path).mkdir(exist_ok=True, parents=True)      
+    
+    # All categories: https://github.com/kevoreilly/CAPEv2/blob/8df267f658ac0ea6c8879e720815a6a432456ee6/web/templates/analysis/behavior/_search_results.html#L10
+    # CAPEv2 web colors: https://github.com/kevoreilly/CAPEv2/blob/5d5ba06d8788ac561b267b20eec49e437decdf88/web/static/css/style.css#L166
+
+    #************ CATEGORY REFACTORING (IF winapi_categories.json IS AVAILABLE) *****************
+    if JSON_DATA: ## If dict evaluates to True it has been populated, otherwise False
+        for process  in data[&#39;behavior&#39;][&#39;processes&#39;]:
+            process[&#39;refactored_calls&#39;] = [] # &lt;- New list of refactored calls. We replicate the 
+            # original [&#39;calls&#39;] list but adding the [&#39;new_category&#39;] entry because modifying
+            # the original [&#39;calls&#39;] entries seems impossible given that each entry is an instance
+            # of ParseProcessLog, not just dict or list entries. In other words, the call variable
+            # from the following loop can be modified with call[&#39;new_category&#39;]... but the changes
+            # do not persist out of the loop.
+            for call in process[&#39;calls&#39;]:
+                api_call = call[&#39;api&#39;]
+                if api_call == &#34;sysenter&#34;: # Ad-hoc sysenter skip
+                    continue 
+                # If the API call is not in its generic form (i.e., it ends with either &#39;A&#39; or &#39;W&#39;)
+                # we transform it. From a behavioral perspective, it is irrelevant whether the
+                # arguments are passed in ANSI or Unicode (wide) form
+                if api_call.endswith(&#39;A&#39;) or api_call.endswith(&#39;W&#39;):
+                    api_call = api_call[:-1]
+                    call[&#39;api&#39;] = api_call
+                # Some Windows API calls end with a &#39;A&#39; or &#39;W&#39; and their winapi_categories.json 
+                # representation does not contain that last character. We explicitly check for it
+                # by removing the last char of every api_call. Others end with &#39;Ex&#39;
+                new_category = &#34;&#34;
+                if api_call in JSON_DATA: 
+                    # We create a new field just to maintain the old call[&#39;category&#39;]
+                    # field so web interface is able to parse the information
+                    # If the new category (from JSON_DATA) already equals to the category,
+                    # then just maintain the old category, otherwise assign the new one.
+                    new_category = JSON_DATA[api_call][&#39;category&#39;]
+                elif api_call.lower() in JSON_DATA:
+                    # Case added to conver inconsistencies in WINAPI naming. Some functions&#39;
+                    # generic form is lowercase (for some unknown reason). For example:
+                    # GetAddrInfoW becomes GetAddrInfo when supressed the W. However, its
+                    # generic form is getaddrinfo (lowercase). More info:
+                    # https://learn.microsoft.com/en-us/windows/win32/api/ws2tcpip/nf-ws2tcpip-getaddrinfo#remarks
+                    new_category = JSON_DATA[api_call.lower()][&#39;category&#39;]
+                elif api_call[:-1] in JSON_DATA:
+                    new_category = JSON_DATA[api_call[:-1]][&#39;category&#39;]
+                # Considering all API calls with the Ex suffix (like NtAllocateVirtualMemoryEx or NtAddAtomEx, but not CreateMutex)
+                elif api_call.endswith(&#39;Ex&#39;) and api_call[:-2] in JSON_DATA:
+                    new_category = JSON_DATA[api_call[:-2]][&#39;category&#39;]
+                else:
+                    new_category = &#34;unknown&#34;
+                    logger.debug(f&#34;[!!!] WARNING: New category (refactored) of API {call[&#39;api&#39;]} found in process {process[&#39;process_name&#39;]} is unknown.\n Old CAPE category is: {call[&#39;category&#39;]}\nPlease consider updating or modifying winapi_categories.json [!!!]&#34;)
+                call[&#39;new_category&#39;] = new_category
+                process[&#39;refactored_calls&#39;].append(call)
+        
+    #************ FOR PROCESS IN DATA[&#39;BEHAVIOR&#39;][&#39;PROCESS&#39;] *******************
+    for process in data[&#39;behavior&#39;][&#39;processes&#39;]:
+        pid = process[&#39;process_id&#39;]
+        # Skip this particular process if its &#39;calls&#39; key is empty. That is, the process
+        # is tracked by cape but its behavior (API calls) is missing for some unknown reason
+        if not process[&#39;calls&#39;]:
+            logger.warning(f&#34;[!] ERROR. Skipping process {pid} from analysis because no behavior activity was tracked [!]&#34;)
+            continue
+
+        # api_call_transitions contains every single API call
+        api_call_transitions = [] 
+
+        # api_per_category_transitions contains every API call (in order) for every category
+        api_per_category_transitions = {}
+
+        # Alphabet contains the possible states or API calls (unique values) 
+        # with their corresponding category
+        alphabet = {}
+
+        for call in process[&#39;refactored_calls&#39;]:
+            api_call = call[&#39;api&#39;]
+            api_category = call[&#39;new_category&#39;] # After refactoring.
+
+            # Rendering of the graph is done outside the loop
+            # **************************************************************
+
+            # Tracking every single transition
+            api_call_transitions.append(api_call)
+
+            # Tracking every API call per category. 
+            # Given that we want to track also the interaction with &#34;other&#34;
+            # categories, we track the API in its category, and &#34;others&#34; for
+            # the rest of categories
+            if api_category not in api_per_category_transitions:
+                api_per_category_transitions[api_category] = [api_call]
+            else:
+                for category in api_per_category_transitions:
+                    if category == api_category:
+                        api_per_category_transitions[api_category].append(api_call)
+                    else:
+                        api_per_category_transitions[category].append(&#34;others&#34;) # With &#39;others&#39; node
+
+            # Creating the alphabet
+            if api_call not in alphabet:
+                alphabet[api_call] = api_category 
+
+        # Render the resource graph for the particular PID
+        process_name = process[&#39;process_name&#39;]
+        process_id = process[&#39;process_id&#39;]
+
+
+        actions = {
+            &#39;category&#39;: lambda: generate_api_call_transitions(api_call_transitions, alphabet, process_name, process_id, behavior_graph_path, PRINT_EDGE_LABELS),
+            &#39;behavior&#39;: lambda: generate_api_per_category_transitions(api_per_category_transitions, alphabet, process_name, process_id, category_graph_path, PRINT_EDGE_LABELS),
+        }
+
+        actions.get(graphs_to_generate, lambda: (
+            generate_api_call_transitions(api_call_transitions, alphabet, process_name, process_id, behavior_graph_path, PRINT_EDGE_LABELS), 
+            generate_api_per_category_transitions(api_per_category_transitions, alphabet, process_name, process_id, category_graph_path, PRINT_EDGE_LABELS)
+            ))()
+
+    #*********** END FOR PROCESS IN DATA[&#39;BEHAVIOR&#39;][&#39;PROCESS&#39;] ****************        
+    return category_graph_path    </code></pre>
+</details>
+<div class="desc"><p>Generate transition matrices and graphs for processes in a JSON report.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>json_report</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the JSON report.</dd>
+<dt><strong><code>output_dir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Directory to save the generated files.</dd>
+<dt><strong><code>graphs_to_generate</code></strong> :&ensp;<code>str</code></dt>
+<dd>Type of graphs to generate.</dd>
+</dl>
+<p>Returns:
+str | int: Path to the generated category graph directory or -1 on error.</p></div>
+</dd>
+<dt id="malgraphiq.graphs.transition_matrix_and_graphs.load_categories"><code class="name flex">
+<span>def <span class="ident">load_categories</span></span>(<span>winapi_categories_path: str, dont_download_winapi: bool) ‑> int</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_categories(winapi_categories_path: str, dont_download_winapi: bool) -&gt; int:
+    &#34;&#34;&#34;
+    Load categories from winapi_categories.json or download it if missing.
+
+    Args:
+        winapi_categories_path (str): Path to winapi_categories.json.
+        dont_download_winapi (bool): Whether to prevent downloading if the file is missing.
+
+    Returns:
+        int: 0 on success or -1 on failure.
+    &#34;&#34;&#34;
+    if not os.path.exists(winapi_categories_path):
+        if dont_download_winapi:
+            logger.warning(&#34;[!] winapi_categories.json file not found. Category refactoring can&#39;t be done. You can download it from https://github.com/reverseame/winapi-categories [!]&#34;)
+            logger.warning(&#34;[!] You could, for example, run the following command: \n\t $ wget https://raw.githubusercontent.com/reverseame/winapi-categories/refs/heads/main/winapi_categories.json&#34;)
+            return -1
+        
+        logger.info(&#34;[*] winapi_categories.json file not detected, attempting to download it.&#34;)
+        if (winapi_categories_path := obtain_winapi_file(winapi_categories_path)) == -1:
+            logger.error(&#34;[!] Cannot obtain winapi_categories.json. Continuing without it [!]&#34;)
+            return winapi_categories_path
+    else:
+        logger.info(f&#34;[*] {winapi_categories_path} found. No need to download.&#34;)
+
+    try:
+        global JSON_DATA
+        with open(winapi_categories_path, encoding=&#34;utf-8&#34;) as file:
+            JSON_DATA = json.load(file)
+        return 0
+    except Exception as e:
+        logger.error(f&#34;[!] An unexpected error occurred: {e}. Cannot open winapi_categories.json [!]&#34;)
+        return -1</code></pre>
+</details>
+<div class="desc"><p>Load categories from winapi_categories.json or download it if missing.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>winapi_categories_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to winapi_categories.json.</dd>
+<dt><strong><code>dont_download_winapi</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to prevent downloading if the file is missing.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>0 on success or -1 on failure.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.graphs.transition_matrix_and_graphs.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>json_dir: str,<br>output_dir: str,<br>graphs_to_generate: str,<br>winapi_categories: str,<br>no_download: bool,<br>print_transition_probabilities: bool,<br>local_logger: logging.Logger) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main(json_dir: str, 
+    output_dir: str, 
+    graphs_to_generate: str, 
+    winapi_categories: str, 
+    no_download: bool, 
+    print_transition_probabilities: bool,
+    local_logger: logging.Logger) -&gt; None:
+    &#34;&#34;&#34;
+    Returns: 
+        List of each generated directory, which contains the .gv, .csv and .pdf files.
+    &#34;&#34;&#34;
+    global logger
+    logger = local_logger
+    load_categories(winapi_categories, no_download)
+
+    global PRINT_EDGE_LABELS
+    PRINT_EDGE_LABELS = print_transition_probabilities
+
+    processed_category_graph_paths = []
+    if os.path.isdir(json_dir):
+        logger.info(&#34;[*] Report directory - attempting to parse all .json files.&#34;)
+        reports = glob.glob(json_dir + &#34;/*.json&#34;)
+        for report in reports:
+            logger.info(f&#34;[*] Parsing {report}.&#34;)
+            if (processed_path := generate_transition_matrices_and_graphs(report, output_dir, graphs_to_generate)) != -1:
+                processed_category_graph_paths.append(processed_path)
+    else:
+        logger.info(f&#34;[*] Parsing {json_dir}.&#34;)
+        if (processed_path := generate_transition_matrices_and_graphs(json_dir, output_dir, graphs_to_generate)) != -1:
+            processed_category_graph_paths.append(processed_path)
+    return processed_category_graph_paths</code></pre>
+</details>
+<div class="desc"><p>Returns:
+List of each generated directory, which contains the .gv, .csv and .pdf files.</p></div>
+</dd>
+<dt id="malgraphiq.graphs.transition_matrix_and_graphs.obtain_winapi_file"><code class="name flex">
+<span>def <span class="ident">obtain_winapi_file</span></span>(<span>winapi_categories_path: str) ‑> str | int</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def obtain_winapi_file(winapi_categories_path: str) -&gt; str | int:
+    &#34;&#34;&#34;
+    Download the winapi_categories.json file from https://github.com/reverseame/winapi-categories.
+
+    Args:
+        winapi_categories_path (str): Path to save the downloaded file.
+
+    Returns:
+        str | int: Path to the downloaded file or -1 on error.
+    &#34;&#34;&#34;
+    try:
+        logger.info(&#34;[*] Downloading winapi_categories.json from official repo (https://github.com/reverseame/winapi-categories)&#34;)
+        r = requests.get(&#34;https://raw.githubusercontent.com/reverseame/winapi-categories/refs/heads/main/winapi_categories.json&#34;, timeout=30)
+        with open(winapi_categories_path, &#34;w&#34;, encoding=&#34;utf-8&#34;) as winapi_categories:
+            winapi_categories.write(r.text)
+        logger.info(f&#34;[*] Successfully downloaded at {winapi_categories_path}&#34;)
+        return winapi_categories_path
+    except Exception as e:
+        logger.error(f&#34;[!] An unexpected error occurred: {e}. Cannot download winapi_categories.json [!]&#34;)
+        return -1</code></pre>
+</details>
+<div class="desc"><p>Download the winapi_categories.json file from <a href="https://github.com/reverseame/winapi-categories.">https://github.com/reverseame/winapi-categories.</a></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>winapi_categories_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to save the downloaded file.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str | int</code></dt>
+<dd>Path to the downloaded file or -1 on error.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.graphs.transition_matrix_and_graphs.render_matrix"><code class="name flex">
+<span>def <span class="ident">render_matrix</span></span>(<span>matrix: pandas.core.frame.DataFrame,<br>alphabet: dict[str, str],<br>graphname: str,<br>labels: bool = True) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def render_matrix(matrix: pd.DataFrame, alphabet: dict[str, str], graphname: str, labels: bool = True) -&gt; None:
+    &#34;&#34;&#34;
+    Render a graph visualization of a transition matrix. Output format: PDF. Engine: dot.
+
+    Args:
+        matrix (pd.DataFrame): Transition matrix to render.
+        alphabet (Dict[str, str]): Mapping of state labels to categories.
+        graphname (str): Name of the output graph.
+        labels (bool): Whether to include edge labels.
+    &#34;&#34;&#34;
+    graph = Digraph(graphname, format=&#39;pdf&#39;, engine=&#39;dot&#39;)
+
+    start_of_graph = True
+    drawn_nodes = {} # Avoid re-adding nodes
+    for row in matrix.index:
+        for column in matrix.columns:
+            if matrix.loc[row][column] &gt; 0: # Use .loc() to access DataFrame by row label
+                #breakpoint()
+                #shape = &#39;ellipse&#39;
+                peripheries = &#34;0&#34;
+                if start_of_graph:
+                    #shape = &#39;box&#39;
+                    peripheries = &#34;2&#34;
+                    start_of_graph = False
+                if row not in drawn_nodes:
+                    graph.node(row, label=row, peripheries = peripheries, style=&#39;filled&#39;, fillcolor=categories_colors_map.categories_and_colors[alphabet[row]] if row != &#39;others&#39; else categories_colors_map.categories_and_colors[&#39;others&#39;]) # &#39;others&#39; node
+                    drawn_nodes[row] = &#34;&#34;
+                # Unrolling the &#39;others&#39; node
+                #if row in alphabet:
+                    #graph.node(row, label=row, style=&#39;filled&#39;, fillcolor=colors[alphabet[row]])
+                #else:
+                    ##graph.node(row, label=row, style=&#39;filled&#39;, fillcolor=colors[row]) # Colored
+                    #graph.node(row, label=row, style=&#39;filled&#39;, fillcolor=&#39;#FFFFFF&#39;) # Uncolored
+                if column not in drawn_nodes:
+                    graph.node(column, label=column, style=&#39;filled&#39;, fillcolor=categories_colors_map.categories_and_colors[alphabet[column]] if column != &#39;others&#39; else categories_colors_map.categories_and_colors[&#39;others&#39;]) # &#39;others&#39; node
+                    drawn_nodes[column] = &#34;&#34;
+                # Unrolling the &#39;others&#39; node
+                #if column in alphabet:
+                    #graph.node(column, label=column, style=&#39;filled&#39;, fillcolor=colors[alphabet[column]])
+                #else:
+                    ##graph.node(column, label=column, style=&#39;filled&#39;, fillcolor=colors[column]) # Colored
+                    #graph.node(column, label=column, style=&#39;filled&#39;, fillcolor=&#39;#FFFFFF&#39;) # Uncolored
+                edge_color = &#34;black&#34;
+                label = str(np.around(matrix.loc[row][column], 4)) 
+                if labels:
+                    graph.edge(row, column, label=label, fontcolor=edge_color)
+                else:
+                    graph.edge(row, column) # No label
+                #graph.edge(row, column, label=str(np.around(matrix.loc[row][column],4)))
+                #if start_of_graph:
+                    #start_of_graph = False
+                    ##graph.node(&#39;Start&#39;, label=&#39;Start&#39;, style=&#39;filled&#39;, fillcolor=&#39;black&#39;, fontcolor=&#39;white&#39;)
+                    #graph.node(&#39;Start&#39;, label=&#39;&#39;, style=&#39;filled&#39;, fillcolor=&#39;black&#39;, fontcolor=&#39;white&#39;, shape=&#39;circle&#39;)
+                    #graph.edge(&#39;Start&#39;, row)
+    graph.render()</code></pre>
+</details>
+<div class="desc"><p>Render a graph visualization of a transition matrix. Output format: PDF. Engine: dot.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>matrix</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>Transition matrix to render.</dd>
+<dt><strong><code>alphabet</code></strong> :&ensp;<code>Dict[str, str]</code></dt>
+<dd>Mapping of state labels to categories.</dd>
+<dt><strong><code>graphname</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the output graph.</dd>
+<dt><strong><code>labels</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to include edge labels.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.graphs.transition_matrix_and_graphs.transition_matrix"><code class="name flex">
+<span>def <span class="ident">transition_matrix</span></span>(<span>data: list[str], alphabet: list[str]) ‑> pandas.core.frame.DataFrame</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def transition_matrix(data: list[str], alphabet: list[str]) -&gt; pd.DataFrame:
+    &#34;&#34;&#34;
+    Generate a transition matrix by creating a len(alphabet) x len(alphabet) matrix.
+
+    Args:
+        data (list[str]): Sequence of states.
+        alphabet (list[str]): Possible states.
+
+    Returns:
+        pd.DataFrame: Transition matrix.
+    &#34;&#34;&#34;
+
+    matrix = pd.DataFrame(0.0, index=alphabet, columns=alphabet)
+    &#34;&#34;&#34;
+    In order to count how many times each states transitions to
+    one another, we use two pointers: previous_state and actual_state.
+        previous_state: points to the first state in the alphabet and moves on
+        actual_state: points to the second state in the alphabet and moves on
+    Counting means adding (sum) 1 to the cell of the transition matrix
+    corresponding to the row actual_state and the column previous_state. That is:
+    matrix[previous_state][actual_state]
+    
+    In other words, we reached the actual state (matrix[actual_state]) from
+    the previous state matrix[previous_state][actual_state], and that&#39;s a transition
+    &#34;&#34;&#34;
+    previous_state = data[0]
+    for actual_state in data[1:]:
+        #matrix[actual_state][previous_state] += 1.0
+        #matrix[previous_state][actual_state] += 1.0
+        matrix.loc[actual_state, previous_state] += 1.0
+        previous_state = actual_state
+    
+    &#34;&#34;&#34;
+    To get the probabilities, we must first know how many times a given state
+    transitions. That is, the sum of all its transitions, regardless of the
+    destiny state, To achieve that, the sum() method can be used
+    https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sum.html
+    the default axis is 0, which stand for index and it sums ALL the indexes
+    of a given column (counterintuitive thinking)
+    &#34;&#34;&#34;
+    total = matrix.sum()
+    for element in alphabet:
+        matrix[element] = matrix.div(total[element])[element]
+    
+    &#34;&#34;&#34;
+    Very important to transpose the DataFrame given that Panda&#39;s DF access is made
+    by columns, not by rows as a normal matrix. So after generating the data and 
+    getting the probabilities, it must be transposed to represent an actual matrix.
+    &#34;&#34;&#34;
+    matrix = matrix.transpose()
+    total_probabilities = matrix.sum(axis=1)
+    for i, row in enumerate(total_probabilities):
+        if row == 0:
+            logger.debug(f&#34;[!] Skipping ASSERT. Probability is zero. Probably last API call?\n{total_probabilities.index[i]}: {total_probabilities.iloc[i]}&#34;)
+            continue
+        row = np.around(row, 2) # Rounding to 2 decimals so 0.9999999000001 becomes 1
+        if row != 1:
+            logger.error(f&#34;The probabilities of row: {row} do not sum 1\n{total_probabilities}\n{matrix}&#34;)
+            sys.exit(1)
+    return matrix</code></pre>
+</details>
+<div class="desc"><p>Generate a transition matrix by creating a len(alphabet) x len(alphabet) matrix.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>list[str]</code></dt>
+<dd>Sequence of states.</dd>
+<dt><strong><code>alphabet</code></strong> :&ensp;<code>list[str]</code></dt>
+<dd>Possible states.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pd.DataFrame</code></dt>
+<dd>Transition matrix.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.graphs.transition_matrix_and_graphs.unique"><code class="name flex">
+<span>def <span class="ident">unique</span></span>(<span>sequence: list) ‑> list</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def unique(sequence: list) -&gt; list:
+    &#34;&#34;&#34;
+    Remove duplicate elements from a sequence while maintaining order.
+
+    Args:
+        sequence (list): Input sequence.
+
+    Returns:
+        list: Sequence with duplicates removed.
+    &#34;&#34;&#34;
+    seen = set()
+    return [x for x in sequence if not (x in seen or seen.add(x))]</code></pre>
+</details>
+<div class="desc"><p>Remove duplicate elements from a sequence while maintaining order.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>sequence</code></strong> :&ensp;<code>list</code></dt>
+<dd>Input sequence.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>Sequence with duplicates removed.</dd>
+</dl></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="malgraphiq.graphs" href="index.html">malgraphiq.graphs</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="malgraphiq.graphs.transition_matrix_and_graphs.generate_api_call_transitions" href="#malgraphiq.graphs.transition_matrix_and_graphs.generate_api_call_transitions">generate_api_call_transitions</a></code></li>
+<li><code><a title="malgraphiq.graphs.transition_matrix_and_graphs.generate_api_per_category_transitions" href="#malgraphiq.graphs.transition_matrix_and_graphs.generate_api_per_category_transitions">generate_api_per_category_transitions</a></code></li>
+<li><code><a title="malgraphiq.graphs.transition_matrix_and_graphs.generate_transition_matrices_and_graphs" href="#malgraphiq.graphs.transition_matrix_and_graphs.generate_transition_matrices_and_graphs">generate_transition_matrices_and_graphs</a></code></li>
+<li><code><a title="malgraphiq.graphs.transition_matrix_and_graphs.load_categories" href="#malgraphiq.graphs.transition_matrix_and_graphs.load_categories">load_categories</a></code></li>
+<li><code><a title="malgraphiq.graphs.transition_matrix_and_graphs.main" href="#malgraphiq.graphs.transition_matrix_and_graphs.main">main</a></code></li>
+<li><code><a title="malgraphiq.graphs.transition_matrix_and_graphs.obtain_winapi_file" href="#malgraphiq.graphs.transition_matrix_and_graphs.obtain_winapi_file">obtain_winapi_file</a></code></li>
+<li><code><a title="malgraphiq.graphs.transition_matrix_and_graphs.render_matrix" href="#malgraphiq.graphs.transition_matrix_and_graphs.render_matrix">render_matrix</a></code></li>
+<li><code><a title="malgraphiq.graphs.transition_matrix_and_graphs.transition_matrix" href="#malgraphiq.graphs.transition_matrix_and_graphs.transition_matrix">transition_matrix</a></code></li>
+<li><code><a title="malgraphiq.graphs.transition_matrix_and_graphs.unique" href="#malgraphiq.graphs.transition_matrix_and_graphs.unique">unique</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

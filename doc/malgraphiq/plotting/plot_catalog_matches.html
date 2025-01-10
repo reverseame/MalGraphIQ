@@ -1,0 +1,1115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>malgraphiq.plotting.plot_catalog_matches API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>malgraphiq.plotting.plot_catalog_matches</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="malgraphiq.plotting.plot_catalog_matches.clip_data"><code class="name flex">
+<span>def <span class="ident">clip_data</span></span>(<span>df: pandas.core.frame.DataFrame) ‑> pandas.core.frame.DataFrame</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clip_data(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &#34;&#34;&#34;
+    Clips data (only upper threshold) according to the value in the 0.9 or 90th quantile
+    of the __df__ DataFrame. The midpoint technique is used for interpolation.
+
+    This technique helps reduce the impact of extreme values on the dataset.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame to clip.
+
+    Returns:
+        pd.DataFrame: Clipped DataFrame.
+    &#34;&#34;&#34;
+    return df.clip(upper=df.quantile(0.9, interpolation=&#39;midpoint&#39;), axis=&#39;columns&#39;, inplace=False)</code></pre>
+</details>
+<div class="desc"><p>Clips data (only upper threshold) according to the value in the 0.9 or 90th quantile
+of the <strong>df</strong> DataFrame. The midpoint technique is used for interpolation.</p>
+<p>This technique helps reduce the impact of extreme values on the dataset.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>Input DataFrame to clip.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pd.DataFrame</code></dt>
+<dd>Clipped DataFrame.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.plotting.plot_catalog_matches.correct_execution"><code class="name flex">
+<span>def <span class="ident">correct_execution</span></span>(<span>df: pandas.core.frame.DataFrame) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def correct_execution(df: pd.DataFrame) -&gt; bool:
+    &#34;&#34;&#34;
+    Determines whether the _df_ DataFrame corresponds to a **correct execution**. 
+    In this context, a **correct execution** is one that ended successfully, 
+    regardless of the actual sample detonating or not.
+
+    To consider an execution correct, we check how many times it matched with none of our behavioral
+    patterns. In other words, if the sample has 0 matches with 90% or more of our micro-objectives 
+    and micro-behaviors, we discard it. That is, we check whether the value 0 appears
+    in 90% of the columns of the DataFrame or more.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame to evaluate.
+
+    Returns:
+        bool: True if the execution is correct, False otherwise.
+    &#34;&#34;&#34;
+    return df.T.value_counts().iloc[0] &lt; len(df.columns)*0.90</code></pre>
+</details>
+<div class="desc"><p>Determines whether the <em>df</em> DataFrame corresponds to a <strong>correct execution</strong>.
+In this context, a <strong>correct execution</strong> is one that ended successfully,
+regardless of the actual sample detonating or not.</p>
+<p>To consider an execution correct, we check how many times it matched with none of our behavioral
+patterns. In other words, if the sample has 0 matches with 90% or more of our micro-objectives
+and micro-behaviors, we discard it. That is, we check whether the value 0 appears
+in 90% of the columns of the DataFrame or more.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>Input DataFrame to evaluate.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the execution is correct, False otherwise.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.plotting.plot_catalog_matches.drop_methods_indexes"><code class="name flex">
+<span>def <span class="ident">drop_methods_indexes</span></span>(<span>df: pandas.core.frame.DataFrame) ‑> pandas.core.frame.DataFrame</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def drop_methods_indexes(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &#34;&#34;&#34;
+    Delete all entrieis from _df_ corresponding to the method-level 
+    of the behavioral catalog
+
+    https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop.html
+    https://stackoverflow.com/a/61166760
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+
+    Returns:
+        pd.DataFrame: DataFrame with only micro-objective columns.
+    &#34;&#34;&#34;
+    # In the context of DataFrames index is synonymous with row
+    # An index corresponds to a method-level if it does not end with &#34;Total matches&#34;
+    columns_to_drop = [column for column in df if not column.endswith(&#34;Total matches&#34;) and column != &#34;n_processes&#34;]
+    new_df = df.drop(columns_to_drop, axis=1) # {0 or ‘index’, 1 or ‘columns’}, default 0
+    return new_df</code></pre>
+</details>
+<div class="desc"><p>Delete all entrieis from <em>df</em> corresponding to the method-level
+of the behavioral catalog</p>
+<p><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop.html">https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop.html</a>
+<a href="https://stackoverflow.com/a/61166760">https://stackoverflow.com/a/61166760</a></p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>Input DataFrame.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pd.DataFrame</code></dt>
+<dd>DataFrame with only micro-objective columns.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.plotting.plot_catalog_matches.generate_barchart_per_micro_objective"><code class="name flex">
+<span>def <span class="ident">generate_barchart_per_micro_objective</span></span>(<span>df: pandas.core.frame.DataFrame,<br>micro_objectives,<br>title: str,<br>catalog_matches_plot_dir: str,<br>broken: bool,<br>lower_figure_limit: int,<br>upper_figure_limit: int,<br>lower_figure_ratio: int) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_barchart_per_micro_objective(
+    df: pd.DataFrame, 
+    micro_objectives, 
+    title: str, 
+    catalog_matches_plot_dir: str, 
+    broken: bool,
+    lower_figure_limit: int, 
+    upper_figure_limit: int, 
+    lower_figure_ratio: int
+) -&gt; None:
+    &#34;&#34;&#34;
+    Generate and save barcharts for each micro-objective.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing the data to plot.
+        micro_objectives (list[str]): List of micro-objectives to generate barcharts for.
+        title (str): Title for the charts.
+        catalog_matches_plot_dir (str): Directory to save the generated charts.
+        broken (bool): Whether to use broken barcharts.
+        lower_figure_limit (int): Lower limit for broken barcharts.
+        upper_figure_limit (int): Upper limit for broken barcharts.
+        lower_figure_ratio (int): Ratio of lower figure height for broken barcharts.
+    &#34;&#34;&#34;
+
+    for micro_objective in micro_objectives:
+        micro_objective_df = generate_dataframe_specific_micro_objective(df, micro_objective)
+        micro_objective_name_no_id = micro_objective[micro_objective.index(&#39;]&#39;)+1:].strip()
+        #figure_title = title+&#34;\n&#34;+str(micro_objective_name_no_id)+&#34; Micro-objective&#34;
+        figure_title = title
+        file_name = title+&#34;_&#34;+str(micro_objective_name_no_id)+&#34;.pdf&#34; if title else str(micro_objective_name_no_id)+&#34;.pdf&#34;
+        file_name = path.join(catalog_matches_plot_dir, file_name) if catalog_matches_plot_dir else file_name 
+        if broken: 
+            generate_pdf_broken_barchart(micro_objective_df, figure_title, file_name, lower_figure_limit, upper_figure_limit, lower_figure_ratio, micro_objective)
+        else:
+            generate_pdf_barchart(micro_objective_df, figure_title, file_name, micro_objective)</code></pre>
+</details>
+<div class="desc"><p>Generate and save barcharts for each micro-objective.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>DataFrame containing the data to plot.</dd>
+<dt><strong><code>micro_objectives</code></strong> :&ensp;<code>list[str]</code></dt>
+<dd>List of micro-objectives to generate barcharts for.</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
+<dd>Title for the charts.</dd>
+<dt><strong><code>catalog_matches_plot_dir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Directory to save the generated charts.</dd>
+<dt><strong><code>broken</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to use broken barcharts.</dd>
+<dt><strong><code>lower_figure_limit</code></strong> :&ensp;<code>int</code></dt>
+<dd>Lower limit for broken barcharts.</dd>
+<dt><strong><code>upper_figure_limit</code></strong> :&ensp;<code>int</code></dt>
+<dd>Upper limit for broken barcharts.</dd>
+<dt><strong><code>lower_figure_ratio</code></strong> :&ensp;<code>int</code></dt>
+<dd>Ratio of lower figure height for broken barcharts.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.plotting.plot_catalog_matches.generate_dataframe_specific_micro_objective"><code class="name flex">
+<span>def <span class="ident">generate_dataframe_specific_micro_objective</span></span>(<span>original_dataframe: pandas.core.frame.DataFrame, micro_objective: str) ‑> pandas.core.frame.DataFrame</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_dataframe_specific_micro_objective(original_dataframe: pd.DataFrame, micro_objective: str) -&gt; pd.DataFrame:
+    &#34;&#34;&#34;
+    Generate a new DataFrame containing data for a specific micro-objective.
+
+    Args:
+        original_dataframe (pd.DataFrame): Original DataFrame containing multiple objectives.
+        micro_objective (str): The specific micro-objective to extract.
+
+    Returns:
+        pd.DataFrame: DataFrame containing only the data for the specified micro-objective.
+    &#34;&#34;&#34;
+    micro_objective_df = [col for col in original_dataframe if col.startswith(micro_objective)]
+    micro_objective_df = original_dataframe[micro_objective_df]
+    return micro_objective_df</code></pre>
+</details>
+<div class="desc"><p>Generate a new DataFrame containing data for a specific micro-objective.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>original_dataframe</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>Original DataFrame containing multiple objectives.</dd>
+<dt><strong><code>micro_objective</code></strong> :&ensp;<code>str</code></dt>
+<dd>The specific micro-objective to extract.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pd.DataFrame</code></dt>
+<dd>DataFrame containing only the data for the specified micro-objective.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.plotting.plot_catalog_matches.generate_pdf_barchart"><code class="name flex">
+<span>def <span class="ident">generate_pdf_barchart</span></span>(<span>df: pandas.core.frame.DataFrame,<br>fig_title: str,<br>fig_name: str,<br>micro_objective: str = None) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_pdf_barchart(
+    df: pd.DataFrame, 
+    fig_title: str,
+    fig_name: str, 
+    micro_objective: str = None
+) -&gt; None:
+    &#34;&#34;&#34;
+    Generate a barchart and save it as a PDF.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing values to plot.
+        fig_title (str): Title of the barchart.
+        fig_name (str): Output file name.
+        micro_objective (Optional[str]): Specific micro-objective to label (default: None).
+    &#34;&#34;&#34;
+    # Normalize data
+    normalized_df = normalize(df, 0, 100)
+    #breakpoint()
+    # Get the mean
+    mean_df = normalized_df.mean()
+    # Delete the columns whose value is 0
+    #mean_df = mean_df[mean_df.values != 0]
+    #Transform data into percentage
+    mean_df = (100. * mean_df / mean_df.sum()).round(2)
+    mean_df = mean_df.replace(np.nan, 0)
+
+    # Rename indexes by deleting their category
+    for index_name in mean_df.index:
+        mean_df.rename(index={f&#34;{index_name}&#34;:index_name.removeprefix(micro_objective+&#34;.&#34;)}, inplace=True) # Python +3.9 https://stackoverflow.com/a/1038845
+    #color = get_tonal_colors(mean_df.index)
+    colors = get_basic_colors(mean_df.index)
+    legend_title = &#34;Micro Behaviors&#34;
+
+     # Delete the ID and replace space with newline
+    labels = [index[index.index(&#39;]&#39;)+1:].strip() for index in mean_df.index]
+
+    # Generate xticks labels
+    xtick_labels = []
+
+    # Add abbreviations to labels in legend (if they got one)
+    for i, label in enumerate(labels):
+        # Delete redundant words on the fly
+        if &#34;Communication&#34; in label:
+            labels[i] = labels[i].replace(&#34;Communication&#34;, &#34;&#34;)
+
+        if label in configuration.abbreviation_map:
+            labels[i] = label + f&#34; ({configuration.abbreviation_map[label]})&#34;
+            # Fix typo on the fly
+            if label == &#34;Create or Open file&#34;:
+                labels[i] = labels[i].replace(&#34;file&#34;, &#34;File&#34;)
+            xtick_labels.append(configuration.abbreviation_map[label])
+        else:
+            xtick_labels.append(labels[i])
+
+    #hatch = get_hatches(mean_df.index)
+
+    # Delete the ID and replace space with newline
+    #labels = [index[index.index(&#39;]&#39;)+1:].strip().replace(&#34; &#34;,&#34;\n&#34;) for index in mean_df.index] 
+    #labels = [index[index.index(&#39;]&#39;)+1:].strip() for index in mean_df.index]
+    #breakpoint()
+    #colors = get_basic_colors(mean_df.index)
+    
+    #fig, ax = plt.subplots()
+    #plt.bar(mean_df.index, mean_df.values, label=labels, color=colors)
+    #ax = mean_df.plot(xticks=[], kind=&#39;bar&#39;, stacked=False, color=colors)
+    #breakpoint()
+
+    actual_bar = plt.bar(xtick_labels, mean_df.values, label=xtick_labels, color=colors)
+    #plt.yticks([0, 25, 50, 75, 100])
+    plt.ylim(0, 100) # Set 100 as limit, to cut figure right there
+    plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(xmax=100)) # Format y-axis as percent
+    plt.bar_label(actual_bar, label_type=&#39;edge&#39;, fmt=&#39;%.2f%%&#39;, size=9, weight=&#39;bold&#39;) # Converts 0 into 0.00
+
+    
+    #plt.bar_label(bar, label_type=&#39;edge&#39;)
+    
+    # Rotate labels https://stackoverflow.com/a/37708190
+    #plt.xticks(rotation=90)
+    
+    # Hide labels https://stackoverflow.com/a/40860688
+    #plt.xticks([])
+
+    # Add legend and title
+    #plt.title(micro_objective[micro_objective.index(&#39;]&#39;)+1:].strip(), fontsize=13)
+    plt.title(fig_title, fontsize=17, y=1.0, pad=12)
+    ncols = 2 if len(labels) &gt;= 4 else 3
+    plt.legend(labels, title=legend_title, loc=&#34;upper center&#34;, fontsize=&#39;small&#39;, ncols=ncols, bbox_to_anchor = (.5, -.05))
+    #ax.legend(handles=labels)
+
+    # Show the graph
+    plt.savefig(fig_name, format=&#34;pdf&#34;, bbox_inches=&#34;tight&#34;)
+    plt.close() # So data does not get mixed up</code></pre>
+</details>
+<div class="desc"><p>Generate a barchart and save it as a PDF.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>DataFrame containing values to plot.</dd>
+<dt><strong><code>fig_title</code></strong> :&ensp;<code>str</code></dt>
+<dd>Title of the barchart.</dd>
+<dt><strong><code>fig_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Output file name.</dd>
+<dt><strong><code>micro_objective</code></strong> :&ensp;<code>Optional[str]</code></dt>
+<dd>Specific micro-objective to label (default: None).</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.plotting.plot_catalog_matches.generate_pdf_broken_barchart"><code class="name flex">
+<span>def <span class="ident">generate_pdf_broken_barchart</span></span>(<span>df: pandas.core.frame.DataFrame,<br>fig_title: str,<br>fig_name: str,<br>user_supplied_lowerylim: int,<br>user_supplied_upperylim: int,<br>lower_figure_ratio: int,<br>micro_objective: str = None) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_pdf_broken_barchart(
+    df: pd.DataFrame,
+    fig_title: str,
+    fig_name: str,
+    user_supplied_lowerylim: int,
+    user_supplied_upperylim: int,
+    lower_figure_ratio: int,
+    micro_objective: str = None
+) -&gt; None:
+    &#34;&#34;&#34;
+    Generate a broken barchart and save it as a PDF.
+
+    A broken barchart splits the Y-axis into two parts, enabling better visualization 
+    of datasets with extreme values.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing values to plot.
+        fig_title (str): Title of the chart.
+        fig_name (str): Name of the output file.
+        user_supplied_lowerylim (int): Upper limit of the lower half of the chart.
+        user_supplied_upperylim (int): Lower limit of the upper half of the chart.
+        lower_figure_ratio (int): Percentage of the chart height allocated to the lower half.
+        micro_objective (Optional[str]): Specific micro-objective for labeling (default: None).
+    &#34;&#34;&#34;
+
+    # Normalize data
+    normalized_df = normalize(df, 0, 100)
+    # Get the mean
+    mean_df = normalized_df.mean()
+    #Transform data into percentage
+    mean_df = (100. * mean_df / mean_df.sum()).round(2)
+    mean_df = mean_df.replace(np.nan, 0)
+
+    # Rename indexes by deleting their category
+    for index_name in mean_df.index:
+        mean_df.rename(index={f&#34;{index_name}&#34;:index_name.removeprefix(micro_objective+&#34;.&#34;)}, inplace=True) # Python +3.9 https://stackoverflow.com/a/1038845
+    colors = get_basic_colors(mean_df.index)
+    legend_title = &#34;Micro Behaviors&#34;
+
+    # Delete the ID and replace space with newline
+    labels = [index[index.index(&#39;]&#39;)+1:].strip() for index in mean_df.index]
+
+    # Generate xticks labels
+    xtick_labels = []
+
+    # Add abbreviations to labels in legend (if they got one)
+    for i, label in enumerate(labels):
+        # Delete redundant words on the fly
+        if &#34;Communication&#34; in label:
+            labels[i] = labels[i].replace(&#34;Communication&#34;, &#34;&#34;)
+
+        if label in configuration.abbreviation_map:
+            labels[i] = label + f&#34; ({configuration.abbreviation_map[label]})&#34;
+            # Fix typo on the fly
+            if label == &#34;Create or Open file&#34;:
+                labels[i] = labels[i].replace(&#34;file&#34;, &#34;File&#34;)
+            xtick_labels.append(configuration.abbreviation_map[label])
+        else:
+            xtick_labels.append(labels[i])
+
+    # Broken Axis figure: https://matplotlib.org/stable/gallery/subplots_axes_and_figures/broken_axis.html
+    lower_figure_height_ratio = round(lower_figure_ratio / 100, 2)
+    higher_figure_height_ratio = round(1 - lower_figure_height_ratio, 2)
+    height_ratios=[higher_figure_height_ratio, lower_figure_height_ratio]
+    #fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, height_ratios=[.1, .9])
+    fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, height_ratios=height_ratios)
+    fig.subplots_adjust(hspace=.1)  # adjust space between axes
+
+    # ax1 is the upper part of the figure, ax2 is the lower one
+    ax1bar = ax1.bar(xtick_labels, mean_df.values, label=xtick_labels, color=colors)
+    ax2bar = ax2.bar(xtick_labels, mean_df.values, label=xtick_labels, color=colors)
+
+    # Upper-part of the figure limit:
+    ax1.set_ylim(user_supplied_upperylim, 100)
+
+    # Lower-part of the figure limit:
+    ####################################################################
+    # Ad-hoc barcharts. Uncomment and customize this code as you seem
+    # necessary in order to generate custom broken barcharts for your
+    # specific needs.
+    ####################################################################
+    # if micro_objective in [&#34;[OC0001] Filesystem&#34;,&#34;[OC0003] Process&#34;]:
+    #     ax2.set_ylim(0, 20)
+    #     y_bbox_to_anchor = -.20
+    # else:
+    #     ax2.set_ylim(0, 55)
+    #     y_bbox_to_anchor = -.10
+
+    ax2.set_ylim(0, user_supplied_lowerylim)
+
+    # hide the spines between ax and ax2
+    ax1.spines.bottom.set_visible(False)
+    ax2.spines.top.set_visible(False)
+    #ax1.xaxis.tick_top()
+    #ax1.tick_params(labeltop=False)  # don&#39;t put tick labels at the top
+    #ax2.xaxis.tick_bottom()
+
+    # Now, let&#39;s turn towards the cut-out slanted lines.
+    # We create line objects in axes coordinates, in which (0,0), (0,1),
+    # (1,0), and (1,1) are the four corners of the axes.
+    # The slanted lines themselves are markers at those locations, such that the
+    # lines keep their angle and position, independent of the axes size or scale
+    # Finally, we need to disable clipping.
+
+    d = .5  # proportion of vertical to horizontal extent of the slanted line
+    kwargs = {&#34;marker&#34;:[(-1, -d), (1, d)], 
+                &#34;markersize&#34;:12,
+                &#34;linestyle&#34;:&#34;none&#34;,
+                &#34;color&#34;:&#34;k&#34;,
+                &#34;mec&#34;:&#34;k&#34;,
+                &#34;mew&#34;:1,
+                &#34;clip_on&#34;:False}
+    ax1.plot([0, 1], [0, 0], transform=ax1.transAxes, **kwargs)
+    ax2.plot([0, 1], [1, 1], transform=ax2.transAxes, **kwargs)
+    
+    
+    #bar = plt.bar(labels, mean_df.values, label=labels, color=colors)
+    #plt.yticks([0, 25, 50, 75, 100])
+    
+    ax1.bar_label(ax1bar, label_type=&#39;edge&#39;, fmt=&#39;%.2f%%&#39;, size=9, weight=&#39;bold&#39;) # Converts 0 into 0.00
+    ax2.bar_label(ax2bar, label_type=&#39;edge&#39;, fmt=&#39;%.2f%%&#39;, size=9, weight=&#39;bold&#39;)
+
+    # Format Y axis as percent https://stackoverflow.com/questions/31357611/format-y-axis-as-percent
+    ax1.yaxis.set_major_formatter(mtick.PercentFormatter())
+    ax2.yaxis.set_major_formatter(mtick.PercentFormatter())
+    
+    #plt.bar_label(bar, label_type=&#39;edge&#39;)
+    
+    # Rotate labels https://stackoverflow.com/a/37708190
+    #plt.xticks(rotation=90)
+    
+    # Hide labels https://stackoverflow.com/a/40860688
+    #plt.xticks(xtick_labels)
+    ax1.get_xaxis().set_visible(False) # hide ticks just for the upper figure
+    #ax2.set_xticks(xtick_labels) # Set abbreviated ticks
+    
+    # Add legend and title
+    #plt.title(micro_objective[micro_objective.index(&#39;]&#39;)+1:].strip(), fontsize=13)
+    #plt.title(fig_title, fontsize=17)
+    ax1.set_title(fig_title, fontsize=17, y=1.0, pad=12) # We use ax1.set_title to make sure title is on top of ax1 (upper figure)
+    ncols = 2 if len(labels) &gt;= 4 else 3
+    plt.legend(labels, title=legend_title, loc=&#34;upper center&#34;, fontsize=&#39;small&#39;, ncols=ncols, bbox_to_anchor = (.5, -.17))#, prop={&#39;size&#39;: 10})
+
+    #ax.legend(handles=labels)
+
+    # Show the graph
+    plt.savefig(fig_name, format=&#34;pdf&#34;, bbox_inches=&#34;tight&#34;)
+    plt.close() # So data does not get mixed up</code></pre>
+</details>
+<div class="desc"><p>Generate a broken barchart and save it as a PDF.</p>
+<p>A broken barchart splits the Y-axis into two parts, enabling better visualization
+of datasets with extreme values.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>DataFrame containing values to plot.</dd>
+<dt><strong><code>fig_title</code></strong> :&ensp;<code>str</code></dt>
+<dd>Title of the chart.</dd>
+<dt><strong><code>fig_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the output file.</dd>
+<dt><strong><code>user_supplied_lowerylim</code></strong> :&ensp;<code>int</code></dt>
+<dd>Upper limit of the lower half of the chart.</dd>
+<dt><strong><code>user_supplied_upperylim</code></strong> :&ensp;<code>int</code></dt>
+<dd>Lower limit of the upper half of the chart.</dd>
+<dt><strong><code>lower_figure_ratio</code></strong> :&ensp;<code>int</code></dt>
+<dd>Percentage of the chart height allocated to the lower half.</dd>
+<dt><strong><code>micro_objective</code></strong> :&ensp;<code>Optional[str]</code></dt>
+<dd>Specific micro-objective for labeling (default: None).</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.plotting.plot_catalog_matches.generate_pdf_radarchart"><code class="name flex">
+<span>def <span class="ident">generate_pdf_radarchart</span></span>(<span>df: pandas.core.frame.DataFrame,<br>fig_title: str,<br>fig_name: str,<br>radarchart_max_scale: int,<br>micro_objective: str = None) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_pdf_radarchart(
+    df: pd.DataFrame, 
+    fig_title: str, 
+    fig_name: str,
+    radarchart_max_scale: int, 
+    micro_objective: str = None
+) -&gt; None:
+    &#34;&#34;&#34;
+    Generate a radar chart from a DataFrame and save it as PDF.
+
+    Args:
+        df (pd.DataFrame): DataFrame with values to plot.
+        fig_title (str): Title of the figure.
+        fig_name (str): Name of the output file.
+        radarchart_max_scale (int): Maximum scale value for the radar chart.
+        micro_objective (Optional[str]): Specific micro-objective for labeling (optional).
+    &#34;&#34;&#34;
+    normalized_df = normalize(df, 0 ,100)
+    #df = normalize(df.mean(), 0, 100) # Normalization of the means
+    # We are printing only the mean of all the samples, not each one of them individually
+    mean_df = normalized_df.mean() # IMPORTANT!!! Get the mean() AFTER normalization
+
+    #Transform data into percentage
+    mean_df = (100. * mean_df / mean_df.sum()).round(2)
+
+    # In case the function is drawing micro-behaviors (micro_objective not none),
+    # Delete the micro-objectvie from its name. That is: 
+    # [OC0006] Communication.[C0001] Socket Communication -&gt; [C0001] Socket Communication
+    if micro_objective is not None:
+        for index_name in mean_df.index:
+            mean_df.rename(index={f&#34;{index_name}&#34;:index_name.removeprefix(micro_objective+&#34;.&#34;)}, inplace=True) # Python +3.9 https://stackoverflow.com/a/1038845
+
+    # Delete the ID
+    labels = [index[index.index(&#39;]&#39;)+1:].strip().replace(&#34; &#34;, &#34;\n&#34;) for index in mean_df.index] 
+       
+    categories=list(labels)
+    number_of_categories = len(categories)
+    angles = [n / float(number_of_categories) * 2 * np.pi for n in range(number_of_categories)]
+    angles += angles[:1]
+    # Initialise the spider plot
+    ax = plt.subplot(111, polar=True)
+    # If you want the first axis to be on top:
+    ax.set_theta_offset(np.pi / 2)
+    ax.set_theta_direction(-1)
+    # Draw one axe per variable + add labels labels yet
+    plt.xticks(angles[:-1], categories, size=10, weight=&#39;bold&#39;)
+    # Draw ylabels
+    ax.set_rlabel_position(0)
+    #plt.yticks([0,25,50,75,100], [&#34;0&#34;,&#34;25&#34;,&#34;50&#34;,&#34;75&#34;,&#34;100&#34;], color=&#34;grey&#34;, size=7)
+    plt.yticks([0,10,20,30,40,50,60,70,80,90,100], [&#34;0%&#34;,&#34;10%&#34;,&#34;20%&#34;,&#34;30%&#34;,&#34;40%&#34;,&#34;50%&#34;,&#34;60%&#34;,&#34;70%&#34;,&#34;80%&#34;,&#34;90%&#34;,&#34;100%&#34;], color=&#34;black&#34;, size=8)
+    #plt.ylim(0,50)
+    plt.ylim(0,radarchart_max_scale)
+    # Format Y axis as percent https://stackoverflow.com/questions/31357611/format-y-axis-as-percent
+    ax.yaxis.set_major_formatter(mtick.PercentFormatter())
+    # ------- PART 2: Add plots
+
+    # The snippet below was used back when each sample was drawn individually. 
+    #for sample in df.index:
+        #values=df.loc[sample].values.flatten().tolist()
+        #values+=values[:1]
+        #ax.plot(angles, values, linewidth=1, linestyle=&#39;solid&#39;, label=sample)
+        #ax.fill(angles, values, alpha=0.25)
+    # Now that we draw only the mean (like just one sample), the code is simpler
+    values = list(mean_df)
+    values+=values[:1]
+    ax.plot(angles, values, linewidth=1, linestyle=&#39;solid&#39;, label=&#34;Mean values from all samples&#34;)
+    ax.fill(angles, values, alpha=1)
+
+    # Draw the points. Inspired by https://stackoverflow.com/a/59905577
+    for index, angle in enumerate(angles):
+        if values[index] != 0.0: # Don&#39;t draw the 0.0%
+            ax.text(angle, values[index]+5, str(values[index])+&#34;%&#34;, color=&#39;black&#39;, ha=&#39;center&#39;, va=&#39;center&#39;, size=9, weight=&#39;bold&#39;)
+        #ax.scatter(angle, values[index], s=5, color=&#34;blue&#34;)
+
+    plt.tick_params(axis=&#39;both&#39;, which=&#39;major&#39;, labelbottom=True, bottom=True, left=True, top=True)
+
+
+    # Add custom padding (per label) on x Axis so labels do not overlap with figure
+    #ax.tick_params(axis=&#39;x&#39;, which=&#39;major&#39;, pad=15)
+    for tick in ax.xaxis.get_major_ticks():
+        tick.set_pad(configuration.radarchart_padding[tick.label1.get_text()])
+
+    # Title
+    if micro_objective is None:
+        plt.title(fig_title, fontsize=13)
+    else:
+        plt.title(micro_objective[micro_objective.index(&#39;]&#39;)+1:].strip(), fontsize=13)
+
+    # Add legend
+    #plt.legend( bbox_to_anchor=(0.1, 0.1), fontsize=&#39;small&#39;)
+    
+    # Save the figure
+    plt.savefig(fig_name, format=&#34;pdf&#34;, bbox_inches=&#34;tight&#34;)
+
+    plt.close() # So data does not get mixed up</code></pre>
+</details>
+<div class="desc"><p>Generate a radar chart from a DataFrame and save it as PDF.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>DataFrame with values to plot.</dd>
+<dt><strong><code>fig_title</code></strong> :&ensp;<code>str</code></dt>
+<dd>Title of the figure.</dd>
+<dt><strong><code>fig_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the output file.</dd>
+<dt><strong><code>radarchart_max_scale</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximum scale value for the radar chart.</dd>
+<dt><strong><code>micro_objective</code></strong> :&ensp;<code>Optional[str]</code></dt>
+<dd>Specific micro-objective for labeling (optional).</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.plotting.plot_catalog_matches.get_basic_colors"><code class="name flex">
+<span>def <span class="ident">get_basic_colors</span></span>(<span>values_to_color: list[str]) ‑> list[str]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_basic_colors(values_to_color: list[str]) -&gt; list[str]:
+    &#34;&#34;&#34;
+    Retrieve a list comprising the basic color values corresponding to each value from __values_to_color__.
+
+    Args:
+        values_to_color (list[str]): List of values for which to retrieve colors.
+
+    Returns:
+        list[str]: List of color codes corresponding to the input values.
+    &#34;&#34;&#34;
+    color_list = []
+    for value in values_to_color:
+        if value not in color_maps.behavior_catalog_basic_colormap:
+            color_list.append(&#34;#FFFFFF&#34;)
+        else:
+            color_list.append(color_maps.behavior_catalog_basic_colormap[value])
+    return color_list</code></pre>
+</details>
+<div class="desc"><p>Retrieve a list comprising the basic color values corresponding to each value from <strong>values_to_color</strong>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>values_to_color</code></strong> :&ensp;<code>list[str]</code></dt>
+<dd>List of values for which to retrieve colors.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list[str]</code></dt>
+<dd>List of color codes corresponding to the input values.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.plotting.plot_catalog_matches.get_micro_behaviors_dataframe"><code class="name flex">
+<span>def <span class="ident">get_micro_behaviors_dataframe</span></span>(<span>df: pandas.core.frame.DataFrame) ‑> pandas.core.frame.DataFrame</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_micro_behaviors_dataframe(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &#34;&#34;&#34;
+    Drops (deletes) all the columns whose name does not contain a dot &#39;.&#39; or
+    corresponds to the &#34;Spawned Processes&#34; column, therefore remaining only with 
+    those corresponding to micro-behaviors. Example:
+
+    Micro-objective column (dropped): [OC0001] Filesystem
+    Micro-behavior column: [OC0001] Filesystem.[C0049] Get File Attributes
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+
+    Returns:
+        pd.DataFrame: DataFrame with only micro-behaviors columns. A new copy of the modified DataFrame (inplace=False).
+    &#34;&#34;&#34;
+    # In the context of DataFrames index is synonymous with row
+
+    # If the row label does not contain dots and it is not &#34;Spaned Processes&#34;,
+    # it means the label corresponds to a micro_objective level and therefore it must be dropped (i.e., [OC0001] Filesystem)
+    columns_to_drops = [column for column in df if not column.count(&#39;.&#39;) and column != &#34;Spawned Processes&#34;]
+    new_df = df.drop(columns_to_drops, axis=1)
+    return new_df</code></pre>
+</details>
+<div class="desc"><p>Drops (deletes) all the columns whose name does not contain a dot '.' or
+corresponds to the "Spawned Processes" column, therefore remaining only with
+those corresponding to micro-behaviors. Example:</p>
+<p>Micro-objective column (dropped): [OC0001] Filesystem
+Micro-behavior column: [OC0001] Filesystem.[C0049] Get File Attributes</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>Input DataFrame.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pd.DataFrame</code></dt>
+<dd>DataFrame with only micro-behaviors columns. A new copy of the modified DataFrame (inplace=False).</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.plotting.plot_catalog_matches.get_micro_objectives_dataframe"><code class="name flex">
+<span>def <span class="ident">get_micro_objectives_dataframe</span></span>(<span>df: pandas.core.frame.DataFrame) ‑> pandas.core.frame.DataFrame</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_micro_objectives_dataframe(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &#34;&#34;&#34;
+    Drops (deletes) all the columns whose name contains a dot &#39;.&#39; therefore 
+    remaining only with those corresponding to micro-objectives. Example:
+
+    Micro-objective column: [OC0001] Filesystem
+    Micro-behavior column (dropped): [OC0001] Filesystem.[C0049] Get File Attributes
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+
+    Returns:
+        pd.DataFrame: DataFrame with only micro-objective columns. A new copy of the modified DataFrame (inplace=False).
+    &#34;&#34;&#34;
+    # In the context of DataFrames index is synonymous with row
+
+    # If the row label contains more than zero dots, it means the label corresponds
+    # to a micro_behavior level and therefore it must be dropped (i.e., [OC0001] Filesystem.[C0063] Move File)
+    columns_to_drop = [column for column in df if column.count(&#39;.&#39;)]
+    new_df = df.drop(columns_to_drop, axis=1)
+    return new_df</code></pre>
+</details>
+<div class="desc"><p>Drops (deletes) all the columns whose name contains a dot '.' therefore
+remaining only with those corresponding to micro-objectives. Example:</p>
+<p>Micro-objective column: [OC0001] Filesystem
+Micro-behavior column (dropped): [OC0001] Filesystem.[C0049] Get File Attributes</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>Input DataFrame.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pd.DataFrame</code></dt>
+<dd>DataFrame with only micro-objective columns. A new copy of the modified DataFrame (inplace=False).</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.plotting.plot_catalog_matches.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>json_catalog_matches: str | list,<br>figure_title: str,<br>radarchart_max_scale: int,<br>catalog_matches_plot_dir: str,<br>broken_barcharts: bool,<br>lower_figure_limit: int,<br>upper_figure_limit: int,<br>lower_figure_ratio: int,<br>logger: logging.Logger) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main(json_catalog_matches: str | list, 
+    figure_title: str, 
+    radarchart_max_scale: int, 
+    catalog_matches_plot_dir: str,
+    broken_barcharts: bool,
+    lower_figure_limit: int,
+    upper_figure_limit: int,
+    lower_figure_ratio: int,
+    logger: logging.Logger
+) -&gt; None:
+    &#34;&#34;&#34;
+    Generate charts and visualizations for catalog matches.
+
+    Args:
+        json_catalog_matches (Union[str, list[dict]]): JSON file(s) or dictionary of catalog matches.
+        figure_title (str): Title for the generated charts.
+        radarchart_max_scale (int): Maximum scale for radar charts.
+        catalog_matches_plot_dir (str): Directory to save generated plots.
+        broken_barcharts (bool): Whether to generate broken barcharts.
+        lower_figure_limit (int): Lower limit for broken barcharts.
+        upper_figure_limit (int): Upper limit for broken barcharts.
+        lower_figure_ratio (int): Ratio of lower figure height for broken barcharts.
+        logger (logging.Logger): Logger for reporting.
+    &#34;&#34;&#34;
+
+    dataframe_list = []
+    json_files = []
+    sample_nr = 1
+    discarded = 0
+
+    if isinstance(json_catalog_matches, list):
+        for i, individual_pattern_matches in enumerate(json_catalog_matches):
+            dataframe = pd.json_normalize(individual_pattern_matches)
+            if not correct_execution(dataframe):
+                logger.info(f&#34;[!] Discarded dict number {i}, considered incorrect execution.&#34;)
+                discarded += 1
+                continue
+            dataframe_list.append(dataframe)
+            sample_nr += 1
+    else:
+        # Collect all JSON files
+        if path.isfile(json_catalog_matches):
+            json_files.append(json_catalog_matches)
+        elif path.isdir(json_catalog_matches):
+            json_files.extend(glob.glob(json_catalog_matches+&#34;/*.json&#34;))
+
+        # Read all JSON files, in case the user passed a directory
+
+        for json_file in json_files:
+            with open(json_file, encoding=&#39;utf-8&#39;) as f:
+                data = json.load(f)
+                dataframe = pd.json_normalize(data)
+                if not correct_execution(dataframe):
+                    logger.info(f&#34;[!] Discarded file {json_file}, considered incorrect execution.&#34;)
+                    discarded += 1
+                    continue
+                # https://stackoverflow.com/a/58020454 Custom index
+                #dataframe[&#39;Sample&#39;] = 6932
+                #dataframe = dataframe.set_index(&#39;index&#39;)
+                #print(dataframe.index)
+                dataframe_list.append(dataframe)
+                logger.info(f&#34;[+] Opened file {json_file} as sample {sample_nr}&#34;)
+                sample_nr += 1
+    logger.info(f&#34;[+][+][+] Total samples: {len(json_files)} - Processed: {sample_nr-1} - Discarded: {discarded} &#34;)
+
+    Path(catalog_matches_plot_dir).mkdir(exist_ok=True, parents=True)
+
+    # Concatenate the different DataFrames generated from the JSON files
+    df = pd.concat(dataframe_list)
+    # Call needed to make indexes incremental. Otherwise, they&#39;re all zeroes
+    # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.reset_index.html
+    df.reset_index(inplace=True, drop=True)
+    df.index += 1 #To start at 1, not at 0 https://stackoverflow.com/a/20168416
+
+    df_dropped = drop_methods_indexes(df)
+    rename_indexes(df_dropped)
+
+    title = figure_title if figure_title else &#34;&#34;
+
+    micro_objectives_df = get_micro_objectives_dataframe(df_dropped)
+
+    #from additional_code import generate_pdf_heatmap
+    #generate_pdf_heatmap(micro_objectives_df, title, title + &#34; spawned_processes.pdf&#34;, &#34;spawned_processes&#34;)
+    #df_dropped = df_dropped.drop(&#34;Spawned Processes&#34;, axis=1) # After creating the figure, the column Spawned Processes is no longer of use
+
+    #micro_objectives_df = micro_objectives_df.drop(&#34;Number of graphs processed&#34;, axis=1)
+    micro_objectives_df = clip_data(micro_objectives_df)
+    #generate_pdf_heatmap(micro_objectives_df, title, &#34;micro_objective.pdf&#34;, &#34;micro-objective&#34;)
+    
+    micro_objective_names = micro_objectives_df.columns #Obtain the micro-objective level entries (categories)
+
+    micro_behaviors_df = get_micro_behaviors_dataframe(df_dropped)
+    micro_behaviors_df = clip_data(micro_behaviors_df)
+    #separated_df = separate_micro_objectives_and_behaviors_by_mean(micro_behaviors_df)
+    #generate_pdf_nestedpie(separated_df, title, &#34;nested_pie.pdf&#34;)
+
+    ############ BARCHART ############
+    #generate_pdf_stackedbars(separated_df, title, &#34;stackedbars.pdf&#34;)
+    #generate_barchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title)
+    generate_barchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title, catalog_matches_plot_dir, broken_barcharts, lower_figure_limit, upper_figure_limit, lower_figure_ratio)
+    
+    ############ PIECHART ############
+    #generate_pdf_piechart(micro_objectives_df, title, title+&#34;piechart.pdf&#34;)
+    #generate_piechart_per_micro_objective(micro_behaviors_df, micro_objective_names, title)
+
+    ############ HEATMAP ############
+    #generate_pdf_heatmap(micro_behaviors_df, title, &#34;micro_behavior.pdf&#34;, &#34;micro-behavior&#34;, micro_objective_names)
+    #generate_heatmap_per_micro_objective(micro_behaviors_df, micro_objective_names, title)
+    
+    ############ RADARCHART ############
+    file_name = title+&#34;_Micro-Objectives.pdf&#34; if title else &#34;Micro-Objectives.pdf&#34;
+    file_name = path.join(catalog_matches_plot_dir, file_name) if catalog_matches_plot_dir else file_name
+    generate_pdf_radarchart(micro_objectives_df, title, file_name, radarchart_max_scale)
+    #generate_pdf_radarchart(micro_behaviors_df, title, &#34;micro_behavior_spider.pdf&#34;)
+    #generate_radarchart_per_micro_objective(micro_behaviors_df, micro_objective_names, title)</code></pre>
+</details>
+<div class="desc"><p>Generate charts and visualizations for catalog matches.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>json_catalog_matches</code></strong> :&ensp;<code>Union[str, list[dict]]</code></dt>
+<dd>JSON file(s) or dictionary of catalog matches.</dd>
+<dt><strong><code>figure_title</code></strong> :&ensp;<code>str</code></dt>
+<dd>Title for the generated charts.</dd>
+<dt><strong><code>radarchart_max_scale</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximum scale for radar charts.</dd>
+<dt><strong><code>catalog_matches_plot_dir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Directory to save generated plots.</dd>
+<dt><strong><code>broken_barcharts</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to generate broken barcharts.</dd>
+<dt><strong><code>lower_figure_limit</code></strong> :&ensp;<code>int</code></dt>
+<dd>Lower limit for broken barcharts.</dd>
+<dt><strong><code>upper_figure_limit</code></strong> :&ensp;<code>int</code></dt>
+<dd>Upper limit for broken barcharts.</dd>
+<dt><strong><code>lower_figure_ratio</code></strong> :&ensp;<code>int</code></dt>
+<dd>Ratio of lower figure height for broken barcharts.</dd>
+<dt><strong><code>logger</code></strong> :&ensp;<code>logging.Logger</code></dt>
+<dd>Logger for reporting.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.plotting.plot_catalog_matches.normalize"><code class="name flex">
+<span>def <span class="ident">normalize</span></span>(<span>df: pandas.core.frame.DataFrame,<br>min: int = 0,<br>max: int = 1,<br>transpose: bool = False) ‑> pandas.core.frame.DataFrame</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def normalize(df: pd.DataFrame, min: int = 0, max: int = 1, transpose:bool = False) -&gt; pd.DataFrame:
+    &#34;&#34;&#34;
+    Normalize the values of the DataFrame _df_ in the given range [min, max].
+    By default min is 0 and max is 1.
+
+    Transpose is used to indicate whether to transpose de dataframe before normalizing it.
+    Transposing it is useful when the normalization is done using the samples as base values
+    instead of each micro-behavior. This is used when printing the figures of each category
+    where we care about the min() and max() of each sample for the category, not the
+    min() and max() of each micro-behavior (the latter sometimes results in divison by zero)
+
+    Args:
+        df (pd.DataFrame): DataFrame to normalize.
+        min (int): Minimum value for normalization (default: 0).
+        max (int): Maximum value for normalization (default: 1).
+        transpose (bool): Whether to transpose the DataFrame before normalization (default: False).
+
+    Returns:
+        pd.DataFrame: Normalized DataFrame.
+    &#34;&#34;&#34;
+    if transpose:
+        df = df.T
+    #normalized_df = (df-df.min()) / (df.max()-df.min()) * ((max - min) + min)
+    normalized_df = (df) / (df.max()) * ((max - min) + min)
+    #normalized_df = df / (df.max()-df.min()) * ((max - min) + min)
+    #normalized_df[&#39;Spawned Processes&#39;] = df[&#39;Spawned Processes&#39;] #Restore value, no need to normalize
+    normalized_df = normalized_df.replace(np.nan, 0) # Sometimes NaN may arise due divison by zero. https://saturncloud.io/blog/python-pandas-how-to-remove-nan-and-inf-values/
+    if transpose:
+        normalized_df = normalized_df.T
+    return normalized_df</code></pre>
+</details>
+<div class="desc"><p>Normalize the values of the DataFrame <em>df</em> in the given range [min, max].
+By default min is 0 and max is 1.</p>
+<p>Transpose is used to indicate whether to transpose de dataframe before normalizing it.
+Transposing it is useful when the normalization is done using the samples as base values
+instead of each micro-behavior. This is used when printing the figures of each category
+where we care about the min() and max() of each sample for the category, not the
+min() and max() of each micro-behavior (the latter sometimes results in divison by zero)</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>DataFrame to normalize.</dd>
+<dt><strong><code>min</code></strong> :&ensp;<code>int</code></dt>
+<dd>Minimum value for normalization (default: 0).</dd>
+<dt><strong><code>max</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximum value for normalization (default: 1).</dd>
+<dt><strong><code>transpose</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to transpose the DataFrame before normalization (default: False).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>pd.DataFrame</code></dt>
+<dd>Normalized DataFrame.</dd>
+</dl></div>
+</dd>
+<dt id="malgraphiq.plotting.plot_catalog_matches.rename_indexes"><code class="name flex">
+<span>def <span class="ident">rename_indexes</span></span>(<span>df: pandas.core.frame.DataFrame) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rename_indexes(df: pd.DataFrame) -&gt; None:
+    &#34;&#34;&#34;
+    Rename the indexes of the given pandas DataFrame _df_.
+    
+    All changes are made **inplace** so no DataFrame is returned, given that
+    the one passed in as parameter will be modified.
+
+    This functions assumes a DataFrame in a specific format.
+
+    If the index name is &#34;Number of graphs processed&#34;, replaces it with &#34;Spawned Processes&#34;, otherwise, delete the &#34;.Total matches&#34; suffix from the indexes.
+
+    Changes:
+        - Replaces &#34;Number of graphs processed&#34; with &#34;Spawned Processes&#34;.
+        - Removes the &#34;.Total matches&#34; suffix from index names.
+
+    Args:
+        df (pd.DataFrame): DataFrame to modify.
+    &#34;&#34;&#34;
+    #https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rename.html
+    for column_name in df:
+        if column_name == &#34;Number of graphs processed&#34;:
+            df.rename(columns={f&#34;{column_name}&#34;:&#34;Spawned Processes&#34;}, inplace=True)
+        else:
+            df.rename(columns={f&#34;{column_name}&#34;:column_name.removesuffix(&#34;.Total matches&#34;)}, inplace=True) # Python +3.9 https://stackoverflow.com/a/1038845
+    return df</code></pre>
+</details>
+<div class="desc"><p>Rename the indexes of the given pandas DataFrame <em>df</em>.</p>
+<p>All changes are made <strong>inplace</strong> so no DataFrame is returned, given that
+the one passed in as parameter will be modified.</p>
+<p>This functions assumes a DataFrame in a specific format.</p>
+<p>If the index name is "Number of graphs processed", replaces it with "Spawned Processes", otherwise, delete the ".Total matches" suffix from the indexes.</p>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>Replaces "Number of graphs processed" with "Spawned Processes".</li>
+<li>Removes the ".Total matches" suffix from index names.</li>
+</ul>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>DataFrame to modify.</dd>
+</dl></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="malgraphiq.plotting" href="index.html">malgraphiq.plotting</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.clip_data" href="#malgraphiq.plotting.plot_catalog_matches.clip_data">clip_data</a></code></li>
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.correct_execution" href="#malgraphiq.plotting.plot_catalog_matches.correct_execution">correct_execution</a></code></li>
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.drop_methods_indexes" href="#malgraphiq.plotting.plot_catalog_matches.drop_methods_indexes">drop_methods_indexes</a></code></li>
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.generate_barchart_per_micro_objective" href="#malgraphiq.plotting.plot_catalog_matches.generate_barchart_per_micro_objective">generate_barchart_per_micro_objective</a></code></li>
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.generate_dataframe_specific_micro_objective" href="#malgraphiq.plotting.plot_catalog_matches.generate_dataframe_specific_micro_objective">generate_dataframe_specific_micro_objective</a></code></li>
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.generate_pdf_barchart" href="#malgraphiq.plotting.plot_catalog_matches.generate_pdf_barchart">generate_pdf_barchart</a></code></li>
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.generate_pdf_broken_barchart" href="#malgraphiq.plotting.plot_catalog_matches.generate_pdf_broken_barchart">generate_pdf_broken_barchart</a></code></li>
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.generate_pdf_radarchart" href="#malgraphiq.plotting.plot_catalog_matches.generate_pdf_radarchart">generate_pdf_radarchart</a></code></li>
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.get_basic_colors" href="#malgraphiq.plotting.plot_catalog_matches.get_basic_colors">get_basic_colors</a></code></li>
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.get_micro_behaviors_dataframe" href="#malgraphiq.plotting.plot_catalog_matches.get_micro_behaviors_dataframe">get_micro_behaviors_dataframe</a></code></li>
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.get_micro_objectives_dataframe" href="#malgraphiq.plotting.plot_catalog_matches.get_micro_objectives_dataframe">get_micro_objectives_dataframe</a></code></li>
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.main" href="#malgraphiq.plotting.plot_catalog_matches.main">main</a></code></li>
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.normalize" href="#malgraphiq.plotting.plot_catalog_matches.normalize">normalize</a></code></li>
+<li><code><a title="malgraphiq.plotting.plot_catalog_matches.rename_indexes" href="#malgraphiq.plotting.plot_catalog_matches.rename_indexes">rename_indexes</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>
