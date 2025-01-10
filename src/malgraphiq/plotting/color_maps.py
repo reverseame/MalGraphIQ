@@ -1,6 +1,6 @@
-'''
-File containing several maps used to color or give texture to charts.
-'''
+"""
+This module provides color and hatch mappings for use in charts and visualizations.
+"""
 
 # https://colordesigner.io/color-scheme-builder
 behavior_catalog_tonal_colormap = {

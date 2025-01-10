@@ -33,6 +33,10 @@ def rename_indexes(df: pd.DataFrame) -> None:
 
     If the index name is "Number of graphs processed", replaces it with "Spawned Processes", otherwise, delete the ".Total matches" suffix from the indexes.
 
+    Changes:
+        - Replaces "Number of graphs processed" with "Spawned Processes".
+        - Removes the ".Total matches" suffix from index names.
+
     Args:
         df (pd.DataFrame): DataFrame to modify.
     """
@@ -51,6 +55,12 @@ def drop_methods_indexes(df: pd.DataFrame) -> pd.DataFrame:
 
     https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop.html
     https://stackoverflow.com/a/61166760
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+
+    Returns:
+        pd.DataFrame: DataFrame with only micro-objective columns.
     """
     # In the context of DataFrames index is synonymous with row
     # An index corresponds to a method-level if it does not end with "Total matches"
@@ -59,13 +69,18 @@ def drop_methods_indexes(df: pd.DataFrame) -> pd.DataFrame:
     return new_df
 
 def get_micro_objectives_dataframe(df: pd.DataFrame) -> pd.DataFrame:
-    """Drops (deletes) all the columns whose name contains a dot '.' therefore 
+    """
+    Drops (deletes) all the columns whose name contains a dot '.' therefore 
     remaining only with those corresponding to micro-objectives. Example:
 
     Micro-objective column: [OC0001] Filesystem
     Micro-behavior column (dropped): [OC0001] Filesystem.[C0049] Get File Attributes
 
-    Returns a new copy of the modified DataFrame (inplace=False).
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+
+    Returns:
+        pd.DataFrame: DataFrame with only micro-objective columns. A new copy of the modified DataFrame (inplace=False).
     """
     # In the context of DataFrames index is synonymous with row
 
@@ -77,14 +92,19 @@ def get_micro_objectives_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def get_micro_behaviors_dataframe(df: pd.DataFrame) -> pd.DataFrame:
-    """Drops (deletes) all the columns whose name does not contain a dot '.' or
+    """
+    Drops (deletes) all the columns whose name does not contain a dot '.' or
     corresponds to the "Spawned Processes" column, therefore remaining only with 
     those corresponding to micro-behaviors. Example:
 
     Micro-objective column (dropped): [OC0001] Filesystem
     Micro-behavior column: [OC0001] Filesystem.[C0049] Get File Attributes
 
-    Returns a new copy of the modified DataFrame (inplace=False).
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+
+    Returns:
+        pd.DataFrame: DataFrame with only micro-behaviors columns. A new copy of the modified DataFrame (inplace=False).
     """
     # In the context of DataFrames index is synonymous with row
 
@@ -126,18 +146,43 @@ def normalize(df: pd.DataFrame, min: int = 0, max: int = 1, transpose:bool = Fal
     return normalized_df
 
 def generate_dataframe_specific_micro_objective(original_dataframe: pd.DataFrame, micro_objective: str) -> pd.DataFrame:
+    """
+    Generate a new DataFrame containing data for a specific micro-objective.
+
+    Args:
+        original_dataframe (pd.DataFrame): Original DataFrame containing multiple objectives.
+        micro_objective (str): The specific micro-objective to extract.
+
+    Returns:
+        pd.DataFrame: DataFrame containing only the data for the specified micro-objective.
+    """
     micro_objective_df = [col for col in original_dataframe if col.startswith(micro_objective)]
     micro_objective_df = original_dataframe[micro_objective_df]
     return micro_objective_df
 
-def generate_barchart_per_micro_objective(df: pd.DataFrame, 
+def generate_barchart_per_micro_objective(
+    df: pd.DataFrame, 
     micro_objectives, 
     title: str, 
     catalog_matches_plot_dir: str, 
     broken: bool,
     lower_figure_limit: int, 
     upper_figure_limit: int, 
-    lower_figure_ratio: int) -> None:
+    lower_figure_ratio: int
+) -> None:
+    """
+    Generate and save barcharts for each micro-objective.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing the data to plot.
+        micro_objectives (list[str]): List of micro-objectives to generate barcharts for.
+        title (str): Title for the charts.
+        catalog_matches_plot_dir (str): Directory to save the generated charts.
+        broken (bool): Whether to use broken barcharts.
+        lower_figure_limit (int): Lower limit for broken barcharts.
+        upper_figure_limit (int): Upper limit for broken barcharts.
+        lower_figure_ratio (int): Ratio of lower figure height for broken barcharts.
+    """
 
     for micro_objective in micro_objectives:
         micro_objective_df = generate_dataframe_specific_micro_objective(df, micro_objective)
@@ -153,8 +198,16 @@ def generate_barchart_per_micro_objective(df: pd.DataFrame,
 
 def clip_data(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Clips data (only upper threshold) according to the value in the 0.9 quantile
+    Clips data (only upper threshold) according to the value in the 0.9 or 90th quantile
     of the __df__ DataFrame. The midpoint technique is used for interpolation.
+
+    This technique helps reduce the impact of extreme values on the dataset.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame to clip.
+
+    Returns:
+        pd.DataFrame: Clipped DataFrame.
     """
     return df.clip(upper=df.quantile(0.9, interpolation='midpoint'), axis='columns', inplace=False)
 
@@ -166,16 +219,28 @@ def correct_execution(df: pd.DataFrame) -> bool:
 
     To consider an execution correct, we check how many times it matched with none of our behavioral
     patterns. In other words, if the sample has 0 matches with 90% or more of our micro-objectives 
-    and micro-behaviors, we discard it. In yet another words, we check whether the value 0 appears
+    and micro-behaviors, we discard it. That is, we check whether the value 0 appears
     in 90% of the columns of the DataFrame or more.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame to evaluate.
+
+    Returns:
+        bool: True if the execution is correct, False otherwise.
     """
     return df.T.value_counts().iloc[0] < len(df.columns)*0.90
 
 
 
-def get_basic_colors(values_to_color: list) -> list:
+def get_basic_colors(values_to_color: list[str]) -> list[str]:
     """
-    Returns a list comprising the basic color values corresponding to each value from __values_to_color__
+    Retrieve a list comprising the basic color values corresponding to each value from __values_to_color__.
+
+    Args:
+        values_to_color (list[str]): List of values for which to retrieve colors.
+
+    Returns:
+        list[str]: List of color codes corresponding to the input values.
     """
     color_list = []
     for value in values_to_color:
@@ -193,7 +258,7 @@ def generate_pdf_radarchart(
     micro_objective: str = None
 ) -> None:
     """
-    Generate a radar chart from a DataFrame.
+    Generate a radar chart from a DataFrame and save it as PDF.
 
     Args:
         df (pd.DataFrame): DataFrame with values to plot.
@@ -282,7 +347,30 @@ def generate_pdf_radarchart(
     plt.close() # So data does not get mixed up
 
 # Broken-axis figure, genereted ad-hoc for Alina samples
-def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, user_supplied_lowerylim: int, user_supplied_upperylim: int, lower_figure_ratio: int, micro_objective: str = None) -> None:
+def generate_pdf_broken_barchart(
+    df: pd.DataFrame,
+    fig_title: str,
+    fig_name: str,
+    user_supplied_lowerylim: int,
+    user_supplied_upperylim: int,
+    lower_figure_ratio: int,
+    micro_objective: str = None
+) -> None:
+    """
+    Generate a broken barchart and save it as a PDF.
+
+    A broken barchart splits the Y-axis into two parts, enabling better visualization 
+    of datasets with extreme values.
+
+    Args:
+        df (pd.DataFrame): DataFrame containing values to plot.
+        fig_title (str): Title of the chart.
+        fig_name (str): Name of the output file.
+        user_supplied_lowerylim (int): Upper limit of the lower half of the chart.
+        user_supplied_upperylim (int): Lower limit of the upper half of the chart.
+        lower_figure_ratio (int): Percentage of the chart height allocated to the lower half.
+        micro_objective (Optional[str]): Specific micro-objective for labeling (default: None).
+    """
 
     # Normalize data
     normalized_df = normalize(df, 0, 100)
@@ -408,8 +496,21 @@ def generate_pdf_broken_barchart(df: pd.DataFrame, fig_title: str, fig_name: str
     plt.savefig(fig_name, format="pdf", bbox_inches="tight")
     plt.close() # So data does not get mixed up
 
-def generate_pdf_barchart(df: pd.DataFrame, fig_title: str, fig_name: str, micro_objective: str = None) -> None:
+def generate_pdf_barchart(
+    df: pd.DataFrame, 
+    fig_title: str,
+    fig_name: str, 
+    micro_objective: str = None
+) -> None:
+    """
+    Generate a barchart and save it as a PDF.
 
+    Args:
+        df (pd.DataFrame): DataFrame containing values to plot.
+        fig_title (str): Title of the barchart.
+        fig_name (str): Output file name.
+        micro_objective (Optional[str]): Specific micro-objective to label (default: None).
+    """
     # Normalize data
     normalized_df = normalize(df, 0, 100)
     #breakpoint()
@@ -496,7 +597,22 @@ def main(json_catalog_matches: str | list,
     lower_figure_limit: int,
     upper_figure_limit: int,
     lower_figure_ratio: int,
-    logger: logging.Logger) -> None:
+    logger: logging.Logger
+) -> None:
+    """
+    Generate charts and visualizations for catalog matches.
+
+    Args:
+        json_catalog_matches (Union[str, list[dict]]): JSON file(s) or dictionary of catalog matches.
+        figure_title (str): Title for the generated charts.
+        radarchart_max_scale (int): Maximum scale for radar charts.
+        catalog_matches_plot_dir (str): Directory to save generated plots.
+        broken_barcharts (bool): Whether to generate broken barcharts.
+        lower_figure_limit (int): Lower limit for broken barcharts.
+        upper_figure_limit (int): Upper limit for broken barcharts.
+        lower_figure_ratio (int): Ratio of lower figure height for broken barcharts.
+        logger (logging.Logger): Logger for reporting.
+    """
 
     dataframe_list = []
     json_files = []

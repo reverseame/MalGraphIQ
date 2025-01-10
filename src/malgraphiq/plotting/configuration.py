@@ -1,3 +1,8 @@
+"""
+Configuration settings for charts and visualizations.
+"""
+
+# Padding for radar chart labels
 radarchart_padding = {
     "Filesystem":2,
     "Memory":0,
@@ -7,6 +12,7 @@ radarchart_padding = {
     "Communication":30
 }
 
+# Abbreviation mapping for chart labels
 abbreviation_map = {
     "Encryption Key":"EC",
     "Cryptographic Hash":"CH",

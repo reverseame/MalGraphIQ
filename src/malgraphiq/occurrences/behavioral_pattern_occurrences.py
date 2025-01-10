@@ -91,6 +91,7 @@ def find_paths(g_behavior, behavioral_patterns:dict, pattern_min_length: int) ->
         g_behavior (nx.Graph): Behavior graph.
         behavioral_patterns (dict): Dictionary (pattern-id:simple_path) of patterns to match.
         pattern_min_length (int): Minimum length of patterns to consider.
+        
     Returns:
         int: Number of paths found.
     """
