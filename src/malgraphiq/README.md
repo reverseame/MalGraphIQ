@@ -8,7 +8,7 @@ When executing the `all` phase from MalGraphIQ, the specified reports are proces
 ## Process `test_reports` directory with default values
 *This command assumes the [WBC](https://github.com/reverseame/windows-behavior-catalog) repository at ~/Desktop.*
 ```
-$ python3 malgraphiq.py all ../test_reports -c ~/Desktop/windows-behavior-catalog/catalog.json
+$ python3 malgraphiq.py all ../../test_reports -c ~/Desktop/windows-behavior-catalog/catalog.json
 ```
 
 This command will produce the following output:
