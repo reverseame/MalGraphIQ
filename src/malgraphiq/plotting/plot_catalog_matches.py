@@ -268,7 +268,6 @@ def generate_pdf_radarchart(
         radarchart_max_scale (int): Maximum scale value for the radar chart.
         micro_objective (Optional[str]): Specific micro-objective for labeling (optional).
     """
-    breakpoint()
     normalized_df = normalize(df, 0, 100)
     #df = normalize(df.mean(), 0, 100) # Normalization of the means
     # We are printing only the mean of all the samples, not each one of them individually
