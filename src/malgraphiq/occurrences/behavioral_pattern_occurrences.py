@@ -210,12 +210,11 @@ def main(behavior_graph_or_dir: str | list[str],
     except Exception as e:
         logger.error(f"[!] An unexpected error occurred: {e}. Cannot open {catalog}. ABORTING [!]")
         sys.exit()
-
-    combined_results = {}
+    
     results = []
 
-    
     for directory in behavior_graphs:
+        combined_results = {}
         json_output_file = f"pattern_results_{time.asctime().replace(' ','_')}_{directory.replace(' ','').replace('/', '_')}.json" if not output_file else output_file+f"_{directory.replace(' ','').replace('/', '_')}.json"
         logger.info(f"[*] Analyzing graphs from {directory}")
         for behavior_graph in behavior_graphs[directory]:
