@@ -82,6 +82,7 @@ $ PYTHONPATH=src/malgraphiq pdoc3 src/malgraphiq -o doc --html
 1. <details> <summary>**Behavior vs. Category Graphs**</summary>
 	While **behavior** and **category** graphs are both generated, behavior graphs are intended for visualization only, whereas category graphs are used for actual behavior identification (matching against WBC). While you can modify this behavior, please note that doing so can significantly impact performance. The backtracking algorithm may become unmanageable when parsing the entire behavior graph.
 </details>
+
 2. <details> <summary> **Normalization of Occurrence Data**</summary>  
 When plotting occurrences, the data undergoes a **normalization process**. Currently, this is performed on a per-micro-objective or per-micro-behavior basis. This means:
 	- All samples are compared, and their values are normalized for each micro-objective or micro-behavior.
