@@ -79,12 +79,14 @@ $ PYTHONPATH=src/malgraphiq pdoc3 src/malgraphiq -o doc --html
 ```
 
 # Caveats, Warnings and Important Notes
-1. <details> <summary>**Behavior vs. Category Graphs**</summary>
+1. <details> <summary><b>Behavior vs. Category Graphs</b></summary>
+	
 	While **behavior** and **category** graphs are both generated, behavior graphs are intended for visualization only, whereas category graphs are used for actual behavior identification (matching against WBC). While you can modify this behavior, please note that doing so can significantly impact performance. The backtracking algorithm may become unmanageable when parsing the entire behavior graph.
 </details>
 
-2. <details> <summary> **Normalization of Occurrence Data**</summary>  
-When plotting occurrences, the data undergoes a **normalization process**. Currently, this is performed on a per-micro-objective or per-micro-behavior basis. This means:
+2. <details> <summary><b>Normalization of Occurrence Data</b></summary>
+	
+	When plotting occurrences, the data undergoes a **normalization process**. Currently, this is performed on a per-micro-objective or per-micro-behavior basis. This means:
 	- All samples are compared, and their values are normalized for each micro-objective or micro-behavior.
 	- The sample with the highest occurrence is assigned the max value, and the lowest occurrence is assigned the min value.
 	This approach can lead to unusual results when processing a single report with MalGraphIQ. Since the min and max values are identical for a single micro-objective or micro-behavior, the results will appear evenly distributed. Keep this in mind when interpreting single-report outputs. 
