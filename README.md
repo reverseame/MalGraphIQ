@@ -4,6 +4,8 @@ Transform your malware sandbox reports and execution traces into behavior and ca
 # Contents
 The MalGraphIQ repository contains the following elements:
 - [src](./src): Source code.
+- [doc](./doc): Source code documentation.
+- [test_reports](./test_reports): Test reports and data to try MalGraphIQ. 
 - [requirements.txt](./requirements.txt): Requirements for the tool to run. Install with `pip3 install -r requirements.txt`.
 
 # Requirements
@@ -77,21 +79,23 @@ $ PYTHONPATH=src/malgraphiq pdoc3 src/malgraphiq -o doc --html
 ```
 
 # Caveats, Warnings and Important Notes
-1. **Behavior vs. Category Graphs**
-While **behavior** and **category** graphs are both generated, behavior graphs are intended for visualization only, whereas category graphs are used for actual behavior identification (matching against WBC). While you can modify this behavior, please note that doing so can significantly impact performance. The backtracking algorithm may become unmanageable when parsing the entire behavior graph.
-2. **Normalization of Occurrence Data**
+1. <details> <summary>**Behavior vs. Category Graphs**</summary>
+	While **behavior** and **category** graphs are both generated, behavior graphs are intended for visualization only, whereas category graphs are used for actual behavior identification (matching against WBC). While you can modify this behavior, please note that doing so can significantly impact performance. The backtracking algorithm may become unmanageable when parsing the entire behavior graph.
+</details>
+2. <details> <summary> **Normalization of Occurrence Data**</summary>  
 When plotting occurrences, the data undergoes a **normalization process**. Currently, this is performed on a per-micro-objective or per-micro-behavior basis. This means:
 	- All samples are compared, and their values are normalized for each micro-objective or micro-behavior.
 	- The sample with the highest occurrence is assigned the max value, and the lowest occurrence is assigned the min value.
-This approach can lead to unusual results when processing a single report with MalGraphIQ. Since the min and max values are identical for a single micro-objective or micro-behavior, the results will appear evenly distributed. Keep this in mind when interpreting single-report outputs. 
+	This approach can lead to unusual results when processing a single report with MalGraphIQ. Since the min and max values are identical for a single micro-objective or micro-behavior, the results will appear evenly distributed. Keep this in mind when interpreting single-report outputs. 
 
-You can modify this behavior by adjusting the `normalize(df: pd.DataFrame, min: int = 0, max: int = 1, transpose:bool = False)` function from [plot_catalog_matches.py](./src/malgraphiq/plotting/plot_catalog_matches.py). By enabling the transpose parameter, you can change the normalization process to work on a per-sample basis rather than across all samples.
+	You can modify this behavior by adjusting the `normalize(df: pd.DataFrame, min: int = 0, max: int = 1, transpose:bool = False)` function from [plot_catalog_matches.py](./src/malgraphiq/plotting/plot_catalog_matches.py). By enabling the transpose parameter, you can change the normalization process to work on a per-sample basis rather than across all samples.
 
-With this modification, the normalization will consider all micro-behaviors within a specific micro-objective for a single sample. In this case:
+	With this modification, the normalization will consider all micro-behaviors within a specific micro-objective for a single sample. In this case:
 
-The micro-behavior with the highest occurrence within a sample becomes the max value.
-The micro-behavior with the lowest occurrence becomes the min value (all within the same sample).
-This allows for a more localized normalization process, tailored to individual sample data.
+	The micro-behavior with the highest occurrence within a sample becomes the max value.
+	The micro-behavior with the lowest occurrence becomes the min value (all within the same sample).
+	This allows for a more localized normalization process, tailored to individual sample data.
+</details>
 
 # Authors
 
