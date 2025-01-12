@@ -173,6 +173,9 @@ $ PYTHONPATH=src/malgraphiq pdoc3 src/malgraphiq -o doc --html
 
 	Both methods are useful, depending on what you are trying to understand. Each normalization serves its unique purpose and highlights different aspects of the data.
 
+	![different_normalization_techniques](https://github.com/user-attachments/assets/9ab00ef5-fa5c-4193-b467-1421ac14278c)
+
+
 </details>
 
 # Authors
