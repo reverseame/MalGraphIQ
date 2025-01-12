@@ -86,7 +86,7 @@ $ PYTHONPATH=src/malgraphiq pdoc3 src/malgraphiq -o doc --html
 
 2. <details> <summary><b>Normalization of Occurrence Data</b></summary>
 	
-	When plotting occurrences, the data undergoes a **normalization process**. Currently, this is performed on a per-micro-objective or per-micro-behavior basis. This means:
+	When plotting occurrences, the data undergoes a **normalization process**. Currently, this is performed on a per-micro-objective or per-micro-behavior basis, which we will refer to as *default* or *per-category* normalization. This means:
 	- All samples are compared, and their values are normalized for each micro-objective or micro-behavior.
 	- The sample with the highest occurrence is assigned the max value, and the lowest occurrence is assigned the min value.
 	This approach can lead to unusual results when processing a single report with MalGraphIQ. Since the min and max values are identical for a single micro-objective or micro-behavior, the results will appear evenly distributed. Keep this in mind when interpreting single-report outputs. 
@@ -98,6 +98,81 @@ $ PYTHONPATH=src/malgraphiq pdoc3 src/malgraphiq -o doc --html
 	The micro-behavior with the highest occurrence within a sample becomes the max value.
 	The micro-behavior with the lowest occurrence becomes the min value (all within the same sample).
 	This allows for a more localized normalization process, tailored to individual sample data.
+
+	To understand the difference in normalization methods, consider the following examples.
+
+	# Normalization Techniques
+	## Original Dataframe
+	| Sample | [OC0001] Filesystem | [OC0005] Cryptography | [OC0006] Communication | [OC0002] Memory | [OC0003] Process | [OC0008] Operating System |
+	|--------|---------------------|-----------------------|-------------------------|-----------------|-----------------|--------------------------|
+	| **1**  | 64.0                | 0.0                   | 0                       | 27.0            | 14              | 18.0                     |
+	| **2**  | 2.0                 | 0.0                   | 0                       | 4.0             | 2               | 4.0                      |
+	| **3**  | 195.5               | 2.5                   | 0                       | 145.5           | 29              | 120.5                    |
+
+	---
+
+	## Normalized Dataframe
+	**Default Normalization**:
+	| Sample | [OC0001] Filesystem | [OC0005] Cryptography | [OC0006] Communication | [OC0002] Memory | [OC0003] Process | [OC0008] Operating System |
+	|--------|---------------------|-----------------------|-------------------------|-----------------|-----------------|--------------------------|
+	| **1**  | 32.737              | 0.0                   | 0.0                     | 18.557          | 48.276          | 14.938                   |
+	| **2**  | 1.023               | 0.0                   | 0.0                     | 2.749           | 6.897           | 3.320                    |
+	| **3**  | 100.000             | 100.0                 | 0.0                     | 100.000         | 100.000         | 100.000                  |
+
+	Here normalization is done "per-category" (per columns). That is, given each micro-objective, take the values across all samples. Notice Filesystem, for example. Sample 3 has a value of 195.5, which is the highest one. This will be considered 100% and the rest are scaled relative to it. Same applies for the rest of micro-objectives.
+
+	**Per-Sample Normalization**:
+	| Sample | [OC0001] Filesystem | [OC0005] Cryptography | [OC0006] Communication | [OC0002] Memory | [OC0003] Process | [OC0008] Operating System |
+	|--------|---------------------|-----------------------|-------------------------|-----------------|-----------------|--------------------------|
+	| **1**  | 100.0               | 0.000                 | 0.0                     | 42.188          | 21.875          | 28.125                   |
+	| **2**  | 50.0                | 0.000                 | 0.0                     | 100.000         | 50.000          | 100.000                  |
+	| **3**  | 100.0               | 1.279                 | 0.0                     | 74.425          | 14.834          | 61.637                   |
+
+	Conversely, here normalization is done "per-sample" (per rows). For each sample, its highest value is 100% and the rest are normalized with respect to it. Take for example sample 2. Both Memory and Operating System have a value of 4.0. It will be considered 100% and the remaining micro-objectives of the same sample are normalized with respect to it.
+
+	---
+
+	## Mean Dataframe
+
+	Once the data is normalized, we calculate the average (mean) for each category across all samples.
+
+	| Micro-objective           | **Default Mean** | **Per-Sample Mean** |
+	|---------------------------|--------------|------------------|
+	| [OC0001] Filesystem       | 44.587       | 83.333          |
+	| [OC0005] Cryptography     | 33.333       | 0.426           |
+	| [OC0006] Communication    | 0.000        | 0.000           |
+	| [OC0002] Memory           | 40.435       | 72.204          |
+	| [OC0003] Process          | 51.724       | 28.903          |
+	| [OC0008] Operating System | 39.419       | 63.254          |
+
+	This difference happens because the two methods emphasize different comparisons. Default Normalization highlights differences between samples for the same category, while Per-Sample Normalization shows how important each category is within a single sample
+
+	---
+
+	## To Percent
+
+	Finally, the mean values are converted into percentages to make them easier to interpret.
+
+	| Micro-objective           | **Default %** | **Per-Sample %** |
+	|---------------------------|-----------|---------------|
+	| [OC0001] Filesystem       | 21.28     | 33.59         |
+	| [OC0005] Cryptography     | 15.91     | 0.17          |
+	| [OC0006] Communication    | 0.00      | 0.00          |
+	| [OC0002] Memory           | 19.30     | 29.10         |
+	| [OC0003] Process          | 24.69     | 11.65         |
+	| [OC0008] Operating System | 18.82     | 25.49         |
+
+	This shift shows how the two methods can produce very different results. Default Normalization gives Cryptography more weight because it had high relative values in its category. In Per-Sample Normalization, Cryptography loses weight because it’s not a dominant feature in any single sample.
+
+	---
+
+	This comparison highlights a cardinality problem: certain categories, like Filesystem, have far more patterns than others, like Cryptography. Each normalization method focuses on different aspects:
+
+	- Default Normalization compares how samples perform within the same category.
+	- Per-Sample Normalization shows the relative importance of categories within each sample.
+
+	Both methods are useful, depending on what you are trying to understand. Each normalization serves its unique purpose and highlights different aspects of the data.
+
 </details>
 
 # Authors
