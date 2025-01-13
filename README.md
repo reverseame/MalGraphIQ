@@ -101,7 +101,7 @@ $ PYTHONPATH=src/malgraphiq pdoc3 src/malgraphiq -o doc --html
 
 	To understand the difference in normalization methods, consider the following examples.
 
-	# Normalization Techniques
+	# Normalization Techniques (3 samples)
 	## Original Dataframe
 	| Sample | [OC0001] Filesystem | [OC0005] Cryptography | [OC0006] Communication | [OC0002] Memory | [OC0003] Process | [OC0008] Operating System |
 	|--------|---------------------|-----------------------|-------------------------|-----------------|-----------------|--------------------------|
@@ -174,6 +174,79 @@ $ PYTHONPATH=src/malgraphiq pdoc3 src/malgraphiq -o doc --html
 	Both methods are useful, depending on what you are trying to understand. Each normalization serves its unique purpose and highlights different aspects of the data.
 
 	![different_normalization_techniques](https://github.com/user-attachments/assets/9ab00ef5-fa5c-4193-b467-1421ac14278c)
+
+	# More examples
+	<details>
+		<summary><b>1 sample</b></summary>
+
+	## Original Dataframe
+	| Sample | [OC0001] Filesystem | [OC0005] Cryptography | [OC0006] Communication | [OC0002] Memory | [OC0003] Process | [OC0008] Operating System |
+	|--------|---------------------|-----------------------|-------------------------|-----------------|-----------------|--------------------------|
+	| **1**  | 327                 | 5                     | 0                       | 264             | 44              | 223                      |
+
+	---
+		
+	## Normalized Dataframe
+
+	| Sample | [OC0001] Filesystem | [OC0005] Cryptography | [OC0006] Communication | [OC0002] Memory | [OC0003] Process | [OC0008] Operating System |
+	|--------|---------------------|-----------------------|-------------------------|-----------------|-----------------|--------------------------|
+	| **Default Norm**            | 100.0                 | 100.0                   | 0.0             | 100.0           | 100.0           | 100.0                    |
+	| **Per-Sample Norm**         | 100.0                 | 1.529                   | 0.0             | 80.734          | 13.456          | 68.196                   |
+
+	---
+
+	## Mean Datafram
+
+	| Micro-objective           | **Default Mean** | **Per-Sample Mean** |
+	|---------------------------|--------------|-----------------|
+	| [OC0001] Filesystem       | 100.0        | 100.0           |
+	| [OC0005] Cryptography     | 100.0        | 1.529           |
+	| [OC0006] Communication    | 0.0          | 0.0             |
+	| [OC0002] Memory           | 100.0        | 80.734          |
+	| [OC0003] Process          | 100.0        | 13.456          |
+	| [OC0008] Operating System | 100.0        | 68.196          |
+
+
+	---
+
+	## To percent
+
+	| Micro-objective           | **Default %** | **Per-Sample %** |
+	|---------------------------|---------------------|-------------------------|
+	| [OC0001] Filesystem       | 20.0               | 37.89                  |
+	| [OC0005] Cryptography     | 20.0               | 0.58                   |
+	| [OC0006] Communication    | 0.0                | 0.00                   |
+	| [OC0002] Memory           | 20.0               | 30.59                  |
+	| [OC0003] Process          | 20.0               | 5.10                   |
+	| [OC0008] Operating System | 20.0               | 25.84                  |
+
+	
+
+	</details>
+	<details>
+		<summary><b>52 Guloader samples</b></summary>
+
+		
+
+	</details>
+	<details>
+		<summary><b>83 Gcleaner samples</b></summary>
+
+		
+
+	</details>
+	<details>
+		<summary><b>66 Alina samples</b></summary>
+
+		
+
+	</details>
+	<details>
+		<summary><b>48 Petya samples</b></summary>
+
+		
+
+	</details>
 
 
 </details>
