@@ -220,32 +220,29 @@ $ PYTHONPATH=src/malgraphiq pdoc3 src/malgraphiq -o doc --html
 	| [OC0003] Process          | 20.0               | 5.10                   |
 	| [OC0008] Operating System | 20.0               | 25.84                  |
 
-	
+	![1_sample_micro_obj](https://github.com/user-attachments/assets/5ea7bad2-d651-4788-a3a7-68b1d6379764)
+	![1_sample_micro_beh](https://github.com/user-attachments/assets/8b804f97-568c-4dee-b105-13063b910cd4)
 
 	</details>
 	<details>
-		<summary><b>52 Guloader samples</b></summary>
-
+		<summary><b>52 Guloader samples</b></summary>	
 		
-
+	![guloader_micro_obj](https://github.com/user-attachments/assets/26e9413e-3e2c-40c6-925d-6a68245000ed)
 	</details>
 	<details>
-		<summary><b>83 Gcleaner samples</b></summary>
-
+		<summary><b>83 Gcleaner samples</b></summary>	
 		
-
+	![gcleaner_micro_obj](https://github.com/user-attachments/assets/56957665-8994-479f-afcd-a5dd7cbe7e37)
 	</details>
 	<details>
 		<summary><b>66 Alina samples</b></summary>
 
-		
-
+ 	![alina_micro_obj](https://github.com/user-attachments/assets/90339a56-ea1d-436a-97f1-279161e6f7b1)
 	</details>
 	<details>
 		<summary><b>48 Petya samples</b></summary>
-
 		
-
+	![petya_micro_obj](https://github.com/user-attachments/assets/07c1fc41-e9b2-4654-a5e5-b3e937074f7a)
 	</details>
 
 
