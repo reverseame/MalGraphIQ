@@ -70,6 +70,12 @@ $ python3 src/malgraphiq/malgraphiq.py plots --fig_title "Custom Figures" -rc_ma
 ## Best use-case
 MalGraphIQ has many potential applications, but we believe its most valuable use is when analyzing samples from the same malware family. This approach allows MalGraphIQ to clearly illustrate their behavior.For example,  imagine you’re analyzing 100 samples of WannaCry from the [WinMET](https://doi.org/10.5281/zenodo.12647555) dataset. With MalGraphIQ, you would generate graphs like the ones shown below:
 
+#### Micro-Objectives
+![Screenshot 2025-01-13 114117](https://github.com/user-attachments/assets/52f85b78-6814-4c3c-a9c6-7fe494afef8f)
+
+#### Process Micro-Behavior
+![Screenshot 2025-01-13 114019](https://github.com/user-attachments/assets/5e017871-78ab-47e2-8b0d-dec7cd5ad584)
+
 # Source code docs
 Docs are present in [doc](./doc) folder.  
 
