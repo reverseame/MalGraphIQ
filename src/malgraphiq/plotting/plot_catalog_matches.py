@@ -42,7 +42,7 @@ def rename_indexes(df: pd.DataFrame) -> None:
     """
     #https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rename.html
     for column_name in df:
-        if column_name == "Number of graphs processed":
+        if column_name == "Number of graphs processed" or column_name == "n_processes":
             df.rename(columns={f"{column_name}":"Spawned Processes"}, inplace=True)
         else:
             df.rename(columns={f"{column_name}":column_name.removesuffix(".Total matches")}, inplace=True) # Python +3.9 https://stackoverflow.com/a/1038845
@@ -64,7 +64,7 @@ def drop_methods_indexes(df: pd.DataFrame) -> pd.DataFrame:
     """
     # In the context of DataFrames index is synonymous with row
     # An index corresponds to a method-level if it does not end with "Total matches"
-    columns_to_drop = [column for column in df if not column.endswith("Total matches") and column != "n_processes"]
+    columns_to_drop = [column for column in df if not column.endswith("Total matches") and (column != "n_processes" or column != "Number of graphs processed")]
     new_df = df.drop(columns_to_drop, axis=1) # {0 or ‘index’, 1 or ‘columns’}, default 0
     return new_df
 
@@ -108,7 +108,7 @@ def get_micro_behaviors_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     """
     # In the context of DataFrames index is synonymous with row
 
-    # If the row label does not contain dots and it is not "Spaned Processes",
+    # If the row label does not contain dots and it is not "Spawned Processes",
     # it means the label corresponds to a micro_objective level and therefore it must be dropped (i.e., [OC0001] Filesystem)
     columns_to_drops = [column for column in df if not column.count('.') and column != "Spawned Processes"]
     new_df = df.drop(columns_to_drops, axis=1)
