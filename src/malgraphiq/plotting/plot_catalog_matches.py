@@ -482,7 +482,7 @@ def generate_pdf_broken_barchart(
         # else:  # Label at the split boundary
         #     ax1.text(bar.get_x() + bar.get_width() / 2, user_supplied_upperylim - 5, f"{value:.2f}%", ha='center', va='bottom', fontsize=9)
         if value >= user_supplied_lowerylim and value <= user_supplied_upperylim:
-            ax1.text(bar.get_x() + bar.get_width() / 2, user_supplied_upperylim, f"{value:.2f}%", ha='center', va='bottom', fontsize=9, zorder=2, color='black', weight='bold')
+            ax1.text(bar.get_x() + bar.get_width() / 2, user_supplied_upperylim, f"{value:.2f}%", ha='center', va='bottom', fontsize=7, zorder=2, color='black', weight='bold')
 
     # Format Y axis as percent https://stackoverflow.com/questions/31357611/format-y-axis-as-percent
     ax1.yaxis.set_major_formatter(mtick.PercentFormatter())
