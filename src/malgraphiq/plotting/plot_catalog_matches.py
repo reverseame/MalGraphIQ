@@ -125,6 +125,11 @@ def normalize(df: pd.DataFrame, min: int = 0, max: int = 1, transpose:bool = Fal
     where we care about the min() and max() of each sample for the category, not the
     min() and max() of each micro-behavior (the latter sometimes results in divison by zero)
 
+    Modify transpose according to your normalizations needs, as documented in Razvan Raducu's
+    PhD dissertation or in the repository. 
+        - False: per-category normalization.
+        - True: per-sample normalization.
+
     Args:
         df (pd.DataFrame): DataFrame to normalize.
         min (int): Minimum value for normalization (default: 0).
