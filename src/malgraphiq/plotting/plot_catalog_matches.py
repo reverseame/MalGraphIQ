@@ -468,8 +468,8 @@ def generate_pdf_broken_barchart(
     #bar = plt.bar(labels, mean_df.values, label=labels, color=colors)
     #plt.yticks([0, 25, 50, 75, 100])
     
-    ax1.bar_label(ax1bar, label_type='edge', fmt='%.2f%%', size=9, weight='bold', zorder=1) # Converts 0 into 0.00
-    ax2.bar_label(ax2bar, label_type='edge', fmt='%.2f%%', size=9, weight='bold', zorder=1)
+    ax1.bar_label(ax1bar, label_type='edge', fmt='%.2f%%', size=7, weight='bold', zorder=1) # Converts 0 into 0.00
+    ax2.bar_label(ax2bar, label_type='edge', fmt='%.2f%%', size=7, weight='bold', zorder=1)
     ax1.set_facecolor('none')
     ax2.set_facecolor('none')
 
