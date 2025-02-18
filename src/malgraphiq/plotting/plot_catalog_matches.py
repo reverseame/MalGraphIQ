@@ -473,8 +473,8 @@ def generate_pdf_broken_barchart(
     #bar = plt.bar(labels, mean_df.values, label=labels, color=colors)
     #plt.yticks([0, 25, 50, 75, 100])
     
-    ax1.bar_label(ax1bar, label_type='edge', fmt='%.2f%%', size=7, weight='bold', zorder=1) # Converts 0 into 0.00
-    ax2.bar_label(ax2bar, label_type='edge', fmt='%.2f%%', size=7, weight='bold', zorder=1)
+    ax1.bar_label(ax1bar, label_type='edge', fmt='%.2f%%', size=10, weight='bold', zorder=1) # Converts 0 into 0.00
+    ax2.bar_label(ax2bar, label_type='edge', fmt='%.2f%%', size=10, weight='bold', zorder=1)
     ax1.set_facecolor('none')
     ax2.set_facecolor('none')
 
@@ -487,7 +487,7 @@ def generate_pdf_broken_barchart(
         # else:  # Label at the split boundary
         #     ax1.text(bar.get_x() + bar.get_width() / 2, user_supplied_upperylim - 5, f"{value:.2f}%", ha='center', va='bottom', fontsize=9)
         if value >= user_supplied_lowerylim and value <= user_supplied_upperylim:
-            ax1.text(bar.get_x() + bar.get_width() / 2, user_supplied_upperylim, f"{value:.2f}%", ha='center', va='bottom', fontsize=7, zorder=2, color='black', weight='bold')
+            ax1.text(bar.get_x() + bar.get_width() / 2, user_supplied_upperylim, f"{value:.2f}%", ha='center', va='bottom', fontsize=10, zorder=2, color='black', weight='bold')
 
     # Format Y axis as percent https://stackoverflow.com/questions/31357611/format-y-axis-as-percent
     ax1.yaxis.set_major_formatter(mtick.PercentFormatter())
@@ -508,7 +508,7 @@ def generate_pdf_broken_barchart(
     #plt.title(fig_title, fontsize=17)
     ax1.set_title(fig_title, fontsize=17, y=1.0, pad=12) # We use ax1.set_title to make sure title is on top of ax1 (upper figure)
     ncols = 2 if len(labels) >= 4 else 3
-    plt.legend(labels, title=legend_title, loc="upper center", fontsize='small', ncols=ncols, bbox_to_anchor = (.5, -.17))#, prop={'size': 10})
+    plt.legend(labels, title=legend_title, loc="upper center", fontsize=10, ncols=ncols, bbox_to_anchor = (.5, -.1))#, prop={'size': 10})
 
     #ax.legend(handles=labels)
 
