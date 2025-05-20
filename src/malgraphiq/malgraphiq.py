@@ -34,7 +34,7 @@ def parse_arguments() -> argparse.Namespace:
     parser_transition.add_argument("json_dir", 
         help="A .json report o a directory containing one or more JSON reports. If the parameter is a directory, the program automatically parses all .JSON files within it.")
     parser_transition.add_argument("-o", "--output", default="./MATRICES_GRAPHS/", 
-        help="Output folder (default: %(default)s).")
+        help="Output folder of transition matrices and call graphs (default: %(default)s).")
     parser_transition.add_argument("-w", "--winapi_categories", default="./winapi_categories.json", help="Path to winapi_categories.json file (as obtained from https://github.com/reverseame/winapi-categories). By default the program will look into the current working directory. If the file does not exist, the program will attempt to download it unless -nd/--no-download is specified. (default: %(default)s).")
     parser_transition.add_argument("-nd", "--no_download", action="store_true", 
         help=f"Prevents {parser.prog} from downloading winapi_categories.json. By default it attempts to download it in the -w/--winapi-categories specified path.")
@@ -77,8 +77,8 @@ def parse_arguments() -> argparse.Namespace:
         help="Title for the generated plots (default: none).")
     parser_plot.add_argument("-rc_max", "--radarchart_max_scale", type=int, default=100, choices=range(0, 101), metavar="[0-100]", 
         help="Max scale for radarcharts (default: %(default)s).")
-    parser_plot.add_argument("--match_plots_dir", type=str, default="./PLOTS/",
-        help="If specified, WBC matches plots are written in that directory otherwise they are generated in the PLOTS folder, which is created if it does not exist (default: %(default)s).")
+    parser_plot.add_argument("--plots_dir", type=str, default="./PLOTS/",
+        help="If specified, WBC match plots are written in that directory otherwise they are generated in the PLOTS folder, which is created if it does not exist (default: %(default)s).")
     parser_plot.add_argument("-bb", "--broken_barcharts", action="store_true", 
         help="Use broken barcharts. That is, break the Y-axis of the micro-behavior occurrences visualizations (default: %(default)s).")
     parser_plot.add_argument("--lower_figure_limit", type=int, default=50, choices=range(0, 101), metavar="[0-100]", 
@@ -96,7 +96,7 @@ def parse_arguments() -> argparse.Namespace:
     parser_all.add_argument("json_dir", 
         help="A .json report o a directory containing one or more JSON reports. If the parameter is a directory, the program automatically parses all .JSON files within it.")
     parser_all.add_argument("-o", "--output", default="./MATRICES_GRAPHS/", 
-        help="Output folder (default: %(default)s).")
+        help="Output folder of transition matrices and call graphs(default: %(default)s).")
     parser_all.add_argument("-w", "--winapi_categories", default="./winapi_categories.json", 
         help="Path to winapi_categories.json file (as obtained from https://github.com/reverseame/winapi-categories). By default the program will look into the current working directory. If the file does not exist, the program will attempt to download it unless -nd/--no-download is specified. (default: %(default)s).")
     parser_all.add_argument("-nd", "--no_download", action="store_true", 
@@ -133,8 +133,8 @@ def parse_arguments() -> argparse.Namespace:
         help="Title for the generated plots (default: none).")
     parser_all.add_argument("-rc_max", "--radarchart_max_scale", type=int, default=100, choices=range(0, 101), metavar="[0-100]", 
         help="Max scale for radarcharts (default: %(default)s).")
-    parser_all.add_argument("--match_plots_dir", type=str, default="./PLOTS/",
-        help="If specified, WBC matches plots are written in that directory otherwise they are generated in the PLOTS folder, which is created if it does not exist (default: %(default)s).")
+    parser_all.add_argument("--plots_dir", type=str, default="./PLOTS/",
+        help="If specified, WBC match plots are written in that directory otherwise they are generated in the PLOTS folder, which is created if it does not exist (default: %(default)s).")
     parser_all.add_argument("-bb", "--broken_barcharts", action="store_true", 
         help="Use broken barcharts. That is, break the Y-axis of the micro-behavior occurrences visualizations (default: %(default)s).")
     parser_all.add_argument("--lower_figure_limit", type=int, default=50, choices=range(0, 101), metavar="[0-100]", 
@@ -200,7 +200,7 @@ def main() -> int:
             args.json,
             args.fig_title,
             args.radarchart_max_scale,
-            args.match_plots_dir,
+            args.plots_dir,
             args.broken_barcharts,
             args.lower_figure_limit,
             args.upper_figure_limit,
@@ -253,7 +253,7 @@ def main() -> int:
             wbc_occurrences_list,
             args.fig_title,
             args.radarchart_max_scale,
-            args.match_plots_dir,
+            args.plots_dir,
             args.broken_barcharts,
             args.lower_figure_limit,
             args.upper_figure_limit,
