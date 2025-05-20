@@ -42,13 +42,13 @@ options:
   -s, --silent          Nothing is printed.
 
 ```
-### Documentation of `all` phases
+### Documentation of `all` execution mode
 As mentioned above, you can invoke MalGraphIQ with each phase individually or `all` at once. The `all` parameter executes all phases sequentially, as a pipeline, where the output of a phase is the input for the next one. This are the parameters for the `all` execution mode:
 ```
 $ python3 malgraphiq.py all -h
 usage: MalGraphIQ all [-h] [-o OUTPUT] [-w WINAPI_CATEGORIES] [-nd] [-pp] [--category | --behavior] -c CATALOG [-m MAX_INTER_NODES]
                       [-p PROB_THRESHOLD] [-l PATTERN_MIN_LENGTH] [-jf JSON_OUTPUT_FILE] [--fig_title FIG_TITLE] [-rc_max [0-100]]
-                      [--match_plots_dir MATCH_PLOTS_DIR] [-bb] [--lower_figure_limit [0-100]] [--upper_figure_limit [0-100]]
+                      [--plots_dir PLOTS_DIR] [-bb] [--lower_figure_limit [0-100]] [--upper_figure_limit [0-100]]
                       [--lower_figure_ratio [10-90]]
                       json_dir
 
@@ -59,7 +59,7 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   -o OUTPUT, --output OUTPUT
-                        Output folder (default: ./MATRICES_GRAPHS/).
+                        Output folder of transition matrices and call graphs(default: ./MATRICES_GRAPHS/).
   -w WINAPI_CATEGORIES, --winapi_categories WINAPI_CATEGORIES
                         Path to winapi_categories.json file (as obtained from https://github.com/reverseame/winapi-categories). By default the
                         program will look into the current working directory. If the file does not exist, the program will attempt to download
@@ -84,9 +84,9 @@ options:
                         Title for the generated plots (default: none).
   -rc_max [0-100], --radarchart_max_scale [0-100]
                         Max scale for radarcharts (default: 100).
-  --match_plots_dir MATCH_PLOTS_DIR
-                        If specified, WBC matches plots are written in that directory otherwise they are generated in the PLOTS folder, which
-                        is created if it does not exist (default: ./PLOTS/).
+  --plots_dir PLOTS_DIR
+                        If specified, WBC match plots are written in that directory otherwise they are generated in the PLOTS folder, which is
+                        created if it does not exist (default: ./PLOTS/).
   -bb, --broken_barcharts
                         Use broken barcharts. That is, break the Y-axis of the micro-behavior occurrences visualizations (default: False).
   --lower_figure_limit [0-100]
@@ -96,6 +96,7 @@ options:
   --lower_figure_ratio [10-90]
                         Ratio (w.r.t total figure's height) of lower figure for broken barcharts. The upper figure ratio is 100 - the
                         specified value. That is, the remaining space within the plot (default: 50).
+
 ```
 ## Usage example
 MalGraphIQ comprises three main phases: (1) [graphs](./src/malgraphiq/graphs), (2) [occurrences](./src/malgraphiq/occurrences), and (3) [plots](./src/malgraphiq/plotting). 
