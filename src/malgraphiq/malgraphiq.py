@@ -78,7 +78,7 @@ def parse_arguments() -> argparse.Namespace:
     parser_plot.add_argument("-rc_max", "--radarchart_max_scale", type=int, default=100, choices=range(0, 101), metavar="[0-100]", 
         help="Max scale for radarcharts (default: %(default)s).")
     parser_plot.add_argument("--match_plots_dir", type=str, default="./PLOTS/",
-        help="If specified, WBC matches plots are written in that directory otherwise they are generated in the PLOTS folder, which is created if it does not exist.")
+        help="If specified, WBC matches plots are written in that directory otherwise they are generated in the PLOTS folder, which is created if it does not exist (default: %(default)s).")
     parser_plot.add_argument("-bb", "--broken_barcharts", action="store_true", 
         help="Use broken barcharts. That is, break the Y-axis of the micro-behavior occurrences visualizations (default: %(default)s).")
     parser_plot.add_argument("--lower_figure_limit", type=int, default=50, choices=range(0, 101), metavar="[0-100]", 
@@ -134,7 +134,7 @@ def parse_arguments() -> argparse.Namespace:
     parser_all.add_argument("-rc_max", "--radarchart_max_scale", type=int, default=100, choices=range(0, 101), metavar="[0-100]", 
         help="Max scale for radarcharts (default: %(default)s).")
     parser_all.add_argument("--match_plots_dir", type=str, default="./PLOTS/",
-        help="If specified, WBC matches plots are written in that directory otherwise they are generated in the PLOTS folder, which is created if it does not exist.")
+        help="If specified, WBC matches plots are written in that directory otherwise they are generated in the PLOTS folder, which is created if it does not exist (default: %(default)s).")
     parser_all.add_argument("-bb", "--broken_barcharts", action="store_true", 
         help="Use broken barcharts. That is, break the Y-axis of the micro-behavior occurrences visualizations (default: %(default)s).")
     parser_all.add_argument("--lower_figure_limit", type=int, default=50, choices=range(0, 101), metavar="[0-100]", 
@@ -200,7 +200,7 @@ def main() -> int:
             args.json,
             args.fig_title,
             args.radarchart_max_scale,
-            args.catalog_matches_plot_dir,
+            args.match_plots_dir,
             args.broken_barcharts,
             args.lower_figure_limit,
             args.upper_figure_limit,
@@ -253,7 +253,7 @@ def main() -> int:
             wbc_occurrences_list,
             args.fig_title,
             args.radarchart_max_scale,
-            args.catalog_matches_plot_dir,
+            args.match_plots_dir,
             args.broken_barcharts,
             args.lower_figure_limit,
             args.upper_figure_limit,
