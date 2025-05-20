@@ -42,7 +42,61 @@ options:
   -s, --silent          Nothing is printed.
 
 ```
+### Documentation of `all` phases
+As mentioned above, you can invoke MalGraphIQ with each phase individually or `all` at once. The `all` parameter executes all phases sequentially, as a pipeline, where the output of a phase is the input for the next one. This are the parameters for the `all` execution mode:
+```
+$ python3 malgraphiq.py all -h
+usage: MalGraphIQ all [-h] [-o OUTPUT] [-w WINAPI_CATEGORIES] [-nd] [-pp] [--category | --behavior] -c CATALOG [-m MAX_INTER_NODES]
+                      [-p PROB_THRESHOLD] [-l PATTERN_MIN_LENGTH] [-jf JSON_OUTPUT_FILE] [--fig_title FIG_TITLE] [-rc_max [0-100]]
+                      [--match_plots_dir MATCH_PLOTS_DIR] [-bb] [--lower_figure_limit [0-100]] [--upper_figure_limit [0-100]]
+                      [--lower_figure_ratio [10-90]]
+                      json_dir
 
+positional arguments:
+  json_dir              A .json report o a directory containing one or more JSON reports. If the parameter is a directory, the program
+                        automatically parses all .JSON files within it.
+
+options:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        Output folder (default: ./MATRICES_GRAPHS/).
+  -w WINAPI_CATEGORIES, --winapi_categories WINAPI_CATEGORIES
+                        Path to winapi_categories.json file (as obtained from https://github.com/reverseame/winapi-categories). By default the
+                        program will look into the current working directory. If the file does not exist, the program will attempt to download
+                        it unless -nd/--no-download is specified. (default: ./winapi_categories.json).
+  -nd, --no_download    Prevents MalGraphIQ from downloading winapi_categories.json. By default it attempts to download it in the -w/--winapi-
+                        categories specified path.
+  -pp, --print_transition_probabilities
+                        Print transition probabilities on behavior and category graphs (default: False).
+  --category            Generate only the category graph(s).
+  --behavior            Generate only the behavior graph(s).
+  -c CATALOG, --catalog CATALOG
+                        Path to the Windows Behavior Catalog (WBC) in JSON format. See https://github.com/reverseame/windows-behavior-catalog.
+  -m MAX_INTER_NODES, --max_inter_nodes MAX_INTER_NODES
+                        Max intermediate nodes from the behavior graph allowed between each pattern node (default: 0).
+  -p PROB_THRESHOLD, --prob_threshold PROB_THRESHOLD
+                        Probability threshold (default: 0.0). Paths below the threshold are discarded.
+  -l PATTERN_MIN_LENGTH, --pattern_min_length PATTERN_MIN_LENGTH
+                        Minimum pattern length, measured in number of nodes (default: 1).
+  -jf JSON_OUTPUT_FILE, --json_output_file JSON_OUTPUT_FILE
+                        Custom output JSON file for results (default: pattern_results_{asctime}.json).
+  --fig_title FIG_TITLE
+                        Title for the generated plots (default: none).
+  -rc_max [0-100], --radarchart_max_scale [0-100]
+                        Max scale for radarcharts (default: 100).
+  --match_plots_dir MATCH_PLOTS_DIR
+                        If specified, WBC matches plots are written in that directory otherwise they are generated in the PLOTS folder, which
+                        is created if it does not exist (default: ./PLOTS/).
+  -bb, --broken_barcharts
+                        Use broken barcharts. That is, break the Y-axis of the micro-behavior occurrences visualizations (default: False).
+  --lower_figure_limit [0-100]
+                        Specifies the upper limit of the lower half of the broken figure (default: 50).
+  --upper_figure_limit [0-100]
+                        Specifies the lower limit of the upper half of the broken figure (default: 50).
+  --lower_figure_ratio [10-90]
+                        Ratio (w.r.t total figure's height) of lower figure for broken barcharts. The upper figure ratio is 100 - the
+                        specified value. That is, the remaining space within the plot (default: 50).
+```
 ## Usage example
 MalGraphIQ comprises three main phases: (1) [graphs](./src/malgraphiq/graphs), (2) [occurrences](./src/malgraphiq/occurrences), and (3) [plots](./src/malgraphiq/plotting). 
 
