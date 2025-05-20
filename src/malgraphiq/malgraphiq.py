@@ -77,7 +77,7 @@ def parse_arguments() -> argparse.Namespace:
         help="Title for the generated plots (default: none).")
     parser_plot.add_argument("-rc_max", "--radarchart_max_scale", type=int, default=100, choices=range(0, 101), metavar="[0-100]", 
         help="Max scale for radarcharts (default: %(default)s).")
-    parser_plot.add_argument("--catalog_matches_plot_dir", type=str, default="./PLOTS/",
+    parser_plot.add_argument("--match_plots_dir", type=str, default="./PLOTS/",
         help="If specified, WBC matches plots are written in that directory otherwise they are generated in the PLOTS folder, which is created if it does not exist.")
     parser_plot.add_argument("-bb", "--broken_barcharts", action="store_true", 
         help="Use broken barcharts. That is, break the Y-axis of the micro-behavior occurrences visualizations (default: %(default)s).")
@@ -133,7 +133,7 @@ def parse_arguments() -> argparse.Namespace:
         help="Title for the generated plots (default: none).")
     parser_all.add_argument("-rc_max", "--radarchart_max_scale", type=int, default=100, choices=range(0, 101), metavar="[0-100]", 
         help="Max scale for radarcharts (default: %(default)s).")
-    parser_all.add_argument("--catalog_matches_plot_dir", type=str, default="./PLOTS/",
+    parser_all.add_argument("--match_plots_dir", type=str, default="./PLOTS/",
         help="If specified, WBC matches plots are written in that directory otherwise they are generated in the PLOTS folder, which is created if it does not exist.")
     parser_all.add_argument("-bb", "--broken_barcharts", action="store_true", 
         help="Use broken barcharts. That is, break the Y-axis of the micro-behavior occurrences visualizations (default: %(default)s).")
