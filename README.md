@@ -43,7 +43,7 @@ options:
 
 ```
 ### Documentation of `all` execution mode
-As mentioned above, you can invoke MalGraphIQ with each phase individually or `all` at once. The `all` parameter executes all phases sequentially, as a pipeline, where the output of a phase is the input for the next one. This are the parameters for the `all` execution mode:
+As mentioned above, you can invoke MalGraphIQ with each phase individually or `all` at once. The `all` parameter executes all phases sequentially, as a pipeline, where the output of a phase is the input for the next one. The documentation of each individual phase can be found in their corresponding README file: (1) [graphs](./src/malgraphiq/graphs/README.md), (2) [occurrences](./src/malgraphiq/occurrences/README.md), and (3) [plots](./src/malgraphiq/plotting/README.md). Documentation for the `all` execution mode takes is provided below:
 ```
 $ python3 malgraphiq.py all -h
 usage: MalGraphIQ all [-h] [-o OUTPUT] [-w WINAPI_CATEGORIES] [-nd] [-pp] [--category | --behavior] -c CATALOG [-m MAX_INTER_NODES]
@@ -114,12 +114,12 @@ $ python3 src/malgraphiq/malgraphiq.py all test_reports -c ~/Desktop/windows-beh
 
 Or you can run the `all` phase with custom parameters:
 ```
-$ python3 src/malgraphiq/malgraphiq.py all -o custom_options/MATRICES_AND_GRAPHS -w ~/Desktop/winapi_categories.json -c ~/Desktop/windows-behavior-catalog/catalog.json -jf custom_options/occurences_results --fig_title "Custom Figures" -rc_max 30 --catalog_matches_plot_dir custom_options/MATCHES_PLOTS -bb --lower_figure_limit 15 --upper_figure_limit 55 test_reports
+$ python3 src/malgraphiq/malgraphiq.py all -o custom_options/MATRICES_AND_GRAPHS -w ~/Desktop/winapi_categories.json -c ~/Desktop/windows-behavior-catalog/catalog.json -jf custom_options/occurences_results --fig_title "Custom Figures" -rc_max 30 --plots_dir custom_options/MATCHES_PLOTS -bb --lower_figure_limit 15 --upper_figure_limit 55 test_reports
 ```
 
 Given that each phase generates intermediary results/artifacts, any particular phase can be repeated. In the following example, the plots file is re-executed with different parameters, taking as input the file named `custom_options/occurences_results.json`, generated in the previous phase.
 ```
-$ python3 src/malgraphiq/malgraphiq.py plots --fig_title "Custom Figures" -rc_max 30 --catalog_matches_plot_dir custom_options/MATCHES_PLOTS -bb --lower_figure_limit 15 --upper_figure_limit 35 custom_options/occurences_results.json --lower_figure_ratio 35
+$ python3 src/malgraphiq/malgraphiq.py plots --fig_title "Custom Figures" -rc_max 30 --plots_dir custom_options/MATCHES_PLOTS -bb --lower_figure_limit 15 --upper_figure_limit 35 custom_options/occurences_results.json --lower_figure_ratio 35
 ```
 
 ## Best use-case
