@@ -658,6 +658,10 @@ def main(json_catalog_matches: str | list,
         # Read all JSON files, in case the user passed a directory
 
         for json_file in json_files:
+            # Manually skip the WinAPI and syscall categories, in case it is in the same directory
+            if Path(json_file).name == "winapi_categories.json":
+                logger.info(f"[+] Discarded {json_file}")
+                continue
             logger.info(f"[+] Attempting to open {json_file} as sample {sample_nr}")
             with open(json_file, encoding='utf-8') as f:
                 data = json.load(f)
@@ -673,7 +677,7 @@ def main(json_catalog_matches: str | list,
                 dataframe_list.append(dataframe)
                 logger.info(f"[+] Opened file {json_file} as sample {sample_nr}")
                 sample_nr += 1
-    logger.info(f"[+][+][+] Total samples: {len(json_files)} - Processed: {sample_nr-1} - Discarded: {discarded} ")
+    logger.info(f"[+][+][+] Total json files: {len(json_files)} - Processed: {sample_nr-1} - Discarded: {discarded} ")
 
     Path(catalog_matches_plot_dir).mkdir(exist_ok=True, parents=True)
 
