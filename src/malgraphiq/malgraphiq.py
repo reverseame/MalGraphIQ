@@ -56,7 +56,7 @@ def parse_arguments() -> argparse.Namespace:
     parser_behavior = subparsers.add_parser("occurrences", 
         help="Behavior Pattern Occurrences phase. Generates the occurrences of each pattern from the Windows Behavior Catalog (WBC) against the specified graph/s. WBC patterns are identified in the specified graph/s using a backtracking algorithm.")
     parser_behavior.add_argument("behavior_graph", 
-        help="A behavior .gv file directory or list of directories containing .gv files in which patterns will be sought. In the second and third case, the program automatically parses all the .gv files contained in each directory.")
+        help="A behavior .gv file directory or list of directories containing .gv files in which patterns will be sought. The program automatically parses all the .gv files contained in each directory.")
     parser_behavior.add_argument("-c", "--catalog", required=True, type=str, 
         help="Path to the Windows Behavior Catalog (WBC) in JSON format. See https://github.com/reverseame/windows-behavior-catalog.")
     parser_behavior.add_argument("-m", "--max_inter_nodes", type=int, default=0, 
