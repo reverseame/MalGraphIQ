@@ -2,7 +2,6 @@
 
 - **Input**: Set of execution traces or reports generated with [CAPE](https://github.com/kevoreilly/CAPEv2) or [MALVADA](https://github.com/reverseame/MALVADA) (e.g., the [WinMET](https://doi.org/10.5281/zenodo.12647555) dataset).
 - **Output**: Behavior and category call graphs, along with transition matrices and graphviz files.
-
 - **By default both Behavior and Category graphs are generated (when neither `-c` nor `-b` are specified).**
 - **By default the script attempts to download the `winapi_categories.json` file if not present in the current working directory or the specified path (`-w`).**
 
