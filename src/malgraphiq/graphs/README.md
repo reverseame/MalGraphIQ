@@ -1,7 +1,31 @@
 # MalGraphIQ graphs phase
 
-- **By default both Behavior and Category graphs are generated.**
-- **By default the script attempts to download the `winapi_categories.json` file if not present in the current working directory or the specified path.**
+- **By default both Behavior and Category graphs are generated (when neither `-c` nor `-b` are specified).**
+- **By default the script attempts to download the `winapi_categories.json` file if not present in the current working directory or the specified path (`-w`).**
+
+```
+$ python3 malgraphiq.py graphs -h
+usage: MalGraphIQ graphs [-h] [-o OUTPUT] [-w WINAPI_CATEGORIES] [-nd] [-pp] [-c | -b] json_dir
+
+positional arguments:
+  json_dir              A .json report o a directory containing one or more JSON reports. If the parameter is a directory, the program
+                        automatically parses all .JSON files within it.
+
+options:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        Output folder of transition matrices and call graphs (default: ./MATRICES_GRAPHS/).
+  -w WINAPI_CATEGORIES, --winapi_categories WINAPI_CATEGORIES
+                        Path to winapi_categories.json file (as obtained from https://github.com/reverseame/winapi-categories). By default the
+                        program will look into the current working directory. If the file does not exist, the program will attempt to download
+                        it unless -nd/--no-download is specified. (default: ./winapi_categories.json).
+  -nd, --no_download    Prevents MalGraphIQ from downloading winapi_categories.json. By default it attempts to download it in the -w/--winapi-
+                        categories specified path.
+  -pp, --print_transition_probabilities
+                        Print transition probabilities on behavior and category graphs (default: False).
+  -c, --category        Generate only the category graph(s).
+  -b, --behavior        Generate only the behavior graph(s).
+```
 
 *Commands executed assuming current working directory in this folder.*
 ## Generate graphs for a directory containing several reports with default values and output directory
