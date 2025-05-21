@@ -658,6 +658,7 @@ def main(json_catalog_matches: str | list,
         # Read all JSON files, in case the user passed a directory
 
         for json_file in json_files:
+            logger.info(f"[+] Attempting to open {json_file} as sample {sample_nr}")
             with open(json_file, encoding='utf-8') as f:
                 data = json.load(f)
                 dataframe = pd.json_normalize(data)
