@@ -23,8 +23,8 @@ In order to generate the visual representations you see in this repository, we f
 
 All commands assume current working directory as this folder. Modify paths according to your installation. **Executing the following commands will generate all the intermedaite results**.
 - Extract the reports: `7z x gcleaner_reports.7z`
-- Execute the entire pipeline for `GCleaner` family: `python3 ../src/malgraphiq/malgraphiq.py all gcleaner_100/ -c ../wbc/catalog.json -w ../winapi_categories/winapi_categories.json`.
-	- Re-generate default visualizations with custom parameters: `python3 ../src/malgraphiq/malgraphiq.py plots . -rc_max 40 -bb --lower_figure_limit 30 --upper_figure_limit 90 --lower_figure_ratio 90 --fig_title GCleaner`
+- Execute the entire pipeline for `GCleaner` family: `$ python3 ../src/malgraphiq/malgraphiq.py all gcleaner_100/ -c ../wbc/catalog.json -w ../winapi_categories/winapi_categories.json`.
+	- Re-generate default visualizations with custom parameters: `$ python3 ../src/malgraphiq/malgraphiq.py plots . -rc_max 40 -bb --lower_figure_limit 30 --upper_figure_limit 90 --lower_figure_ratio 90 --fig_title GCleaner`
 - Extract the reports: `7z x remcos_reports.7z`
-- Execute the entire pipeline for `Remcos` family: `python3 ../src/malgraphiq/malgraphiq.py all remcos_100/ -c ../wbc/catalog.json -w ../winapi_categories/winapi_categories.json`.
-	- Re-generate default visualizations with custom parameters: `python3 ../src/malgraphiq/malgraphiq.py plots . -rc_max 40 -bb --lower_figure_limit 30 --upper_figure_limit 90 --lower_figure_ratio 90 --fig_title Remcos`
+- Execute the entire pipeline for `Remcos` family: `$ python3 ../src/malgraphiq/malgraphiq.py all remcos_100/ -c ../wbc/catalog.json -w ../winapi_categories/winapi_categories.json`.
+	- Re-generate default visualizations with custom parameters: `$ python3 ../src/malgraphiq/malgraphiq.py plots . -rc_max 40 -bb --lower_figure_limit 30 --upper_figure_limit 90 --lower_figure_ratio 90 --fig_title Remcos`
