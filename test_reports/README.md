@@ -35,6 +35,7 @@ Processing time is computed by executing MalGraphIQ's `all` mode with default pa
 	- MD5: `a2f7ed92fac69bc3adc2447745d8ced3`
 	- Compressed size on disk: ~30 MiB
 	- Uncompressed size on disk: ~1343 MiB
+	- MalGraphIQ processing time: ~92 minutes
 - Guloader_reports.7z
 	- MD5: `b64b48db5aa6c1f3b6148652dcd5d4e6`
 	- Compressed size on disk: ~66 MiB
