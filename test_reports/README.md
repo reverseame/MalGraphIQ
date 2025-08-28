@@ -60,10 +60,12 @@ Processing time is computed by executing MalGraphIQ's `all` mode with default pa
 	- MD5: `83e4b45f71232b5d07d97071241a3e42`
 	- Compressed size on disk: ~57 MiB
 	- Uncompressed size on disk: ~5316 MiB
+	- MalGraphIQ processing time: ~251 minutes
 - Virlock_reports.7z
 	- MD5: `5780b925b8fee93ee480166b59d5ec17`
 	- Compressed size on disk: ~139 MiB
 	- Uncompressed size on disk: ~4489 MiB
+	- MalGraphIQ processing time: ~168 minutes
 
 ## Visualizations
 The final visualizations for each family are located within their corresponding folders.
