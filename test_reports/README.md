@@ -40,18 +40,22 @@ Processing time is computed by executing MalGraphIQ's `all` mode with default pa
 	- MD5: `b64b48db5aa6c1f3b6148652dcd5d4e6`
 	- Compressed size on disk: ~66 MiB
 	- Uncompressed size on disk: ~4066 MiB
+	 MalGraphIQ processing time: ~214 minutes
 - Noon_reports.7z
 	- MD5: `cdd32592c637617f377da136929b50bb`
 	- Compressed size on disk: ~42 MiB
 	- Uncompressed size on disk: ~1753 MiB
+	- MalGraphIQ processing time: ~115 minutes
 - Strab_reports.7z
 	- MD5: `90bfadd450d7b3f6b611f6efad28f579`
 	- Compressed size on disk: ~15 MiB
 	- Uncompressed size on disk: ~593 MiB
+	- MalGraphIQ processing time: ~26 minutes
 - Taskun_reports.7z
 	- MD5: `b5e020506d1400f16614818f7854723e`
 	- Compressed size on disk: ~47 MiB
 	- Uncompressed size on disk: ~1991 MiB
+	- MalGraphIQ processing time: ~156 minutes
 - Vbclone_reports.7z
 	- MD5: `83e4b45f71232b5d07d97071241a3e42`
 	- Compressed size on disk: ~57 MiB
