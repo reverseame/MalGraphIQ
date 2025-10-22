@@ -1,5 +1,8 @@
 cff-version: 1.2.0
-message: "If you use this work, please cite the following article."
+message: "If you use this work or software, please cite the following article."
+
+title: "MalGraphIQ: A tool for generating behavior representations of malware execution traces"
+
 authors:
   - family-names: "Raducu"
     given-names: "Razvan"
@@ -13,35 +16,50 @@ authors:
     given-names: "Pedro"
     affiliation: "Department of Computer Science and Systems Engineering, University of Zaragoza"
     orcid: "https://orcid.org/0000-0002-6584-7259"
-date-released: "TBD"
-url: "TBD"
-version: "1.0"
-doi: "TBD"
+
+abstract: >
+  Understanding and interpreting malware behavior remains an open challenge in the field of cybersecurity. The dynamic analysis of malware execution traces has emerged as a promising approach for discovering behavioral insights that allow the visual explanation of malware activity. MalGraphIQ is an open-source tool for the analysis and visualization of malware behavior. It is based on a structured and hierarchical taxonomy of API-based behavior patterns, which facilitates the interpretation of malware objectives, strategies, and low-level interactions with the attacked system. These interpretations support the comparative analysis of collections of suspicious programs, particularly across malware families and types, enhancing security research, malware triage, and the development of behavior-aware detection systems.
+
 keywords:
   - malware
   - dataset
-abstract: "TBD"
+  - Malware analysis
+  - Behavioral patterns
+  - Visual analytics
+  - Execution traces
+  - Comparative malware analysis
+
+type: article
+journal: "SoftwareX"
+volume: "32"
+year: 2025
+issn: "2352-7110"
+doi: "10.1016/j.softx.2025.102407"
+url: "https://www.sciencedirect.com/science/article/pii/S2352711025003735"
+license: "CC-BY-4.0"
+version: "1.0"
+date-released: "2025-01-01"
+
 preferred-citation:
   type: article
+  title: "MalGraphIQ: A tool for generating behavior representations of malware execution traces"
   authors:
-  - family-names: "Raducu"
-    given-names: "Razvan"
-    affiliation: "Department of Computer Science and Systems Engineering, University of Zaragoza"
-    orcid: "https://orcid.org/0000-0002-8938-755X"
-  - family-names: "Ricardo J."
-    given-names: "Rodríguez"
-    affiliation: "Department of Computer Science and Systems Engineering, University of Zaragoza"
-    orcid: "https://orcid.org/0000-0001-7982-0359"
-  - family-names: "Pedro"
-    given-names: "Álvarez"
-    affiliation: "Department of Computer Science and Systems Engineering, University of Zaragoza"
-    orcid: "https://orcid.org/0000-0002-6584-7259"
-  doi: "TBD"
-  journal: "TBD"
-  month: TBD
-  start: TBD # First page number
-  end: TBD # Last page number
-  title: "TBD"
-  issue: TBD
-  volume: TBD
-  year: TBD
+    - family-names: "Raducu"
+      given-names: "Razvan"
+      affiliation: "Department of Computer Science and Systems Engineering, University of Zaragoza"
+      orcid: "https://orcid.org/0000-0002-8938-755X"
+    - family-names: "Rodríguez"
+      given-names: "Ricardo J."
+      affiliation: "Department of Computer Science and Systems Engineering, University of Zaragoza"
+      orcid: "https://orcid.org/0000-0001-7982-0359"
+    - family-names: "Álvarez"
+      given-names: "Pedro"
+      affiliation: "Department of Computer Science and Systems Engineering, University of Zaragoza"
+      orcid: "https://orcid.org/0000-0002-6584-7259"
+  journal: "SoftwareX"
+  volume: "32"
+  year: 2025
+  issn: "2352-7110"
+  doi: "10.1016/j.softx.2025.102407"
+  url: "https://www.sciencedirect.com/science/article/pii/S2352711025003735"
+  license: "CC-BY-4.0"
